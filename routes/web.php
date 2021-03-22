@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/choose', 'ChooseRoleController@index');
+
 Route::group(['middleware' => ['auth', 'super_admin'], 'prefix' => 'super_admin'], function(){
 
     Route::get('/', 'SuperAdminPageController@index')->name('admin.home');
