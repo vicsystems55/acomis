@@ -38,6 +38,382 @@ class AdminPageController extends Controller
         return view('admin.notifications')->with($data);
     }
 
+    // health facilities
+
+    public function health_facilities()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.health_facilities.view')->with($data);
+    }
+
+   
+    public function health_facility($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.health_facilites.single_view')->with($data);
+    }
+
+    public function health_facilities_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.health_facilites.add')->with($data);
+    }
+
+    public function health_facilities_edit($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.health_facilites.edit')->with($data);
+    }
+
+
+    // Community Base Organizations
+
+    public function cbos()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cbo.view')->with($data);
+    }
+
+    public function cbo($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cbo.single_view')->with($data);
+    }
+
+    public function cbo_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cbo.add')->with($data);
+    }
+
+    public function cbo_edit($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cbo.edit')->with($data);
+    }
+
+    public function spos()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.spo.view')->with($data);
+    }
+
+    public function spo($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.spo.single_view')->with($data);
+    }
+
+    public function spo_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.spo.add')->with($data);
+    }
+
+    public function spo_edit()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.spo.edit')->with($data);
+    }
+
+    // monitoring and evaluation
+
+
+    public function mes()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.me.view')->with($data);
+    }
+
+    public function me($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.me.single_view')->with($data);
+    }
+
+    public function me_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.me.add')->with($data);
+    }
+
+    public function me_edit()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.me.edit')->with($data);
+    }
+
+    public function cbo_reports()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.cbo.all_reports')->with($data);
+    }
+
+    public function cob_report($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.cbo.single_report')->with($data);
+    }
+
+    public function spo_reports()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.spo.all_reports')->with($data);
+    }
+
+    public function spo_report($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.spo.single_report')->with($data);
+    }
+
+    public function exit_feedback_reports()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.exit_form.all_reports')->with($data);
+    }
+
+    public function exit_feedback_report($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.exit_form.single_report')->with($data);
+    }
+
+    public function state_level_feedbacks()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.state_level_advocacy.all_reports')->with($data);
+    }
+
+    public function state_level_feedback($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.state_level_advocacy.single_report')->with($data);
+    }
+
+    public function remedial_feedbacks()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.remedial_feedback.all_feedbacks')->with($data);
+    }
+
+    public function remedial_feedback($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.reports.remedial_feedback.single_feedback')->with($data);
+    }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *

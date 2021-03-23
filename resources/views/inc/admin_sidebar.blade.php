@@ -29,7 +29,7 @@
                 </li>
 
                  <li class="menu single-menu  ">
-                    <a href="#health" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle autodroprown">
+                    <a href="{{route('health_facilities')}}"  aria-expanded="false" class="dropdown-toggle autodroprown">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                             <span>Health Facilities</span>
@@ -50,13 +50,13 @@
 
                     <ul class="collapse submenu list-unstyled" id="departments" data-parent="#topAccordion">
                         <li class="{{ ($page_name === 'analytics') ? 'active' : '' }}">
-                            <a href="/analytics"> CBO </a>
+                            <a href="{{route('cbos')}}"> CBO </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales"> SPO </a>
+                            <a href="{{route('spos')}}"> SPO </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales"> Monitoring and Evaluation </a>
+                            <a href="{{route('mes')}}"> Monitoring and Evaluation </a>
                         </li>
                        
                     </ul>
@@ -76,19 +76,19 @@
 
                     <ul class="collapse submenu list-unstyled" id="reports" data-parent="#topAccordion">
                         <li class="{{ ($page_name === 'analytics') ? 'active' : '' }}">
-                            <a href="/analytics"> CBO Minutes </a>
+                            <a href="{{route('cbo_reports')}}"> CBO Minutes </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales"> SPO Monthly Minutes </a>
+                            <a href="{{route('spo_reports')}}"> SPO Monthly Minutes </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales"> Remedial Feedback </a>
+                            <a href="{{route('remedial_feedbacks')}}"> Remedial Feedback </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales">State Level Advocacy </a>
+                            <a href="{{route('state_level_feedbacks')}}">State Level Advocacy </a>
                         </li>
                         <li class="{{ ($page_name === 'sales') ? 'active' : '' }}">
-                            <a href="/sales"> Client Exit </a>
+                            <a href="{{route('exit_feedback_reports')}}"> Client Exit </a>
                         </li>
                     </ul>
 

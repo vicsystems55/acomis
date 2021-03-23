@@ -30,6 +30,73 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 
     Route::get('/', 'AdminPageController@index')->name('admin.home');
 
+
+    Route::get('/health_facilities', 'AdminPageController@health_facilities')->name('health_facilities');
+
+    Route::get('/health_facilities/{slug}', 'AdminPageController@health_facility')->name('health_facility');
+
+    Route::get('/health_facilities/add', 'AdminPageController@health_facilities_add')->name('health_facilites.add');
+
+    Route::get('/health_facilities/edit', 'AdminPageController@health_facilities_edit')->name('health_facilites.edit');
+
+
+    Route::get('/cbos', 'AdminPageController@cbos')->name('cbos');
+
+    Route::get('/cbo/{slug}', 'AdminPageController@cbo')->name('cbo');
+
+    Route::get('/cbo/add', 'AdminPageController@cbo_add')->name('cbo.add');
+
+    Route::get('/cbo/edit', 'AdminPageController@cbo_edit')->name('cbo.edit');
+
+    
+    Route::get('/spos', 'AdminPageController@spos')->name('spos');
+
+    Route::get('/spo/{slug}', 'AdminPageController@spo')->name('spo');
+
+    Route::get('/spo/add', 'AdminPageController@spo_add')->name('spo.add');
+
+    Route::get('/spo/edit', 'AdminPageController@spo_edit')->name('spo.edit');
+
+        
+    Route::get('/mes', 'AdminPageController@mes')->name('mes');
+
+    Route::get('/me/{slug}', 'AdminPageController@me')->name('me');
+
+    Route::get('/me/add', 'AdminPageController@me_add')->name('me.add');
+
+    Route::get('/me/edit', 'AdminPageController@me_edit')->name('me.edit');
+
+
+    Route::get('/cbo_reports', 'AdminPageController@cbo_reports')->name('cbo_reports');
+
+    Route::get('/cbo_report/{slug}', 'AdminPageController@cob_report')->name('cbo_report');
+
+
+    Route::get('/spo_reports', 'AdminPageController@spo_reports')->name('spo_reports');
+
+    Route::get('/spo_report/{slug}', 'AdminPageController@spo_report')->name('spo_report');
+
+
+
+    Route::get('/exit_feedback_reports', 'AdminPageController@exit_feedback_reports')->name('exit_feedback_reports');
+
+    Route::get('/exit_feedback_report/{slug}', 'AdminPageController@exit_feedback_report')->name('exit_feedback_report');
+
+
+
+    Route::get('/remedial_feedbacks', 'AdminPageController@remedial_feedbacks')->name('remedial_feedbacks');
+
+    Route::get('/remedial_feedback/{slug}', 'AdminPageController@remedial_feedback')->name('remedial_feedback');
+
+
+
+    Route::get('/state_level_feedbacks', 'AdminPageController@state_level_feedbacks')->name('state_level_feedbacks');
+
+    Route::get('/state_level_feedback/{slug}', 'AdminPageController@state_level_feedback')->name('state_level_feedback');
+
+
+
+
 });
 
 Route::group(['middleware' => ['auth', 'super_admin'], 'prefix' => 'super_admin'], function(){
