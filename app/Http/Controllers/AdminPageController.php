@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class AdminPageController extends Controller
 {
     /**
@@ -50,8 +52,14 @@ class AdminPageController extends Controller
             'scrollspy_offset' => 100,
 
         ];
+
+        $health_facilities = DB::table('health_facilities')->paginate(15);
+
+
         // $pageName = 'cards';
-        return view('admin.health_facilities.view')->with($data);
+        return view('admin.health_facilities.view',[
+            'health_facilities' => $health_facilities
+        ])->with($data);
     }
 
    
@@ -65,8 +73,12 @@ class AdminPageController extends Controller
             'scrollspy_offset' => 100,
 
         ];
+
+        $health_facility = DB::table('health_facilities')->where('Facility', $slug)->first();
         // $pageName = 'cards';
-        return view('admin.health_facilities.single_view')->with($data);
+        return view('admin.health_facilities.single_view',[
+            'health_facility' => $health_facility
+        ])->with($data);
     }
 
     public function health_facilities_add()
