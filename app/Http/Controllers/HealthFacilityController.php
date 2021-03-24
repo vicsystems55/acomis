@@ -16,7 +16,7 @@ class HealthFacilityController extends Controller
     public function getStates()
     {
         //
-            $states = DB::table('states')->get();
+            $states = DB::table('states')->where('status', 'active')->get();
 
             return $states;
 
@@ -27,7 +27,11 @@ class HealthFacilityController extends Controller
         //
         $state = DB::table('states')->where('name', $request->state_name)->first();
 
+        
+
         $lgas = DB::table("lgas")->where("state_id",$state->id)->get();
+
+        
 
         return $lgas;
 
@@ -39,9 +43,14 @@ class HealthFacilityController extends Controller
         //
         $wards = DB::table('health_facilities')->where('LGA',$request->lga)->get('Ward')->unique('Ward');
 
-     
+        $spo_email = DB::table('health_facilities')->where('LGA',$request->lga)->first();
 
-        return $wards;
+        $resuts = array(
+            'wards' => $wards,
+            'spo_email' => $spo_email,
+        );
+
+        return $resuts;
 
     }
 
@@ -55,6 +64,19 @@ class HealthFacilityController extends Controller
         return $cbos;
 
     }
+
+    public function getCBOEmail(Request $request)
+    {
+        //
+        $cbo_email = DB::table('health_facilities')->where('CBO', $request->cbo)->get();
+
+     
+
+        return $cbo_email;
+
+    }
+
+    
 
     public function index()
     {

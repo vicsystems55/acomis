@@ -1974,6 +1974,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1982,10 +2018,15 @@ __webpack_require__.r(__webpack_exports__);
       lgas: [],
       wards: [],
       cbos: [],
+      spos: [],
       selected_state: '',
       selected_lga: '',
       selected_cbo: '',
-      loading: false
+      selected_spo: '',
+      selected_cbo_email: '',
+      selected_spo_email: '',
+      loading: false,
+      msg: 'Loading...'
     };
   },
   methods: {
@@ -2020,8 +2061,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this3.loading = false, // console.log(this.lgas),
-        _this3.wards = response.data, console.log(_this3.wards) //  this.results = response.data
+        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
+        //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -2037,6 +2078,22 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return _this4.loading = false, // console.log(this.lgas),
         _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCBOEmail: function getCBOEmail() {
+      var _this5 = this;
+
+      this.loading = true;
+      console.log(this.selected_cbo);
+      console.log('we');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
+        cbo: this.selected_cbo
+      }).then(function (response) {
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -37827,12 +37884,16 @@ var render = function() {
                 }
               }
             },
-            _vm._l(_vm.wards, function(ward) {
-              return _c("option", { key: ward.id, attrs: { value: "" } }, [
-                _vm._v(_vm._s(ward.Ward))
-              ])
-            }),
-            0
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Select Ward")]),
+              _vm._v(" "),
+              _vm._l(_vm.wards, function(ward) {
+                return _c("option", { key: ward.id, attrs: { value: "" } }, [
+                  _vm._v(_vm._s(ward.Ward))
+                ])
+              })
+            ],
+            2
           )
         ])
       ])
@@ -37862,22 +37923,173 @@ var render = function() {
             _vm._v(" "),
             _c(
               "select",
-              { staticClass: "form-control", attrs: { name: "", id: "" } },
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selected_cbo,
+                    expression: "selected_cbo"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "" },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selected_cbo = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    function($event) {
+                      return _vm.getCBOEmail()
+                    }
+                  ]
+                }
+              },
               _vm._l(_vm.cbos, function(cbo) {
-                return _c("option", { key: cbo.id, attrs: { value: "" } }, [
-                  _vm._v(_vm._s(cbo.CBO))
-                ])
+                return _c("option", { key: cbo.id }, [_vm._v(_vm._s(cbo.CBO))])
               }),
               0
             )
           ],
           1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("CBO Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_cbo_email,
+                  expression: "selected_cbo_email"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.selected_cbo_email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.selected_cbo_email = $event.target.value
+                }
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("SPO Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_spo,
+                  expression: "selected_spo"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.selected_spo },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.selected_spo = $event.target.value
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("SPO Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_spo_email,
+                  expression: "selected_spo_email"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.selected_spo_email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.selected_spo_email = $event.target.value
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("Unique Fields")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text" }
+            })
+          ],
+          1
         )
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c justify-content-center" }, [
+      _c("button", { staticClass: "btn btn-primary shadow col-md-5" }, [
+        _vm._v("SUBMIT")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

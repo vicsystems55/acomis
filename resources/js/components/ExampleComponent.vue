@@ -28,6 +28,7 @@
                      <label v-if="loading" for="">Loading...</label>
                     <label v-else for="">Wards</label>
                     <select @change="getCBOs()"  name="" id="" class="form-control">
+                        <option value="">Select Ward</option>
                         <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
                     </select>
                 </div>
@@ -46,16 +47,51 @@
 
                  <div class="form-group">
                     <lable>CBO</lable>
-                        <select  name="" id="" class="form-control">
-                        <option v-for="cbo in cbos" :key="cbo.id" value="">{{cbo.CBO}}</option>
+                        <select @change="getCBOEmail()"  v-model="selected_cbo" id="" class="form-control">
+                        <option v-for="cbo in cbos" :key="cbo.id" >{{cbo.CBO}}</option>
                     </select>
                 </div>
 
 
+                <div class="form-group">
+                    <lable>CBO Email</lable>
+                        <input type="text" v-model="selected_cbo_email" class="form-control" readonly>
+                </div>
+
+
+                
+
+
+            </div>
+
+            <div class="col-md-6">
+
+                
+                <div class="form-group">
+                    <lable>SPO Email</lable>
+                        <input type="text" v-model="selected_spo"  class="form-control" readonly>
+                </div>
+
+
+                <div class="form-group">
+                    <lable>SPO Email</lable>
+                        <input type="text" v-model="selected_spo_email"  class="form-control" readonly>
+                </div>
+
+                
+                <div class="form-group">
+                    <lable>Unique Fields</lable>
+                        <input type="text" class="form-control" >
+                </div>
+
             </div>
         </div>
 
-        
+        <div class="c justify-content-center">
+            <button class="btn btn-primary shadow col-md-5">SUBMIT</button>
+        </div>
+
+
 
 
         
@@ -65,6 +101,9 @@
 <script>
 import axios from 'axios';
 
+
+
+
     export default {
         data() {
             return {
@@ -72,10 +111,15 @@ import axios from 'axios';
                 lgas: [],
                 wards:[],
                 cbos:[],
+                spos:[],
                 selected_state: '',
                 selected_lga: '',
                 selected_cbo: '',
+                selected_spo: '',
+                selected_cbo_email: '',
+                selected_spo_email: '',
                 loading: false,
+                msg: 'Loading...',
 
             }
         },
@@ -134,11 +178,17 @@ import axios from 'axios';
                     
                     this.loading = false,
                 
-                    // console.log(this.lgas),
+                    console.log(response),
 
-                     this.wards = response.data,
+                     this.wards = response.data.wards,
 
-                     console.log(this.wards)
+                     this.selected_spo_email = response.data.spo_email.SPO_Email,
+
+                     this.selected_spo = response.data.spo_email.SPO,
+
+                     console.log(this.selected_spo_email)
+
+                    //  console.log(this.wards)
                     //  this.results = response.data
                     
              
@@ -176,10 +226,39 @@ import axios from 'axios';
                 });
 
         },
+        getCBOEmail(){
+            this.loading = true
+
+                console.log(this.selected_cbo);
+                console.log('we');
+
+                 axios.post('/getCBOEmail',{
+                     cbo: this.selected_cbo,
+                 })
+               .then((response)=>(
+                    
+                    this.loading = false,
+                
+                    // console.log(this.lgas),
+
+                     this.selected_cbo_email = response.data[1].CBO_Email,
+
+                     console.log(response.data[1])
+                    //  this.results = response.data
+                    
+             
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
         },
         mounted() {
             this.loadStates()
             console.log('Component mounted.')
-        }
+        },
+        
     }
 </script>

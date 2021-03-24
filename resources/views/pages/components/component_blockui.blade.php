@@ -40,29 +40,29 @@
 
                                         <div class="code-section text-left">
                                             <pre>
-&lt;button id="block-page" class="mr-2 btn btn-primary"&gt;Block the whole page&lt;/button&gt;
+                                                    &lt;button id="block-page" class="mr-2 btn btn-primary"&gt;Block the whole page&lt;/button&gt;
 
-$('#block-page').on('click', function() {
-    $.blockUI({
-        message: '&lt;svg&gt; ... &lt;/svg&gt;',
-        fadeIn: 800, 
-        timeout: 2000, //unblock after 2 seconds
-        overlayCSS: {
-            backgroundColor: '#1b2024',
-            opacity: 0.8,
-            zIndex: 1200,
-            cursor: 'wait'
-        },
-        css: {
-            border: 0,
-            color: '#fff',
-            zIndex: 1201,
-            padding: 0,
-            backgroundColor: 'transparent'
-        }
-    });
-});
-</pre>
+                                                    $('#block-page').on('click', function() {
+                                                        $.blockUI({
+                                                            message: '&lt;svg&gt; ... &lt;/svg&gt;',
+                                                            fadeIn: 800, 
+                                                            timeout: 2000, //unblock after 2 seconds
+                                                            overlayCSS: {
+                                                                backgroundColor: '#1b2024',
+                                                                opacity: 0.8,
+                                                                zIndex: 1200,
+                                                                cursor: 'wait'
+                                                            },
+                                                            css: {
+                                                                border: 0,
+                                                                color: '#fff',
+                                                                zIndex: 1201,
+                                                                padding: 0,
+                                                                backgroundColor: 'transparent'
+                                                            }
+                                                        });
+                                                    });
+                                                    </pre>
                                         </div>
                                     </div>
 

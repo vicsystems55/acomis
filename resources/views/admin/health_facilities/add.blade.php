@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 
 <div style="min-height: 420px;" class="c h-100">
@@ -18,7 +20,6 @@
         </div>
     </div>
 </div>
-
 
 
 @endsection
