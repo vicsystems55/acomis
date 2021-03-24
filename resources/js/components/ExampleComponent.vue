@@ -1,6 +1,8 @@
 <template>
     <div class="container">
 
+        <h2 class="display-4">Add Health Facility</h2>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -25,10 +27,30 @@
                  <div class="form-group">
                      <label v-if="loading" for="">Loading...</label>
                     <label v-else for="">Wards</label>
-                    <select  name="" id="" class="form-control">
+                    <select @change="getCBOs()"  name="" id="" class="form-control">
                         <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
                     </select>
                 </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+
+
+                <div class="form-group">
+                    <lable>Name of Health Facility</lable>
+                        <input type="text" class="form-control">
+                </div>
+
+                 <div class="form-group">
+                    <lable>CBO</lable>
+                        <select  name="" id="" class="form-control">
+                        <option v-for="cbo in cbos" :key="cbo.id" value="">{{cbo.CBO}}</option>
+                    </select>
+                </div>
+
 
             </div>
         </div>
@@ -49,8 +71,10 @@ import axios from 'axios';
                 states: [],
                 lgas: [],
                 wards:[],
+                cbos:[],
                 selected_state: '',
                 selected_lga: '',
+                selected_cbo: '',
                 loading: false,
 
             }
@@ -115,6 +139,33 @@ import axios from 'axios';
                      this.wards = response.data,
 
                      console.log(this.wards)
+                    //  this.results = response.data
+                    
+             
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
+        getCBOs(){
+            this.loading = true
+
+                console.log(this.selected_lga);
+
+                 axios.post('/getCBOs',{
+                     lga: this.selected_lga,
+                 })
+               .then((response)=>(
+                    
+                    this.loading = false,
+                
+                    // console.log(this.lgas),
+
+                     this.cbos = response.data,
+
+                     console.log(this.cbos)
                     //  this.results = response.data
                     
              

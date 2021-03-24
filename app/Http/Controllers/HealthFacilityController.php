@@ -45,6 +45,17 @@ class HealthFacilityController extends Controller
 
     }
 
+    public function getCBOs(Request $request)
+    {
+        //
+        $cbos = DB::table('health_facilities')->where('LGA',$request->lga)->get()->unique('CBO');
+
+     
+
+        return $cbos;
+
+    }
+
     public function index()
     {
         //

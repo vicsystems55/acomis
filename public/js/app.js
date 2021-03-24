@@ -1952,6 +1952,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1959,8 +1981,10 @@ __webpack_require__.r(__webpack_exports__);
       states: [],
       lgas: [],
       wards: [],
+      cbos: [],
       selected_state: '',
       selected_lga: '',
+      selected_cbo: '',
       loading: false
     };
   },
@@ -1998,6 +2022,21 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return _this3.loading = false, // console.log(this.lgas),
         _this3.wards = response.data, console.log(_this3.wards) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCBOs: function getCBOs() {
+      var _this4 = this;
+
+      this.loading = true;
+      console.log(this.selected_lga);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
+        lga: this.selected_lga
+      }).then(function (response) {
+        return _this4.loading = false, // console.log(this.lgas),
+        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -37674,6 +37713,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("h2", { staticClass: "display-4" }, [_vm._v("Add Health Facility")]),
+    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -37777,7 +37818,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "select",
-            { staticClass: "form-control", attrs: { name: "", id: "" } },
+            {
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: function($event) {
+                  return _vm.getCBOs()
+                }
+              }
+            },
             _vm._l(_vm.wards, function(ward) {
               return _c("option", { key: ward.id, attrs: { value: "" } }, [
                 _vm._v(_vm._s(ward.Ward))
@@ -37786,6 +37835,44 @@ var render = function() {
             0
           )
         ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("Name of Health Facility")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("lable", [_vm._v("CBO")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              { staticClass: "form-control", attrs: { name: "", id: "" } },
+              _vm._l(_vm.cbos, function(cbo) {
+                return _c("option", { key: cbo.id, attrs: { value: "" } }, [
+                  _vm._v(_vm._s(cbo.CBO))
+                ])
+              }),
+              0
+            )
+          ],
+          1
+        )
       ])
     ])
   ])
