@@ -1,0 +1,23 @@
+@extends('layouts.app')
+
+
+
+@section('content')
+
+<div style="min-height: 420px;" class="c h-100">
+
+
+<div class="container pt-3">
+        <div class="card">
+            <div class="card-body">
+
+            <h3 class="display-4">All CBO</h3>
+
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@endsection

@@ -13,7 +13,7 @@
 
             <h3 class="display-4">All Health Facilities</h3>
 
-            <table class="table">
+            <table class="table table-hover table-striped">
                 <th>#</th>
                 <th>Name</th>
                 <th>CBO</th>
