@@ -2,49 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\HealthFacility;
+use App\Ward;
 use Illuminate\Http\Request;
-use DB;
 
-class HealthFacilityController extends Controller
+class WardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getStates()
-    {
-        //
-            $states = DB::table('states')->get();
-
-            return $states;
-
-    }
-
-    public function getLGAs(Request $request)
-    {
-        //
-        $state = DB::table('states')->where('name', $request->state_name)->first();
-
-        $lgas = DB::table("lgas")->where("state_id",$state->id)->get();
-
-        return $lgas;
-
-    }
-
-
-    public function getWards(Request $request)
-    {
-        //
-        $wards = DB::table('health_facilities')->where('LGA',$request->lga)->get('Ward')->unique('Ward');
-
-     
-
-        return $wards;
-
-    }
-
     public function index()
     {
         //
@@ -74,10 +41,10 @@ class HealthFacilityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\HealthFacility  $healthFacility
+     * @param  \App\Ward  $ward
      * @return \Illuminate\Http\Response
      */
-    public function show(HealthFacility $healthFacility)
+    public function show(Ward $ward)
     {
         //
     }
@@ -85,10 +52,10 @@ class HealthFacilityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\HealthFacility  $healthFacility
+     * @param  \App\Ward  $ward
      * @return \Illuminate\Http\Response
      */
-    public function edit(HealthFacility $healthFacility)
+    public function edit(Ward $ward)
     {
         //
     }
@@ -97,10 +64,10 @@ class HealthFacilityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\HealthFacility  $healthFacility
+     * @param  \App\Ward  $ward
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HealthFacility $healthFacility)
+    public function update(Request $request, Ward $ward)
     {
         //
     }
@@ -108,10 +75,10 @@ class HealthFacilityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\HealthFacility  $healthFacility
+     * @param  \App\Ward  $ward
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HealthFacility $healthFacility)
+    public function destroy(Ward $ward)
     {
         //
     }

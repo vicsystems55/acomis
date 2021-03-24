@@ -66,7 +66,7 @@ class AdminPageController extends Controller
 
         ];
         // $pageName = 'cards';
-        return view('admin.health_facilites.single_view')->with($data);
+        return view('admin.health_facilities.single_view')->with($data);
     }
 
     public function health_facilities_add()
@@ -75,12 +75,14 @@ class AdminPageController extends Controller
         $data = [
             'category_name' => 'components',
             'page_name' => 'cards',
-            'has_scrollspy' => 1,
-            'scrollspy_offset' => 100,
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
 
         ];
         // $pageName = 'cards';
-        return view('admin.health_facilites.add')->with($data);
+// dd(34);
+       
+        return view('admin.health_facilities.add')->with($data);
     }
 
     public function health_facilities_edit($slug)

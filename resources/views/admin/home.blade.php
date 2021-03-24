@@ -11,7 +11,7 @@
                 <div class="widget-heading">
                     <h5 class="">Impact</h5>
                     <ul class="tabs tab-pills">
-                        <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthly</a></li>
+                        <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthlykk</a></li>
                     </ul>
                 </div>
 

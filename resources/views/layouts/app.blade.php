@@ -63,8 +63,17 @@
 
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
+                <div id="app_root">
 
-            @yield('content')
+                @yield('content')
+
+                </div>
+                
+                
+
+                
+               
+            
 
             @if ($page_name != 'account_settings')
                 @include('inc.footer')

@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/choose', 'ChooseRoleController@index');
 
+Route::get('/getStates', 'HealthFacilityController@getStates');
+
+Route::post('/getLGAs', 'HealthFacilityController@getLGAs');
+
+Route::post('/getWards', 'HealthFacilityController@getWards');
+
 Route::group(['middleware' => ['auth', 'super_admin'], 'prefix' => 'super_admin'], function(){
 
     Route::get('/', 'SuperAdminPageController@index')->name('admin.home');
@@ -35,9 +41,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 
     Route::get('/health_facilities/{slug}', 'AdminPageController@health_facility')->name('health_facility');
 
-    Route::get('/health_facilities/add', 'AdminPageController@health_facilities_add')->name('health_facilites.add');
+    Route::get('add/health_facilities', 'AdminPageController@health_facilities_add')->name('health_facilites.add');
 
-    Route::get('/health_facilities/edit', 'AdminPageController@health_facilities_edit')->name('health_facilites.edit');
+    Route::get('edit/health_facilities', 'AdminPageController@health_facilities_edit')->name('health_facilites.edit');
 
 
     Route::get('/cbos', 'AdminPageController@cbos')->name('cbos');
@@ -1425,5 +1431,5 @@ Route::get('/password/reset', function() {
 });
 
 Route::get('/', function() {
-    return redirect('/sales');    
+    return redirect('/login');    
 });
