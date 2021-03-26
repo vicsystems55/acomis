@@ -15,6 +15,13 @@ class CreateCbosTable extends Migration
     {
         Schema::create('cbos', function (Blueprint $table) {
             $table->id();
+            $table->string('cbo_name');
+            $table->string('contact_person');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('state');
+            $table->string('lga');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

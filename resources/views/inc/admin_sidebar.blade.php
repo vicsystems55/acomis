@@ -49,6 +49,12 @@
                     </a>
 
                     <ul class="collapse submenu list-unstyled" id="departments" data-parent="#topAccordion">
+                    <li class="{{ ($page_name === 'analytics') ? 'active' : '' }}">
+                            <a href="{{route('wards')}}"> WARDS </a>
+                        </li>
+                        <li class="{{ ($page_name === 'analytics') ? 'active' : '' }}">
+                            <a href="{{route('cats')}}"> CAT </a>
+                        </li>
                         <li class="{{ ($page_name === 'analytics') ? 'active' : '' }}">
                             <a href="{{route('cbos')}}"> CBO </a>
                         </li>

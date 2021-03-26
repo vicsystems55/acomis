@@ -9,14 +9,8 @@
 
 <div class="container pt-3">
         <div class="card">
-            <div class="card-body pt-5">
-
-
-            <spo-reports-component></spo-reports-component>
-
-
-
-            <h3 class="display-4 pt-5">Minutes of SPO monthy meetings</h3>
+            <div class="card-body">
+            <h3 class="display-4">Wards</h3>
 
             <table class="table table-hover table-striped">
                 <th>#</th>
@@ -52,7 +46,7 @@
 
            
 
-            
+            <wards-component></wards-component>
             </div>
         </div>
     </div>

@@ -24,6 +24,18 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 Vue.component('cbo-component', require('./components/CBOComponent.vue').default);
 
+Vue.component('cat-component', require('./components/CATComponent.vue').default);
+
+Vue.component('spo-component', require('./components/SPOComponent.vue').default);
+
+Vue.component('wards-component', require('./components/WardsComponent.vue').default);
+
+Vue.component('cbo-reports-component', require('./components/CBOReportsComponent.vue').default);
+
+Vue.component('spo-reports-component', require('./components/SPOReportsComponent.vue').default);
+
+Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

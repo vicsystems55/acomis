@@ -50,6 +50,25 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
     Route::get('edit/health_facilities', 'AdminPageController@health_facilities_edit')->name('health_facilites.edit');
 
 
+    Route::get('/cats', 'AdminPageController@cats')->name('cats');
+
+    Route::get('/cat/{slug}', 'AdminPageController@cat')->name('cat');
+
+    Route::get('/add/cat', 'AdminPageController@cbo_add')->name('cat.add');
+
+    Route::get('/edit/cat', 'AdminPageController@cbo_edit')->name('cat.edit');
+
+
+    Route::get('/wards', 'AdminPageController@wards')->name('wards');
+
+    Route::get('/ward/{slug}', 'AdminPageController@ward')->name('ward');
+
+    Route::get('/add/ward', 'AdminPageController@ward_add')->name('ward.add');
+
+    Route::get('/edit/ward', 'AdminPageController@ward_edit')->name('ward.edit');
+
+
+
     Route::get('/cbos', 'AdminPageController@cbos')->name('cbos');
 
     Route::get('/cbo/{slug}', 'AdminPageController@cbo')->name('cbo');

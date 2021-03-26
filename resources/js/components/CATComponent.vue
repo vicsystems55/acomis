@@ -1,70 +1,113 @@
 <template>
     <div class="container">
 
-        <h2 class="display-4">Add CBO</h2>
+        <h2 class="display-4">Add CAT</h2>
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <select @change="selectedState()" class="form-control" v-model="selected_state" name="" id="">
+                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
                         <option v-for="state in states" :key="state.id" >{{state.name}}</option>
                     </select>
                 </div>
+
             </div>
             <div class="col-md-4">
+
                 <div class="form-group">
                     <label for="">LGA</label>
-                      <select class="form-control" v-model="selected_lga" name="" id="">
+                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
                         <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
                     </select>
                 </div>
-            </div>
-        </div>
 
-       <div class="row">
-            <div class="col-md-10">
-                <div class="form-group">
-                    <label for="">Address</label>
-                    <input v-model="address" placeholder="Enter address" type="text" class="form-control">
+            </div>
+            <div class="col-md-4">
+                 <div class="form-group">
+                     <label v-if="loading" for="">Loading...</label>
+                    <label v-else for="">Name of CBO</label>
+                    <select @change="getCBOs()"  name="" id="" class="form-control">
+                        <option value="">Select Ward</option>
+                        <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
+                    </select>
                 </div>
+
             </div>
-            
         </div>
 
-   
 
-    
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Contact Person</label>
+                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
+                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
+                    </select>
+                </div>
 
-        <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
+                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                 <div class="form-group">
+                     <label v-if="loading" for="">Loading...</label>
+                    <label v-else for="">Phone</label>
+                    <select @change="getCBOs()"  name="" id="" class="form-control">
+                        <option value="">Select Ward</option>
+                        <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+
+           <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="">Physical Address</label>
+                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
+                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label for="">Date of engagement on project</label>
+                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
+                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                 <div class="form-group">
+                     <label v-if="loading" for="">Loading...</label>
+                    <label v-else for="">Date of Establishment of CAT *</label>
+                    <select @change="getCBOs()"  name="" id="" class="form-control">
+                        <option value="">Select Ward</option>
+                        <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary shadow col-md-5">SUBMIT</button>
         </div>
 
 
@@ -88,7 +131,6 @@ import axios from 'axios';
                 wards:[],
                 cbos:[],
                 spos:[],
-                address: '',
                 selected_state: '',
                 selected_lga: '',
                 selected_cbo: '',
@@ -101,11 +143,6 @@ import axios from 'axios';
             }
         },
         methods: {
-
-
-            create_cbo(){
-
-            },
             loadStates(){
 
                 axios.get('/getStates')

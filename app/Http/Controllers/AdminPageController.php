@@ -170,6 +170,122 @@ class AdminPageController extends Controller
         return view('admin.departments.cbo.edit')->with($data);
     }
 
+    public function cats()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cat.view')->with($data);
+    }
+
+    public function cat($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cat.single_view')->with($data);
+    }
+
+    public function cat_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cat.add')->with($data);
+    }
+
+    public function cat_edit($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.cat.edit')->with($data);
+    }
+
+
+
+    public function wards()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.wards.view')->with($data);
+    }
+
+    public function ward($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.wards.single_view')->with($data);
+    }
+
+    public function ward_add()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.wards.add')->with($data);
+    }
+
+    public function ward_edit($slug)
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('admin.departments.wards.edit')->with($data);
+    }
+
+
+
     public function spos()
     {
             

@@ -1,70 +1,200 @@
 <template>
     <div class="container">
 
-        <h2 class="display-4">Add CBO</h2>
+        <h2 class="display-4">Remedial Action and Feedback</h2>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="">State</label>
-                    <select @change="selectedState()" class="form-control" v-model="selected_state" name="" id="">
-                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
-                    </select>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">LGA</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Ward</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Date of Visit</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Tracker Type</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+           
+        </div>
+
+      <h3>Issue Tracker</h3>
+      <hr>
+        <div class="row">
+
+            <div class="col-md-3">
+
+                 <div class="form-group">
+                    <label for="">Key Findings/Identified Issues</label>
+                    <input type="text" class="form-control">
+                 </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                 <div class="form-group">
+                    <label for="">Root causes</label>
+                    <input type="text" class="form-control">
+                 </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                 <div class="form-group">
+                    <label for="">Action taken immediately</label>
+                    <input type="text" class="form-control">
+                 </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                 <div class="form-group">
+                    <label for="">Resolve</label>
+                    <input type="text" class="form-control">
+                 </div>
+
+            </div>
+
+           
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Follow up action</label>
+                    <input type="text" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">LGA</label>
-                      <select class="form-control" v-model="selected_lga" name="" id="">
-                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
-                    </select>
+                    <label for="">Responsibility</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Time-line</label>
+                    <input type="text" class="form-control">
                 </div>
             </div>
         </div>
 
-       <div class="row">
-            <div class="col-md-10">
-                <div class="form-group">
-                    <label for="">Address</label>
-                    <input v-model="address" placeholder="Enter address" type="text" class="form-control">
-                </div>
-            </div>
-            
+        <div class="w d-flex justify-content-center">
+            <button class="btn btn-primary">Add</button>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Name of assessor</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Organization</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Designation</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Sign</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Mobile</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Contact person</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Designation</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Signature</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Mobile</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="">Date</label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+        </div>
+
+
+
 
    
 
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
+            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SAVE DRAFT</button>
         </div>
 
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpoProfilesTable extends Migration
+class CreateCatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateSpoProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('spo_profiles', function (Blueprint $table) {
+        Schema::create('cats', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('state');
-            $table->string('address');
+            $table->string('cbo');
+            $table->bigInteger('cbo_id')->unsigned();
+            $table->string('physical_contact_address');
+            $table->date('date_of_engagement');
+            $table->date('date_of_establishment');
             $table->string('status')->default('active');
+
+            $table->foreign('cbo_id')->references('id')->on('cbos');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ class CreateSpoProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spo_profiles');
+        Schema::dropIfExists('cats');
     }
 }

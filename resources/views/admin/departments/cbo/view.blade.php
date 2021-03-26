@@ -11,9 +11,9 @@
         <div class="card">
             <div class="card-body">
 
-            <h3 class="display-4">All CBO</h3>
+           
 
-            
+            <cbo-component></cbo-component>
             </div>
         </div>
     </div>
