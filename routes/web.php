@@ -31,6 +31,10 @@ Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
 Route::post('/create_health_facility', 'HealthFacilityController@store');
 
+Route::post('/update_health_facility', 'HealthFacilityController@update');
+
+
+
 Route::group(['middleware' => ['auth', 'super_admin'], 'prefix' => 'super_admin'], function(){
 
     Route::get('/', 'SuperAdminPageController@index')->name('admin.home');

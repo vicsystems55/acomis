@@ -132,6 +132,13 @@ class HealthFacilityController extends Controller
         return $request->all();
     }
 
+    public function update(Request $request)
+    {
+        # code...
+
+        return $request->all();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -161,10 +168,6 @@ class HealthFacilityController extends Controller
      * @param  \App\HealthFacility  $healthFacility
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HealthFacility $healthFacility)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
