@@ -102,6 +102,34 @@ class HealthFacilityController extends Controller
     public function store(Request $request)
     {
         //
+
+        // $health_facility = new H
+
+        $health_facility = DB::table("health_facilities")->insert([
+
+            'State' => $request->state,
+
+            'LGA' => $request->lga,
+
+            'Ward' => $request->ward,
+            
+            'Facility' => $request->health_facility,
+
+            'CBO' =>  $request->cbo,
+            
+            'CBO_Email' => $request->cbo_email,
+
+            'SPO' => $request->spo,
+
+            'SPO_Email' => $request->spo_email
+
+         
+        ]);
+
+
+
+
+        return $request->all();
     }
 
     /**

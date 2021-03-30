@@ -117,6 +117,8 @@
             <button class="btn btn-primary">Add</button>
         </div>
 
+        <hr>
+
 
         <div class="row">
             <div class="col-md-2">
@@ -154,7 +156,7 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="">Contact person</label>
                         <input type="text" class="form-control">
@@ -166,7 +168,7 @@
                         <input type="text" class="form-control">
                     </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label for="">Signature</label>
                         <input type="text" class="form-control">

@@ -9,7 +9,7 @@
 
 <div class="container pt-3">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body table-responsive">
 
             <h3 class="display-4">All Health Facilities</h3>
 

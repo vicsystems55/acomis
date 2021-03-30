@@ -29,6 +29,8 @@ Route::post('/getCBOs', 'HealthFacilityController@getCBOs');
 
 Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
+Route::post('/create_health_facility', 'HealthFacilityController@store');
+
 Route::group(['middleware' => ['auth', 'super_admin'], 'prefix' => 'super_admin'], function(){
 
     Route::get('/', 'SuperAdminPageController@index')->name('admin.home');
@@ -171,14 +173,16 @@ Route::group(['middleware' => 'auth'] , function() {
     
     Route::get('/sales', function() {
         // $category_name = '';
-        $data = [
-            'category_name' => 'dashboard',
-            'page_name' => 'sales',
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-        ];
-        // $pageName = 'sales';
-        return view('dashboard2')->with($data);
+        // $data = [
+        //     'category_name' => 'dashboard',
+        //     'page_name' => 'sales',
+        //     'has_scrollspy' => 0,
+        //     'scrollspy_offset' => '',
+        // ];
+        // // $pageName = 'sales';
+        // return view('dashboard2')->with($data);
+
+        return redirect('/login');
     });
 
 
@@ -1444,15 +1448,17 @@ Route::group(['middleware' => 'auth'] , function() {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-
-Route::get('/register', function() {
-    return redirect('/login');    
-});
-Route::get('/password/reset', function() {
-    return redirect('/login');    
-});
-
 Route::get('/', function() {
-    return redirect('/login');    
+    return redirect('/choose');    
 });
+
+// Route::get('/register', function() {
+//     return redirect('/login');    
+// });
+// Route::get('/password/reset', function() {
+//     return redirect('/login');    
+// });
+
+// Route::get('/', function() {
+//     return redirect('/login');    
+// });

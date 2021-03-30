@@ -37,6 +37,9 @@ Vue.component('spo-reports-component', require('./components/SPOReportsComponent
 Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);
 
 
+Vue.component('state-level-advocacy-component', require('./components/StateLevelAdvocacyComponent.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

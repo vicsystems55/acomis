@@ -1,94 +1,89 @@
 <template>
     <div class="container">
 
-        <h2 class="display-4">Add Health Facility</h2>
-
-        <div class="row ">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Active States</label>
-                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
-                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="col-md-4">
-
-                <div class="form-group">
-                    <label for="">Select LGA</label>
-                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
-                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                 <div class="form-group">
-                     <label v-if="loading" for="">Loading...</label>
-                    <label v-else for="">Wards</label>
-                    <select @change="getCBOs()"  v-model="selected_ward" id="" class="form-control">
-                        <option value="">Select Ward</option>
-                        <option v-for="ward in wards" :key="ward.id" >{{ward.Ward}}</option>
-                    </select>
-                </div>
-
-            </div>
-        </div>
+        <h2 class="display-4">ACOMIN State Level Advocacy</h2>
 
         <div class="row">
             <div class="col-md-6">
-
-
                 <div class="form-group">
-                    <lable>Name of Health Facility</lable>
-                        <input v-model="health_facility" type="text" class="form-control">
+                    <label for="">State</label>
+                    <input type="text" class="form-control">
                 </div>
-
-                 <div class="form-group">
-                    <lable>CBO</lable>
-                        <select @change="getCBOEmail()"  v-model="selected_cbo" id="" class="form-control">
-                        <option v-for="cbo in cbos" :key="cbo.id" >{{cbo.CBO}}</option>
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <lable>CBO Email</lable>
-                        <input type="text" v-model="selected_cbo_email" class="form-control" readonly>
-                </div>
-
-
-                
-
-
             </div>
-
             <div class="col-md-6">
-
-                
                 <div class="form-group">
-                    <lable>SPO Email</lable>
-                        <input type="text" v-model="selected_spo"  class="form-control" readonly>
+                    <label for="">State Reps name</label>
+                    <input type="text" class="form-control">
                 </div>
-
-
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
-                    <lable>SPO Email</lable>
-                        <input type="text" v-model="selected_spo_email"  class="form-control" readonly>
+                    <label for="">Date</label>
+                    <input type="text" class="form-control">
                 </div>
+            </div>
+           
+        </div>
 
-                
+        <h4>Advocacy</h4>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">
+                            Advocacy issues pursued by the State Advocacy Teams/Community Accountability Teams
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
-                    <lable>Unique Fields</lable>
-                        <input v-model= "unique_field" type="text" class="form-control" >
-                </div>
-
+                    <label for="">
+                        Commitments made by decision makers through the advocacy efforts
+                    </label>
+                    <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">
+                        Decision Maker/MDA/Parastatal/
+                    </label>
+                    <input type="text" class="form-control">
+                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">
+                        Results/outcomes derived from advocacy activities
+                    </label>
+                    <input type="text" class="form-control">
+                    </div>
             </div>
         </div>
 
-        <div class="c justify-content-center">
-            <button @click="createHealthFacility()" class="btn btn-primary shadow col-md-5"><span v-if="creating">CREATING...</span><span v-else>SUBMIT</span></button>
+<div class="row">
+    <div class=" col-md-6">
+        <div class="form-group">
+            <label for="">Upload Doc</label>
+            <input type="file" name="" id="" class="form-control">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="">Upload Doc</label>
+            <input type="file" name="" id="" class="form-control">
+        </div>
+    </div>
+</div>
+
+   
+
+    
+
+        <div class="d-flex justify-content-center p-3">
+            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
         </div>
 
 
@@ -100,7 +95,6 @@
 
 <script>
 import axios from 'axios';
-import Axios from 'axios';
 
 
 
@@ -113,11 +107,9 @@ import Axios from 'axios';
                 wards:[],
                 cbos:[],
                 spos:[],
+                address: '',
                 selected_state: '',
                 selected_lga: '',
-                selected_ward: '',
-                health_facility: '',
-                unique_field: '',
                 selected_cbo: '',
                 selected_spo: '',
                 selected_cbo_email: '',
@@ -125,11 +117,14 @@ import Axios from 'axios';
                 loading: false,
                 msg: 'Loading...',
 
-                creating: false
-
             }
         },
         methods: {
+
+
+            create_cbo(){
+
+            },
             loadStates(){
 
                 axios.get('/getStates')
@@ -206,8 +201,7 @@ import Axios from 'axios';
 
         },
         getCBOs(){
-            this.loading = true,
-            
+            this.loading = true
 
                 console.log(this.selected_lga);
 
@@ -261,33 +255,6 @@ import Axios from 'axios';
                 });
 
         },
-        createHealthFacility(){
-
-            this.creating = true
-
-            axios.post('/create_health_facility',{
-
-                state: this.selected_state,
-                lga: this.selected_lga,
-                ward: this.selected_ward,
-                health_facility: this.health_facility,
-                spo: this.selected_spo,
-                spo_email: this.selected_spo_email,
-                cbo: this.selected_cbo,
-                cbo_email: this.selected_cbo_email,
-                unique_field: this.unique_field
-                
-            })
-            .then((response) =>(
-                alert("health facility has been created"),
-                this.creating = false,
-                console.log(response)
-            ))
-             .catch(function (error) {
-                    console.log(error);
-                });
-
-            },
         },
         mounted() {
             this.loadStates()

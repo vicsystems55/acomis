@@ -2604,6 +2604,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2614,12 +2615,16 @@ __webpack_require__.r(__webpack_exports__);
       spos: [],
       selected_state: '',
       selected_lga: '',
+      selected_ward: '',
+      health_facility: '',
+      unique_field: '',
       selected_cbo: '',
       selected_spo: '',
       selected_cbo_email: '',
       selected_spo_email: '',
       loading: false,
-      msg: 'Loading...'
+      msg: 'Loading...',
+      creating: false
     };
   },
   methods: {
@@ -2664,8 +2669,7 @@ __webpack_require__.r(__webpack_exports__);
     getCBOs: function getCBOs() {
       var _this4 = this;
 
-      this.loading = true;
-      console.log(this.selected_lga);
+      this.loading = true, console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
@@ -2691,6 +2695,26 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    createHealthFacility: function createHealthFacility() {
+      var _this6 = this;
+
+      this.creating = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_health_facility', {
+        state: this.selected_state,
+        lga: this.selected_lga,
+        ward: this.selected_ward,
+        health_facility: this.health_facility,
+        spo: this.selected_spo,
+        spo_email: this.selected_spo_email,
+        cbo: this.selected_cbo,
+        cbo_email: this.selected_cbo_email,
+        unique_field: this.unique_field
+      }).then(function (response) {
+        return alert("health facility has been created"), _this6.creating = false, console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
@@ -2712,6 +2736,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -3200,6 +3226,212 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      states: [],
+      lgas: [],
+      wards: [],
+      cbos: [],
+      spos: [],
+      address: '',
+      selected_state: '',
+      selected_lga: '',
+      selected_cbo: '',
+      selected_spo: '',
+      selected_cbo_email: '',
+      selected_spo_email: '',
+      loading: false,
+      msg: 'Loading...'
+    };
+  },
+  methods: {
+    create_cbo: function create_cbo() {},
+    loadStates: function loadStates() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
+        return _this.states = response.data, console.log(_this.states) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    selectedState: function selectedState() {
+      var _this2 = this;
+
+      console.log(this.selected_state);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
+        state_name: this.selected_state
+      }).then(function (response) {
+        return console.log(_this2.states), _this2.lgas = response.data //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getWards: function getWards() {
+      var _this3 = this;
+
+      this.loading = true;
+      console.log(this.selected_lga);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
+        lga: this.selected_lga
+      }).then(function (response) {
+        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
+        //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCBOs: function getCBOs() {
+      var _this4 = this;
+
+      this.loading = true;
+      console.log(this.selected_lga);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
+        lga: this.selected_lga
+      }).then(function (response) {
+        return _this4.loading = false, // console.log(this.lgas),
+        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getCBOEmail: function getCBOEmail() {
+      var _this5 = this;
+
+      this.loading = true;
+      console.log(this.selected_cbo);
+      console.log('we');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
+        cbo: this.selected_cbo
+      }).then(function (response) {
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadStates();
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39925,7 +40157,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("Add Health Facility")]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "row " }, [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Active States")]),
@@ -40029,19 +40261,42 @@ var render = function() {
           _c(
             "select",
             {
-              staticClass: "form-control",
-              attrs: { name: "", id: "" },
-              on: {
-                change: function($event) {
-                  return _vm.getCBOs()
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_ward,
+                  expression: "selected_ward"
                 }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected_ward = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.getCBOs()
+                  }
+                ]
               }
             },
             [
               _c("option", { attrs: { value: "" } }, [_vm._v("Select Ward")]),
               _vm._v(" "),
               _vm._l(_vm.wards, function(ward) {
-                return _c("option", { key: ward.id, attrs: { value: "" } }, [
+                return _c("option", { key: ward.id }, [
                   _vm._v(_vm._s(ward.Ward))
                 ])
               })
@@ -40061,8 +40316,25 @@ var render = function() {
             _c("lable", [_vm._v("Name of Health Facility")]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.health_facility,
+                  expression: "health_facility"
+                }
+              ],
               staticClass: "form-control",
-              attrs: { type: "text" }
+              attrs: { type: "text" },
+              domProps: { value: _vm.health_facility },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.health_facility = $event.target.value
+                }
+              }
             })
           ],
           1
@@ -40219,8 +40491,25 @@ var render = function() {
             _c("lable", [_vm._v("Unique Fields")]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.unique_field,
+                  expression: "unique_field"
+                }
+              ],
               staticClass: "form-control",
-              attrs: { type: "text" }
+              attrs: { type: "text" },
+              domProps: { value: _vm.unique_field },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.unique_field = $event.target.value
+                }
+              }
             })
           ],
           1
@@ -40228,21 +40517,27 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "c justify-content-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary shadow col-md-5",
+          on: {
+            click: function($event) {
+              return _vm.createHealthFacility()
+            }
+          }
+        },
+        [
+          _vm.creating
+            ? _c("span", [_vm._v("CREATING...")])
+            : _c("span", [_vm._v("SUBMIT")])
+        ]
+      )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c justify-content-center" }, [
-      _c("button", { staticClass: "btn btn-primary shadow col-md-5" }, [
-        _vm._v("SUBMIT")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40280,6 +40575,8 @@ var render = function() {
     _vm._m(2),
     _vm._v(" "),
     _vm._m(3),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _vm._m(4),
     _vm._v(" "),
@@ -40489,7 +40786,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "col-md-3" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Contact person")]),
           _vm._v(" "),
@@ -40505,7 +40802,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "col-md-3" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Signature")]),
           _vm._v(" "),
@@ -40765,6 +41062,172 @@ var staticRenderFns = [
           _c("label", { attrs: { for: "" } }, [_vm._v("Period")]),
           _vm._v(" "),
           _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("h2", { staticClass: "display-4" }, [
+      _vm._v("ACOMIN State Level Advocacy")
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("h4", [_vm._v("Advocacy")]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+      _c(
+        "button",
+        {
+          staticClass: " btn btn-lg btn-primary shadow col-md-5",
+          on: {
+            click: function($event) {
+              return _vm.create_cbo()
+            }
+          }
+        },
+        [_vm._v("SUBMIT")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("State Reps name")]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v(
+              "\n                            Advocacy issues pursued by the State Advocacy Teams/Community Accountability Teams\n                        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v(
+              "\n                        Commitments made by decision makers through the advocacy efforts\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v(
+              "\n                        Decision Maker/MDA/Parastatal/\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v(
+              "\n                        Results/outcomes derived from advocacy activities\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: " col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Upload Doc")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "file", name: "", id: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Upload Doc")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "file", name: "", id: "" }
+          })
         ])
       ])
     ])
@@ -53045,6 +53508,7 @@ Vue.component('wards-component', __webpack_require__(/*! ./components/WardsCompo
 Vue.component('cbo-reports-component', __webpack_require__(/*! ./components/CBOReportsComponent.vue */ "./resources/js/components/CBOReportsComponent.vue")["default"]);
 Vue.component('spo-reports-component', __webpack_require__(/*! ./components/SPOReportsComponent.vue */ "./resources/js/components/SPOReportsComponent.vue")["default"]);
 Vue.component('remedial-action-component', __webpack_require__(/*! ./components/RemedialActionComponent.vue */ "./resources/js/components/RemedialActionComponent.vue")["default"]);
+Vue.component('state-level-advocacy-component', __webpack_require__(/*! ./components/StateLevelAdvocacyComponent.vue */ "./resources/js/components/StateLevelAdvocacyComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -53580,6 +54044,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOReportsComponent_vue_vue_type_template_id_1d8fc1b5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOReportsComponent_vue_vue_type_template_id_1d8fc1b5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/StateLevelAdvocacyComponent.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/StateLevelAdvocacyComponent.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2& */ "./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2&");
+/* harmony import */ var _StateLevelAdvocacyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StateLevelAdvocacyComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StateLevelAdvocacyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/StateLevelAdvocacyComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateLevelAdvocacyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./StateLevelAdvocacyComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateLevelAdvocacyComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/StateLevelAdvocacyComponent.vue?vue&type=template&id=e9f7bfc2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StateLevelAdvocacyComponent_vue_vue_type_template_id_e9f7bfc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
