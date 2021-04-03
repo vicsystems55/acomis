@@ -55,7 +55,7 @@ class AdminPageController extends Controller
 
         $health_facilities = DB::table('health_facilities')->paginate(15);
 
-        +
+        
 
 
         // $pageName = 'cards';
