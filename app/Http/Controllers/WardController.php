@@ -36,6 +36,13 @@ class WardController extends Controller
     public function store(Request $request)
     {
         //
+        $ward = Ward::Create([
+            'state' => $request->state,
+            'lga' => $request->lga,
+            'ward_name' => $request->ward_name
+        ]);
+
+        return $ward;
     }
 
     /**
