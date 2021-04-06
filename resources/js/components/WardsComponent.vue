@@ -6,20 +6,24 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">State</label>
-                    <input type="text" class="form-control">
+                    <label for="">Active States</label>
+                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
+                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">LGA</label>
-                    <input type="text" class="form-control">
+                    <label for="">Select LGA</label>
+                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
+                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Ward Name</label>
-                    <input type="text" class="form-control">
+                    <input v-model="ward_name" type="text" class="form-control">
                 </div>
             </div>
            
@@ -31,7 +35,7 @@
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
+            <button @click="create_ward()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating Ward':'Submit'}}</button>
         </div>
 
 
@@ -56,6 +60,7 @@ import axios from 'axios';
                 cbos:[],
                 spos:[],
                 address: '',
+                ward_name: '',
                 selected_state: '',
                 selected_lga: '',
                 selected_cbo: '',
@@ -70,7 +75,28 @@ import axios from 'axios';
         methods: {
 
 
-            create_cbo(){
+            create_ward(){
+                this.loading = true;
+
+                axios.post('/create_ward',{
+                    ward_name: this.ward_name,
+                    selected_state: this.selected_state,
+                    selected_lga: this.selected_lga
+
+                })
+               .then((response)=>(
+                    this.loading = false,
+                    alert("New Ward Created!!"),
+                    console.log(response)
+                    //  this.results = response.data
+                    
+             
+             
+                ))
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
 
             },
             loadStates(){
@@ -116,7 +142,7 @@ import axios from 'axios';
 
         },
         getWards(){
-            this.loading = true
+          
 
                 console.log(this.selected_lga);
 
@@ -125,7 +151,7 @@ import axios from 'axios';
                  })
                .then((response)=>(
                     
-                    this.loading = false,
+                 
                 
                     console.log(response),
 

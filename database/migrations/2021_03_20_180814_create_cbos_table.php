@@ -21,6 +21,7 @@ class CreateCbosTable extends Migration
             $table->string('phone');
             $table->string('state');
             $table->string('lga');
+            $table->string('address');
             $table->string('status')->default('active');
             $table->timestamps();
         });

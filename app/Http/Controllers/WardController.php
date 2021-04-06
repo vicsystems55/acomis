@@ -37,8 +37,8 @@ class WardController extends Controller
     {
         //
         $ward = Ward::Create([
-            'state' => $request->state,
-            'lga' => $request->lga,
+            'state' => $request->selected_state,
+            'lga' => $request->selected_lga,
             'ward_name' => $request->ward_name
         ]);
 

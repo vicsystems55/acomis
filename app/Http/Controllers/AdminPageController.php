@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use DB;
 
+use App\Ward;
+
 class AdminPageController extends Controller
 {
     /**
@@ -16,6 +18,9 @@ class AdminPageController extends Controller
     public function index()
     {
         //
+
+        $health_facilities = DB::table('health_facilities')->latest()->get();
+
         $data = [
             'category_name' => 'dashboard',
             'page_name' => 'sales',
@@ -23,7 +28,9 @@ class AdminPageController extends Controller
             'scrollspy_offset' => '',
         ];
         // $pageName = 'analytics';
-        return view('admin.home')->with($data);
+        return view('admin.home',[
+            'health_facilities' => $health_facilities
+        ])->with($data);
     }
 
     public function notifications()
@@ -232,6 +239,8 @@ class AdminPageController extends Controller
 
     public function wards()
     {
+
+        $wards = Ward::latest()->get();
             
         $data = [
             'category_name' => 'components',
@@ -241,7 +250,9 @@ class AdminPageController extends Controller
 
         ];
         // $pageName = 'cards';
-        return view('admin.departments.wards.view')->with($data);
+        return view('admin.departments.wards.view',[
+            'wards' => $wards
+        ])->with($data);
     }
 
     public function ward($slug)

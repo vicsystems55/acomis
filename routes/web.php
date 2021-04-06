@@ -31,6 +31,8 @@ Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
 Route::post('/create_health_facility', 'HealthFacilityController@store');
 
+Route::post('/create_ward', 'WardController@store');
+
 Route::post('/update_health_facility', 'HealthFacilityController@update');
 
 

@@ -200,7 +200,7 @@
                         
                         <div class="acc-total-info">
                             <h5>Total H.F</h5>
-                            <p class="acc-amount">70</p>
+                            <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
                         </div>
 
                        

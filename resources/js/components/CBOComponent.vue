@@ -7,19 +7,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
+                    <input type="text" v-model="cbo_name" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
+                    <label for="">Contact Person</label>
+                    <input type="text" v-model="contact_person" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Name of CBO</label>
-                    <input type="text" class="form-control">
+                    <label for="">Email</label>
+                    <input type="text" v-model="email" class="form-control">
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Phone</label>
-                    <input type="text" class="form-control">
+                    <input type="text" v-model="phone" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
@@ -105,6 +105,27 @@ import axios from 'axios';
 
             create_cbo(){
 
+                this.loading = true;
+
+            axios.get('/create_cbo',{
+                cbo_name: this.cbo_name,
+                contact_person: this.contact_person,
+                email: this.email,
+                phone: this.phone,
+                selected_state: this.selected_state,
+                selected_lga: this.selected_lga,
+                address: this.addresss
+            }).then((response)=>(
+                    this.loading = false,
+                    this.states = response.data,
+
+                    console.log(this.states)
+                    //  this.results = response.data
+
+                )).catch(function (error) {
+                        console.log(error);
+                });
+
             },
             loadStates(){
 
@@ -117,9 +138,8 @@ import axios from 'axios';
                     
              
              
-             ))
-                .catch(function (error) {
-                    console.log(error);
+                )).catch(function (error) {
+                        console.log(error);
                 });
 
 

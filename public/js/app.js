@@ -2235,39 +2235,57 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    create_cbo: function create_cbo() {},
-    loadStates: function loadStates() {
+    create_cbo: function create_cbo() {
       var _this = this;
 
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/create_cbo', {
+        cbo_name: this.cbo_name,
+        contact_person: this.contact_person,
+        email: this.email,
+        phone: this.phone,
+        selected_state: this.selected_state,
+        selected_lga: this.selected_lga,
+        address: this.addresss
+      }).then(function (response) {
+        return _this.loading = false, _this.states = response.data, console.log(_this.states) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadStates: function loadStates() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this.states = response.data, console.log(_this.states) //  this.results = response.data
+        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this2.states), _this2.lgas = response.data //  this.results = response.data
+        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
+        return _this4.loading = false, console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -2275,22 +2293,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCBOs: function getCBOs() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, // console.log(this.lgas),
-        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -2298,8 +2316,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this6.loading = false, // console.log(this.lgas),
+        _this6.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -3653,6 +3671,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3663,6 +3685,7 @@ __webpack_require__.r(__webpack_exports__);
       cbos: [],
       spos: [],
       address: '',
+      ward_name: '',
       selected_state: '',
       selected_lga: '',
       selected_cbo: '',
@@ -3674,39 +3697,52 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    create_cbo: function create_cbo() {},
-    loadStates: function loadStates() {
+    create_ward: function create_ward() {
       var _this = this;
 
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_ward', {
+        ward_name: this.ward_name,
+        selected_state: this.selected_state,
+        selected_lga: this.selected_lga
+      }).then(function (response) {
+        return _this.loading = false, alert("New Ward Created!!"), console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadStates: function loadStates() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this.states = response.data, console.log(_this.states) //  this.results = response.data
+        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this2.states), _this2.lgas = response.data //  this.results = response.data
+        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this3 = this;
+      var _this4 = this;
 
-      this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
+        return console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -3714,22 +3750,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCBOs: function getCBOs() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, // console.log(this.lgas),
-        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -3737,8 +3773,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this6.loading = false, // console.log(this.lgas),
+        _this6.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -39841,10 +39877,120 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("Add CBO")]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_name,
+                expression: "cbo_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.cbo_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_name = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Contact Person")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.contact_person,
+                expression: "contact_person"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.contact_person },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.contact_person = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.email,
+                expression: "email"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.email = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _vm._m(1),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.phone,
+                expression: "phone"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.phone },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.phone = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -39982,50 +40128,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -41257,7 +41360,129 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("Add Ward")]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Active States")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_state,
+                  expression: "selected_state"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected_state = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.selectedState()
+                  }
+                ]
+              }
+            },
+            _vm._l(_vm.states, function(state) {
+              return _c("option", { key: state.id }, [
+                _vm._v(_vm._s(state.name))
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Select LGA")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_lga,
+                  expression: "selected_lga"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected_lga = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.getWards()
+                  }
+                ]
+              }
+            },
+            _vm._l(_vm.lgas, function(lga) {
+              return _c("option", { key: lga.id }, [_vm._v(_vm._s(lga.name))])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Ward Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.ward_name,
+                expression: "ward_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.ward_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.ward_name = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
       _c(
@@ -41266,47 +41491,16 @@ var render = function() {
           staticClass: " btn btn-lg btn-primary shadow col-md-5",
           on: {
             click: function($event) {
-              return _vm.create_cbo()
+              return _vm.create_ward()
             }
           }
         },
-        [_vm._v("SUBMIT")]
+        [_vm._v(_vm._s(_vm.loading ? "Creating Ward" : "Submit"))]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("LGA")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Ward Name")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
