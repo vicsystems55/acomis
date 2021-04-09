@@ -289,7 +289,7 @@ import axios from 'axios';
             console.log('Component mounted.')
         },
 
-        name:'ClientExitform',
+ 
         
     }
 </script>
