@@ -288,6 +288,8 @@ import axios from 'axios';
             this.loadQuestions()
             console.log('Component mounted.')
         },
+
+        name:'ClientExitform',
         
     }
 </script>

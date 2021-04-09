@@ -2685,7 +2685,8 @@ __webpack_require__.r(__webpack_exports__);
     this.loadStates();
     this.loadQuestions();
     console.log('Component mounted.');
-  }
+  },
+  name: 'ClientExitform'
 });
 
 /***/ }),
