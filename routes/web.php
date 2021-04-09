@@ -29,6 +29,8 @@ Route::post('/getCBOs', 'HealthFacilityController@getCBOs');
 
 Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
+Route::get('/getQuestions', 'QuestionBankController@getQuestions');
+
 Route::post('/create_health_facility', 'HealthFacilityController@store');
 
 Route::post('/create_ward', 'WardController@store');

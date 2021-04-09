@@ -36,6 +36,9 @@ Vue.component('spo-reports-component', require('./components/SPOReportsComponent
 
 Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);
 
+Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);
+
+Vue.component('client-exit-component', require('./components/ClientExitComponent.vue').default);
 
 Vue.component('state-level-advocacy-component', require('./components/StateLevelAdvocacyComponent.vue').default);
 

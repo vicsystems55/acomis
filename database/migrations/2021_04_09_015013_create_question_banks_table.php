@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatsTable extends Migration
+class CreateQuestionBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,10 @@ class CreateCatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cats', function (Blueprint $table) {
+        Schema::create('question_banks', function (Blueprint $table) {
             $table->id();
-            $table->string('cbo');
-            $table->bigInteger('cbo_id')->unsigned();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('role');
+            $table->string('question');
             $table->string('status')->default('active');
-            $table->foreign('cbo_id')->references('id')->on('cbos');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ class CreateCatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cats');
+        Schema::dropIfExists('question_banks');
     }
 }

@@ -1,72 +1,75 @@
 <template>
     <div class="container">
 
-        <h2 class="display-4">Add CAT</h2>
+        <h2 class="display-4">Exit Questionaire</h2>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">State</label>
-                    <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
-                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="col-md-4">
+        
 
                 <div class="form-group">
-                    <label for="">LGA</label>
-                    <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
-                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
-                    </select>
+                    <label for="">{{questions[0].question}}</label>  
+                    <p><input type="radio" name="" id="">  Yes </p>
+                    <p><input type="radio" name="" id="">  No </p>
                 </div>
 
-            </div>
-            <div class="col-md-4">
-                 <div class="form-group">
-                     <label v-if="loading" for="">Loading...</label>
-                    <label v-else for="">Name of CBO</label>
-                    <select @change="getCBOs()"  name="" id="" class="form-control">
-                        <option value="">Select Ward</option>
-                        <option v-for="ward in wards" :key="ward.id" value="">{{ward.Ward}}</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">{{}}</label>
+                            <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">{{}}</label>
+                            <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">{{}}</label>
+                            <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">{{}}</label>
+                            <input type="text" class="form-control">
+                    </div>
                 </div>
 
-            </div>
-        </div>
+                
 
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Name</label>
-                    <input v-model="name" placeholder="Enter name" type="text" class="form-control">
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Email</label>
-                    <input v-model="email" placeholder="Enter email" type="text" class="form-control">
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input v-model="phone" placeholder="Enter phone" type="text" class="form-control">
-                </div>
-
-            </div>
-        </div>
+        
 
 
- 
+
+                            <!-- <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Active States</label>
+                                        <select @change="selectedState()"  v-model="selected_state" name="" id="" class="form-control">
+                                            <option v-for="state in states" :key="state.id" >{{state.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Select LGA</label>
+                                        <select @change="getWards()" v-model="selected_lga" name="" id="" class="form-control">
+                                            <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Ward Name</label>
+                                        <input v-model="ward_name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            
+                            </div> -->
 
 
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-primary shadow col-md-5">SUBMIT</button>
+   
+
+    
+
+        <div class="d-flex justify-content-center p-3">
+            <button @click="create_ward()" class="btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating Ward':'Submit'}}</button>
         </div>
 
 
@@ -86,27 +89,69 @@ import axios from 'axios';
         data() {
             return {
                 states: [],
+                questions: [],
                 lgas: [],
                 wards:[],
                 cbos:[],
                 spos:[],
+                address: '',
+                ward_name: '',
                 selected_state: '',
                 selected_lga: '',
                 selected_cbo: '',
                 selected_spo: '',
                 selected_cbo_email: '',
                 selected_spo_email: '',
-
-                name: '',
-                email: '',
-                phone: '',
-
                 loading: false,
                 msg: 'Loading...',
 
             }
         },
         methods: {
+
+
+            create_ward(){
+                this.loading = true;
+
+                axios.post('/create_ward',{
+                    ward_name: this.ward_name,
+                    selected_state: this.selected_state,
+                    selected_lga: this.selected_lga
+
+                })
+               .then((response)=>(
+                    this.loading = false,
+                    alert("New Ward Created!!"),
+                    console.log(response)
+                    //  this.results = response.data
+                    
+             
+             
+                ))
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+
+            },
+            loadQuestions(){
+
+                axios.get('/getQuestions')
+               .then((response)=>(
+                    
+                    this.questions = response.data,
+                    console.log(this.questions)
+                    //  this.results = response.data
+                    
+             
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+
+            },
             loadStates(){
 
                 axios.get('/getStates')
@@ -150,7 +195,7 @@ import axios from 'axios';
 
         },
         getWards(){
-            this.loading = true
+          
 
                 console.log(this.selected_lga);
 
@@ -159,7 +204,7 @@ import axios from 'axios';
                  })
                .then((response)=>(
                     
-                    this.loading = false,
+                 
                 
                     console.log(response),
 
@@ -240,6 +285,7 @@ import axios from 'axios';
         },
         mounted() {
             this.loadStates()
+            this.loadQuestions()
             console.log('Component mounted.')
         },
         

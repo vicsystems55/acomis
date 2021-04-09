@@ -56,5 +56,85 @@
     </div>
 </div>
 
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img-fluid" src="https://eleviv.co/wp-content/uploads/2021/03/mobile.png" alt="">
+                            <h4 class="font-weight-bold">Making your brand stand out</h4>
+                            <p>
+                            At Eleviv, we focus on evey element of your brand identity by giving your ideas life. We thoroughly develop and evaluate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </div>
+        </div>
+
 
 @endsection
