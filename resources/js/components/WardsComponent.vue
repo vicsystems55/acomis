@@ -38,6 +38,10 @@
             <button @click="create_ward()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating Ward':'Submit'}}</button>
         </div>
 
+                <div class="d-flex justify-content-center p-3">
+            <button @click="import_wards()" class=" btn btn-lg btn-primary shadow col-md-5">{{importing?'Importing Wards':'Import Wards'}}</button>
+        </div>
+
 
 
 
@@ -68,11 +72,33 @@ import axios from 'axios';
                 selected_cbo_email: '',
                 selected_spo_email: '',
                 loading: false,
+                importing: false,
                 msg: 'Loading...',
 
             }
         },
         methods: {
+
+            import_wards(){
+
+                this.importing = true;
+
+                axios.post('/import_wards')
+               .then((response)=>(
+                    this.importing = false,
+                    alert("New Wards Imported!!"),
+                    console.log(response)
+                    //  this.results = response.data
+                    
+             
+             
+                ))
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+
+            },
 
 
             create_ward(){

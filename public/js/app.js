@@ -3855,6 +3855,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3873,12 +3877,24 @@ __webpack_require__.r(__webpack_exports__);
       selected_cbo_email: '',
       selected_spo_email: '',
       loading: false,
+      importing: false,
       msg: 'Loading...'
     };
   },
   methods: {
-    create_ward: function create_ward() {
+    import_wards: function import_wards() {
       var _this = this;
+
+      this.importing = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/import_wards').then(function (response) {
+        return _this.importing = false, alert("New Wards Imported!!"), console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    create_ward: function create_ward() {
+      var _this2 = this;
 
       this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_ward', {
@@ -3886,43 +3902,43 @@ __webpack_require__.r(__webpack_exports__);
         selected_state: this.selected_state,
         selected_lga: this.selected_lga
       }).then(function (response) {
-        return _this.loading = false, alert("New Ward Created!!"), console.log(response) //  this.results = response.data
+        return _this2.loading = false, alert("New Ward Created!!"), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     loadStates: function loadStates() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
+        return _this3.states = response.data, console.log(_this3.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
+        return console.log(_this4.states), _this4.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this4 = this;
+      var _this5 = this;
 
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
+        return console.log(response), _this5.wards = response.data.wards, _this5.selected_spo_email = response.data.spo_email.SPO_Email, _this5.selected_spo = response.data.spo_email.SPO, console.log(_this5.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -3930,22 +3946,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCBOs: function getCBOs() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+        return _this6.loading = false, // console.log(this.lgas),
+        _this6.cbos = response.data, console.log(_this6.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -3953,8 +3969,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this6.loading = false, // console.log(this.lgas),
-        _this6.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this7.loading = false, // console.log(this.lgas),
+        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -41606,6 +41622,21 @@ var render = function() {
           }
         },
         [_vm._v(_vm._s(_vm.loading ? "Creating Ward" : "Submit"))]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+      _c(
+        "button",
+        {
+          staticClass: " btn btn-lg btn-primary shadow col-md-5",
+          on: {
+            click: function($event) {
+              return _vm.import_wards()
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.importing ? "Importing Wards" : "Import Wards"))]
       )
     ])
   ])

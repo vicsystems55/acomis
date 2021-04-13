@@ -35,6 +35,8 @@ Route::post('/create_health_facility', 'HealthFacilityController@store');
 
 Route::post('/create_ward', 'WardController@store');
 
+Route::get('/import_wards', 'WardController@import_wards');
+
 Route::post('/update_health_facility', 'HealthFacilityController@update');
 
 

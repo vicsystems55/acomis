@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ward;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WardController extends Controller
 {
@@ -22,9 +23,12 @@ class WardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function import_wards()
     {
         //
+        Excel::import(new WardImport, 'wards.xlsx');
+        
+        return redirect('/')->with('success', 'All good!');
     }
 
     /**
