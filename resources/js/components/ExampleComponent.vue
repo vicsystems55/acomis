@@ -29,7 +29,7 @@
                     <label v-else for="">Wards</label>
                     <select @change="getCBOs()"  v-model="selected_ward" id="" class="form-control">
                         <option value="">Select Ward</option>
-                        <option v-for="ward in wards" :key="ward.id" >{{ward.Ward}}</option>
+                        <option v-for="ward in wards" :key="ward.id" >{{ward.ward_name}}</option>
                     </select>
                 </div>
 

@@ -40510,7 +40510,7 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.wards, function(ward) {
                 return _c("option", { key: ward.id }, [
-                  _vm._v(_vm._s(ward.Ward))
+                  _vm._v(_vm._s(ward.ward_name))
                 ])
               })
             ],

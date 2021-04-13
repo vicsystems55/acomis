@@ -41,7 +41,7 @@ class HealthFacilityController extends Controller
     public function getWards(Request $request)
     {
         //
-        $wards = DB::table('health_facilities')->where('LGA',$request->lga)->get('Ward')->unique('Ward');
+        $wards = DB::table('wards')->where('lga',$request->lga)->get('ward_name')->unique('ward');
 
         $spo_email = DB::table('health_facilities')->where('LGA',$request->lga)->first();
 
