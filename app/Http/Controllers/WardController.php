@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Ward;
+use App\Imports\WardImport;
 use Illuminate\Http\Request;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class WardController extends Controller
