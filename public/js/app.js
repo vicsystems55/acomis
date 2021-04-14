@@ -3886,7 +3886,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.importing = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/import_wards').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/import_wards').then(function (response) {
         return _this.importing = false, alert("New Wards Imported!!"), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {

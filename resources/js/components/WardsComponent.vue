@@ -83,7 +83,7 @@ import axios from 'axios';
 
                 this.importing = true;
 
-                axios.post('/import_wards')
+                axios.get('/import_wards')
                .then((response)=>(
                     this.importing = false,
                     alert("New Wards Imported!!"),
