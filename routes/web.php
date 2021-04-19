@@ -32,6 +32,12 @@ Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
 Route::get('/getQuestions', 'QuestionBankController@getQuestions');
 
+
+Route::get('/questionaire_data', 'ClientExitQuestionaireController@questionaire_data');
+
+
+Route::post('/submit_exit_form', 'ClientExitQuestionaireController@submit_exit_form');
+
 Route::post('/create_health_facility', 'HealthFacilityController@store');
 
 Route::post('/create_ward', 'WardController@store');

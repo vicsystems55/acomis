@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ClientExitQuestionaire;
+use App\QuestionBank;
+use Auth;
 use Illuminate\Http\Request;
 
 class ClientExitQuestionaireController extends Controller
@@ -25,6 +27,7 @@ class ClientExitQuestionaireController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -33,9 +36,45 @@ class ClientExitQuestionaireController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function submit_exit_form(Request $request)
     {
         //
+
+        // $questions = QuestionBank::all();
+
+        $questionaire_code = rand(123, 999);
+
+        for ($i=0; $i < count($request->answers); $i++) { 
+
+        $entry = ClientExitQuestionaire::Create([
+            'cbo_id' => Auth::user()->id,
+            'questionaire_code' => $questionaire_code,
+            'question_id' => $request->questions[$i]['id'],
+            'questions' => $request->questions[$i]['question'],
+            'answers' => $request->answers[$i],
+            'status' => 'answered',
+        ]);
+            
+        }
+
+        return count($request->answers);
+       
+
+
+        // $entry = ClientExitQuestionaire::Create([
+
+        // ]);
+
+
+    }
+
+    public function questionaire_data()
+    {
+        # code...'
+        $analysis = ClientExitQuestionaire::where('question_id', '13')->where('answers', 'yes')->get();
+
+
+        return $analysis;
     }
 
     /**
