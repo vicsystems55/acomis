@@ -2944,6 +2944,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2952,8 +2964,14 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      swallowed_SP: false,
+      others_swallowed_SP: false,
       show_LLIN: false,
       showWhere_LLIN: false,
+      show_Service: false,
+      show_Swallowed: false,
+      swallowed_Service: false,
+      other_Swallowed: false,
       other_occupation: false,
       other_education: false,
       other_service_came_for: false,
@@ -2977,6 +2995,41 @@ __webpack_require__.r(__webpack_exports__);
     hideLLIN: function hideLLIN() {
       alert('hello');
       this.show_LLIN = false;
+    },
+    showSwallowed: function showSwallowed() {
+      alert('hello');
+      this.show_Swallowed = true;
+    },
+    hideSwallowed: function hideSwallowed() {
+      alert('hello');
+      this.show_Swallowed = false;
+    },
+    others_swallowedSP: function others_swallowedSP() {
+      if (this.answers[16] == 'others') {
+        this.others_swallowed_SP = true;
+      } else {
+        this.others_swallowed_SP = false;
+      }
+    },
+    swallowedSP: function swallowedSP(event) {
+      alert('show llin');
+
+      if (event.target.value == 'yes') {
+        alert('other swallowed');
+        this.swallowed_SP = true;
+      } else {
+        this.swallowed_SP = false;
+      }
+    },
+    otherSwallowed: function otherSwallowed() {
+      alert('show llin');
+
+      if (this.answers[14] == 'others') {
+        alert('other swallowed');
+        this.other_Swallowed = true;
+      } else {
+        this.showWhere_LLIN = false;
+      }
     },
     showWhereLLIN: function showWhereLLIN() {
       alert('show llin');
@@ -41561,7 +41614,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-10 mx-auto" }, [
+            _c("div", { staticClass: "col-md-10 " }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "" } }, [
                   _vm._v(_vm._s(_vm.questions[12].question))
@@ -41815,111 +41868,117 @@ var render = function() {
                   _vm._v(_vm._s(_vm.questions[26].question))
                 ]),
                 _vm._v(" "),
-                _c("p", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[26],
-                        expression: "answers[26]"
-                      }
-                    ],
-                    attrs: { type: "radio", value: "yes", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[26], "yes") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.answers, 26, "yes")
-                      }
-                    }
-                  }),
-                  _vm._v("  Yes ")
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[26],
-                        expression: "answers[26]"
-                      }
-                    ],
-                    attrs: { type: "radio", value: "no", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[26], "no") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.answers, 26, "no")
-                      }
-                    }
-                  }),
-                  _vm._v("  No ")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[14].question))]),
-                _vm._v(" "),
                 _c(
-                  "select",
+                  "p",
                   {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[14],
-                        expression: "answers[14]"
-                      }
-                    ],
-                    staticClass: "form-control",
                     on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.answers,
-                          14,
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
+                      click: function($event) {
+                        return _vm.showSwallowed()
                       }
                     }
                   },
                   [
-                    _c(
-                      "option",
-                      { attrs: { value: "After 13 Weeks (Quickening)" } },
-                      [_vm._v("After 13 Weeks (Quickening)")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Once Every" } }, [
-                      _vm._v("Once Every")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Once Every 2 Months" } }, [
-                      _vm._v("Once Every 2 Months")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Once Every 3 Months" } }, [
-                      _vm._v("Once Every 3 Months")
-                    ])
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[26],
+                          expression: "answers[26]"
+                        }
+                      ],
+                      attrs: { type: "radio", name: "yyy", value: "yes" },
+                      domProps: { checked: _vm._q(_vm.answers[26], "yes") },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.answers, 26, "yes")
+                        }
+                      }
+                    }),
+                    _vm._v("  Yes ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.hideSwallowed()
+                      }
+                    }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[26],
+                          expression: "answers[26]"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "yyy",
+                        value: "no",
+                        selected: "selected"
+                      },
+                      domProps: { checked: _vm._q(_vm.answers[26], "no") },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.answers, 26, "no")
+                        }
+                      }
+                    }),
+                    _vm._v("  No ")
                   ]
                 )
               ])
-            ])
+            ]),
+            _vm._v(" "),
+            _vm.show_Swallowed
+              ? _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v(_vm._s(_vm.questions[14].question))]),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]),
+                  _vm._v(" "),
+                  _vm.show_Service
+                    ? _c("div", {}, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Please indicate")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.answers[27],
+                              expression: "answers[27]"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.answers[27] },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.answers, 27, $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-4" }, [
@@ -41941,6 +42000,7 @@ var render = function() {
                     attrs: { type: "radio", value: "yes", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[15], "yes") },
                     on: {
+                      click: _vm.swallowedSP,
                       change: function($event) {
                         return _vm.$set(_vm.answers, 15, "yes")
                       }
@@ -41962,6 +42022,7 @@ var render = function() {
                     attrs: { type: "radio", value: "no", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[15], "no") },
                     on: {
+                      click: _vm.swallowedSP,
                       change: function($event) {
                         return _vm.$set(_vm.answers, 15, "no")
                       }
@@ -41973,99 +42034,110 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[16].question))]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[16],
-                        expression: "answers[16]"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.answers,
-                          16,
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      {
-                        attrs: { value: "Facility (During 1st ANC Attendance)" }
-                      },
-                      [_vm._v("Facility (During 1st ANC Attendance)")]
-                    ),
+              _vm.swallowed_SP
+                ? _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v(_vm._s(_vm.questions[16].question))]),
                     _vm._v(" "),
                     _c(
-                      "option",
+                      "select",
                       {
-                        attrs: {
-                          value: "Facility (During 9 Months Immunization)"
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.answers[16],
+                            expression: "answers[16]"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.answers,
+                                16,
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            _vm.others_swallowedSP
+                          ]
                         }
                       },
-                      [_vm._v("Facility (During 9 Months Immunization)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "Mass Campaign (Community)" } },
-                      [_vm._v("Mass Campaign (Community)")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Others" } }, [
-                      _vm._v("Others")
-                    ])
-                  ]
-                )
-              ]),
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "Facility (During 1st ANC Attendance)"
+                            }
+                          },
+                          [_vm._v("Facility (During 1st ANC Attendance)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "Facility (During 9 Months Immunization)"
+                            }
+                          },
+                          [_vm._v("Facility (During 9 Months Immunization)")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "Mass Campaign (Community)" } },
+                          [_vm._v("Mass Campaign (Community)")]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "others" } }, [
+                          _vm._v("Others")
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[16],
-                      expression: "answers[16]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[16] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _vm.others_swallowed_SP
+                ? _c("div", {}, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[16],
+                          expression: "answers[16]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.answers[16] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 16, $event.target.value)
+                        }
                       }
-                      _vm.$set(_vm.answers, 16, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ]),
+            _vm._v(" "),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
@@ -42115,81 +42187,20 @@ var render = function() {
                   _vm._v("  No ")
                 ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "col-md-4" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v(_vm._s(_vm.questions[18].question))]),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[18],
-                        expression: "answers[18]"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.answers,
-                          18,
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      {
-                        attrs: { value: "Facility (During 1st ANC Attendance)" }
-                      },
-                      [_vm._v("Facility (During 1st ANC Attendance)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      {
-                        attrs: {
-                          value: "Facility (During 9 Months Immunization)"
-                        }
-                      },
-                      [_vm._v("Facility (During 9 Months Immunization)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "Mass Campaign (Community)" } },
-                      [_vm._v("Mass Campaign (Community)")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Others" } }, [
-                      _vm._v("Others")
-                    ])
-                  ]
-                )
+                _vm._m(4)
               ])
-            ]),
-            _vm._v(" "),
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-4" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "" } }, [
@@ -42357,7 +42368,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(3),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42566,7 +42577,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(4),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42640,7 +42651,7 @@ var render = function() {
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v(_vm._s(_vm.questions[23].question))]),
                 _vm._v(" "),
-                _vm._m(5)
+                _vm._m(8)
               ]),
               _vm._v(" "),
               _c("div", {}, [
@@ -42671,7 +42682,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(6),
+          _vm._m(9),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42760,7 +42771,55 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("select", { staticClass: "form-control" }, [
+      _c("option", { attrs: { value: "After 13 Weeks (Quickening)" } }, [
+        _vm._v("After 13 Weeks (Quickening)")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Once Every" } }, [_vm._v("Once Every")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Once Every 2 Months" } }, [
+        _vm._v("Once Every 2 Months")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Once Every 3 Months" } }, [
+        _vm._v("Once Every 3 Months")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [_c("hr")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [_c("hr")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("select", { staticClass: "form-control" }, [
+      _c("option", { attrs: { value: "Maternal and Newborn Care" } }, [
+        _vm._v("Maternal and Newborn Care")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Antenatal Care" } }, [
+        _vm._v("Antenatal Care")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Malaria Services" } }, [
+        _vm._v("Malaria Services")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "Don't Know" } }, [_vm._v("Don't Know")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "others" } }, [_vm._v("Other (Specify)")])
+    ])
   },
   function() {
     var _vm = this

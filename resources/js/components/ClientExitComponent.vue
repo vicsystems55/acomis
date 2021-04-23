@@ -165,7 +165,7 @@
                 <h3 class="text-center">Question Section 2</h3>
 
                 <div class="row">
-                    <div class="col-md-10 mx-auto">
+                    <div class="col-md-10 ">
                         <div class="form-group">
                             <label for="">{{questions[12].question}}</label>  
                             <p  @click="showLLIN()"><input type="radio" name="yyy" value="yes" v-model="answers[12]"  >  Yes </p>
@@ -222,19 +222,23 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">{{questions[26].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[26]"  id="">  Yes </p>
-                            <p><input type="radio" value="no" v-model="answers[26]" id="">  No </p>
+                            <p  @click="showSwallowed()"><input type="radio" name="yyy" value="yes" v-model="answers[26]"  >  Yes </p>
+                            <p @click="hideSwallowed()"><input  type="radio" name="yyy" value="no" v-model="answers[26]"  selected="selected">  No </p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div v-if="show_Swallowed" class="col-md-6">
                         <div class="form-group">
                             <label>{{questions[14].question}}</label>
-                            <select v-model="answers[14]" class="form-control">
+                            <select class="form-control">
                                 <option value="After 13 Weeks (Quickening)">After 13 Weeks (Quickening)</option>
                                 <option value="Once Every">Once Every</option>
                                 <option value="Once Every 2 Months">Once Every 2 Months</option>
                                 <option value="Once Every 3 Months">Once Every 3 Months</option>
-                            </select>
+                             </select>
+                        </div>
+                        <div v-if="show_Service" class="">
+                            <label for="">Please indicate</label>
+                            <input type="text" v-model="answers[27]" class="form-control">
                         </div>
 
                     </div>
@@ -252,28 +256,33 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">{{questions[15].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[15]"  id="">  Yes </p>
-                            <p><input type="radio" value="no" v-model="answers[15]" id="">  No </p>
+                            <p><input @click="swallowedSP" type="radio" value="yes" v-model="answers[15]"  id="">  Yes </p>
+                            <p><input @click="swallowedSP" type="radio" value="no" v-model="answers[15]" id="">  No </p>
                         </div>
 
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div  class="col-md-6">
+                        <div v-if="swallowed_SP" class="form-group">
                             <label>{{questions[16].question}}</label>
-                            <select v-model="answers[16]" class="form-control">
+                            <select @change="others_swallowedSP" v-model="answers[16]" class="form-control">
                                 <option value="Facility (During 1st ANC Attendance)">Facility (During 1st ANC Attendance)</option>
                                 <option value="Facility (During 9 Months Immunization)">Facility (During 9 Months Immunization)</option>
                                 <option value="Mass Campaign (Community)">Mass Campaign (Community)</option>
-                                <option value="Others">Others</option>
+                                <option value="others">Others</option>
                             </select>
                         </div>
-                        <div class="">
+                        <div v-if="others_swallowed_SP" class="">
                             <label for="">Others</label>
                             <input type="text" v-model="answers[16]" class="form-control">
                         </div>
 
                     </div>
+                    <div class="container">
+                        <hr>
+                    </div>
+
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">{{questions[17].question}}</label>  
@@ -281,6 +290,19 @@
                             <p><input type="radio" value="no" v-model="answers[17]" id="">  No </p>
                         </div>
 
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{questions[18].question}}</label>
+                            <select class="form-control">
+                                <option value="Maternal and Newborn Care">Maternal and Newborn Care</option>
+                                <option value="Antenatal Care">Antenatal Care</option>
+                                <option value="Malaria Services">Malaria Services</option>
+                                <option value="Don't Know">Don't Know</option>
+                                <option value="others">Other (Specify)</option>
+                            </select>
+                        </div>
                     </div>
 
 
@@ -292,17 +314,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>{{questions[18].question}}</label>
-                            <select v-model="answers[18]" class="form-control">
-                                <option value="Facility (During 1st ANC Attendance)">Facility (During 1st ANC Attendance)</option>
-                                <option value="Facility (During 9 Months Immunization)">Facility (During 9 Months Immunization)</option>
-                                <option value="Mass Campaign (Community)">Mass Campaign (Community)</option>
-                                <option value="Others">Others</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">{{questions[19].question}}</label>  
@@ -486,8 +498,14 @@ import axios from 'axios';
                         ' ',
                         'no',
                     ],
+                    swallowed_SP: false,
+                    others_swallowed_SP: false,
                     show_LLIN: false,
                     showWhere_LLIN: false,
+                    show_Service: false,
+                    show_Swallowed: false,
+                    swallowed_Service: false,
+                    other_Swallowed: false,
                     other_occupation: false,
                     other_education: false,
                     other_service_came_for: false,
@@ -520,6 +538,56 @@ import axios from 'axios';
                 alert('hello');
                 this.show_LLIN = false;
             },
+
+            showSwallowed(){
+                alert('hello');
+                this.show_Swallowed = true;
+            },
+            hideSwallowed(){
+                alert('hello');
+                this.show_Swallowed = false;
+            },
+
+            others_swallowedSP(){
+                
+                if (this.answers[16]=='others') {
+                    this.others_swallowed_SP = true;
+                } else {
+                    this.others_swallowed_SP = false;
+                    
+                }
+            },
+
+            swallowedSP(event){
+
+                alert('show llin')
+
+                
+                if (event.target.value == 'yes') {
+                    alert('other swallowed');
+                    this.swallowed_SP = true;
+
+
+                }else{
+                    this.swallowed_SP = false; 
+                }
+                
+            }, 
+
+            otherSwallowed(){
+
+                alert('show llin')
+
+                
+                if (this.answers[14] == 'others') {
+                    alert('other swallowed');
+                    this.other_Swallowed = true;
+
+                }else{
+                    this.showWhere_LLIN = false; 
+                }
+                
+            }, 
 
             showWhereLLIN(){
 
@@ -767,14 +835,12 @@ import axios from 'axios';
 </script>
 
 
-cd ~
-wget https://nodejs.org/dist/v14.16.1/node-v14.16.1-linux-x64.tar.xz
 
-tar xvf node-v14.16.1-linux-x64.tar.xz
+mkdir node
+cd node
 
-mv node-v14.16.1-linux-x64 nodejs
+curl -O https://nodejs.org/dist/v11.15.0/node-v11.15.0-linux-x64.tar.gz
+tar -xvzf node-v11.15.0-linux-x64.tar.gz --strip-components=1
 
-mkdir ~/bin
-cp nodejs/bin/node ~/bin
-cd ~/bin
-ln -s ../nodejs/lib/node_modules/npm/bin/npm-cli.js npm
+export PATH=$HOME/node/bin:$PATH
+echo 'export PATH=$HOME/node/bin:$PATH' >> ~/.bashrc
