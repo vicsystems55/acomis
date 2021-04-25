@@ -352,35 +352,36 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="">{{questions[20].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[20]"  id="">  Yes </p>
-                            <p><input type="radio" value="no" v-model="answers[20]" id="">  No </p>
-                            <p><input type="radio" value="no sure" v-model="answers[20]" id="">  Not sure </p>
+                            <label for="Were You given Arthemisinin-based-Combination Therapy">{{questions[20].question}}</label>  
+                            <p><input @click="givenarthemisinin($event)" type="radio" value="yes" v-model="answers[20]"  id="">  Yes </p>
+                            <p><input @click="givenarthemisinin($event)" type="radio" value="no" v-model="answers[20]" id="">  No </p>
+                            <p><input  type="radio" value="not sure" v-model="answers[20]" id="">  Not sure</p>
                         </div>
-                        <div class="">
-                            <label for="">Others</label>
+                        
+                        <div v-if="given_arthemisinin" class="">
+                            <label for="if no">Specify Drug Received</label>
                             <input type="text" v-model="answers[20]" class="form-control">
                         </div>
 
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">{{questions[21].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[21]"  id="">  Yes </p>
-                        </div>
-                        <div class="">
-                            <label for="">Others</label>
-                            <input type="text" v-model="answers[21]" class="form-control">
+
+                        <div v-if="givenarthemisinin_yes" class="">
+                            <div class="form-group">
+                                <label for="">{{questions[21].question}}</label>  
+                                <p><input type="radio" value="yes" v-model="answers[21]"  id="">  Yes </p>
+                            </div>
+                            <label for="">Kindly State Type of tablet, timing accuracy and adherance, 24 or 6 tablets 3 days</label>
+                            <input type="text" v-model="answers[21]" class="form-control" placeholder="Please specify">
+
+                            <div class="form-group">
+                                <label for="">{{questions[21].question}}</label>  
+                                <p><input type="radio" value="yes" v-model="answers[21]"  id="">  No </p>
+                            </div>
+                            <label for="">If No why?</label>
+                            <input type="text" v-model="answers[21]" class="form-control" placeholder="Please specify">
                         </div>
 
-                        <div class="form-group">
-                            <label for="">{{questions[21].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[21]"  id="">  Yes </p>
-                        </div>
-                        <div class="">
-                            <label for="">Others</label>
-                            <input type="text" v-model="answers[21]" class="form-control">
-                        </div>
 
                     </div>
 
@@ -497,6 +498,8 @@ import axios from 'axios';
                         ' ',
                         'no',
                     ],
+                    givenarthemisinin_yes: false,
+                    given_arthemisinin: false,
                     tested_malaria: false,
                     tested_malaria_when: false,
                     swallowed_SP: false,
@@ -529,6 +532,21 @@ import axios from 'axios';
                 // } else {
                     
                 // }
+            },
+            
+            givenarthemisinin(){
+                if (event.target.value == 'no') {
+
+                    this.given_arthemisinin = true;
+                    
+                }if(event.target.value == 'yes'){
+
+                    this.givenarthemisinin_yes = true;
+
+                }else{
+
+                }
+                
             },
             testedmalaria(){
                 if (event.target.value == 'not sure') {

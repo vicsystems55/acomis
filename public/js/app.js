@@ -2955,6 +2955,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2963,6 +2964,8 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      givenarthemisinin_yes: false,
+      given_arthemisinin: false,
       tested_malaria: false,
       tested_malaria_when: false,
       swallowed_SP: false,
@@ -2988,6 +2991,15 @@ __webpack_require__.r(__webpack_exports__);
       this.choose = true; // if (answers[0] == 'yes') {
       // } else {
       // }
+    },
+    givenarthemisinin: function givenarthemisinin() {
+      if (event.target.value == 'no') {
+        this.given_arthemisinin = true;
+      }
+
+      if (event.target.value == 'yes') {
+        this.givenarthemisinin_yes = true;
+      } else {}
     },
     testedmalaria: function testedmalaria() {
       if (event.target.value == 'not sure') {
@@ -42393,9 +42405,16 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v(_vm._s(_vm.questions[20].question))
-                ]),
+                _c(
+                  "label",
+                  {
+                    attrs: {
+                      for:
+                        "Were You given Arthemisinin-based-Combination Therapy"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.questions[20].question))]
+                ),
                 _vm._v(" "),
                 _c("p", [
                   _c("input", {
@@ -42410,6 +42429,9 @@ var render = function() {
                     attrs: { type: "radio", value: "yes", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[20], "yes") },
                     on: {
+                      click: function($event) {
+                        return _vm.givenarthemisinin($event)
+                      },
                       change: function($event) {
                         return _vm.$set(_vm.answers, 20, "yes")
                       }
@@ -42431,6 +42453,9 @@ var render = function() {
                     attrs: { type: "radio", value: "no", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[20], "no") },
                     on: {
+                      click: function($event) {
+                        return _vm.givenarthemisinin($event)
+                      },
                       change: function($event) {
                         return _vm.$set(_vm.answers, 20, "no")
                       }
@@ -42449,151 +42474,159 @@ var render = function() {
                         expression: "answers[20]"
                       }
                     ],
-                    attrs: { type: "radio", value: "no sure", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[20], "no sure") },
+                    attrs: { type: "radio", value: "not sure", id: "" },
+                    domProps: { checked: _vm._q(_vm.answers[20], "not sure") },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.answers, 20, "no sure")
+                        return _vm.$set(_vm.answers, 20, "not sure")
                       }
                     }
                   }),
-                  _vm._v("  Not sure ")
+                  _vm._v("  Not sure")
                 ])
               ]),
               _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[20],
-                      expression: "answers[20]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[20] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _vm.given_arthemisinin
+                ? _c("div", {}, [
+                    _c("label", { attrs: { for: "if no" } }, [
+                      _vm._v("Specify Drug Received")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[20],
+                          expression: "answers[20]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.answers[20] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 20, $event.target.value)
+                        }
                       }
-                      _vm.$set(_vm.answers, 20, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v(_vm._s(_vm.questions[21].question))
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[21],
-                        expression: "answers[21]"
+              _vm.givenarthemisinin_yes
+                ? _c("div", {}, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v(_vm._s(_vm.questions[21].question))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.answers[21],
+                              expression: "answers[21]"
+                            }
+                          ],
+                          attrs: { type: "radio", value: "yes", id: "" },
+                          domProps: { checked: _vm._q(_vm.answers[21], "yes") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.answers, 21, "yes")
+                            }
+                          }
+                        }),
+                        _vm._v("  Yes ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v(
+                        "Kindly State Type of tablet, timing accuracy and adherance, 24 or 6 tablets 3 days"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[21],
+                          expression: "answers[21]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Please specify" },
+                      domProps: { value: _vm.answers[21] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 21, $event.target.value)
+                        }
                       }
-                    ],
-                    attrs: { type: "radio", value: "yes", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[21], "yes") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.answers, 21, "yes")
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v(_vm._s(_vm.questions[21].question))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.answers[21],
+                              expression: "answers[21]"
+                            }
+                          ],
+                          attrs: { type: "radio", value: "yes", id: "" },
+                          domProps: { checked: _vm._q(_vm.answers[21], "yes") },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(_vm.answers, 21, "yes")
+                            }
+                          }
+                        }),
+                        _vm._v("  No ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "" } }, [_vm._v("If No why?")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[21],
+                          expression: "answers[21]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Please specify" },
+                      domProps: { value: _vm.answers[21] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 21, $event.target.value)
+                        }
                       }
-                    }
-                  }),
-                  _vm._v("  Yes ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[21],
-                      expression: "answers[21]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[21] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.answers, 21, $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v(_vm._s(_vm.questions[21].question))
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[21],
-                        expression: "answers[21]"
-                      }
-                    ],
-                    attrs: { type: "radio", value: "yes", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[21], "yes") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.answers, 21, "yes")
-                      }
-                    }
-                  }),
-                  _vm._v("  Yes ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[21],
-                      expression: "answers[21]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[21] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.answers, 21, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
