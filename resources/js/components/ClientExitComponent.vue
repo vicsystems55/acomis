@@ -284,7 +284,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="">{{questions[17].question}}</label>  
+                            <label for="were you testes">{{questions[17].question}}</label>  
                             <p><input type="radio" value="yes" v-model="answers[17]"  id="">  Yes </p>
                             <p><input type="radio" value="no" v-model="answers[17]" id="">  No </p>
                         </div>
@@ -317,25 +317,24 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="">{{questions[19].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[19]"  id="">  Yes </p>
+                            <label for="tested for malaria">{{questions[19].question}}</label>  
+                            <p><input @click="testedmalariawhen($event)" type="radio" value="yes" v-model="answers[19]"  id="">  Yes </p>
                             <p><input type="radio" value="no" v-model="answers[19]" id="">  No </p>
-                            <p><input type="radio" value="no sure" v-model="answers[19]" id="">  Not sure </p>
+                            <p><input @click="testedmalaria($event)"  type="radio" value="not sure" v-model="answers[19]" id="">  Not sure</p>
                         </div>
-                        <div class="">
+                        <div v-if="tested_malaria" class="">
                             <label for="">Others</label>
-                            <input type="text" v-model="answers[19]" class="form-control">
+                            <input type="text" v-model="answers[19]" class="form-control" placeholder="Why (If no to above)">
                         </div>
 
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>{{questions[28].question}}</label>
+                        <div v-if="tested_malaria_when" class="form-group">
+                            <label for="if yes when">{{questions[28].question}}</label>
                             <select v-model="answers[28]" class="form-control">
-                                <option value="Facility (During 1st ANC Attendance)">Facility (During 1st ANC Attendance)</option>
-                                <option value="Facility (During 9 Months Immunization)">Facility (During 9 Months Immunization)</option>
-                                <option value="Mass Campaign (Community)">Mass Campaign (Community)</option>
-                                <option value="Others">Others</option>
+                            <option value="First Antenatal Visit">First Antenatal Visit</option>
+                            <option value="When I was Sick">When I was Sick</option>
+                            <option value="Don't Know">Don't Know</option>   
                             </select>
                         </div>
 
@@ -498,6 +497,8 @@ import axios from 'axios';
                         ' ',
                         'no',
                     ],
+                    tested_malaria: false,
+                    tested_malaria_when: false,
                     swallowed_SP: false,
                     others_swallowed_SP: false,
                     show_LLIN: false,
@@ -529,7 +530,28 @@ import axios from 'axios';
                     
                 // }
             },
+            testedmalaria(){
+                if (event.target.value == 'not sure') {
 
+                    this.tested_malaria = true;
+                    
+                }else{
+
+                    this.tested_malaria = false;
+                }
+                
+            },
+            testedmalariawhen(){
+                if (event.target.value == 'yes') {
+
+                    this.tested_malaria_when = true;
+                    
+                }else{
+
+                    this.tested_malaria_when = false;
+                }
+                
+            },
             showLLIN(){
                 alert('hello');
                 this.show_LLIN = true;

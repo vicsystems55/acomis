@@ -2955,7 +2955,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2964,6 +2963,8 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      tested_malaria: false,
+      tested_malaria_when: false,
       swallowed_SP: false,
       others_swallowed_SP: false,
       show_LLIN: false,
@@ -2987,6 +2988,20 @@ __webpack_require__.r(__webpack_exports__);
       this.choose = true; // if (answers[0] == 'yes') {
       // } else {
       // }
+    },
+    testedmalaria: function testedmalaria() {
+      if (event.target.value == 'not sure') {
+        this.tested_malaria = true;
+      } else {
+        this.tested_malaria = false;
+      }
+    },
+    testedmalariawhen: function testedmalariawhen() {
+      if (event.target.value == 'yes') {
+        this.tested_malaria_when = true;
+      } else {
+        this.tested_malaria_when = false;
+      }
     },
     showLLIN: function showLLIN() {
       alert('hello');
@@ -42145,7 +42160,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
+                _c("label", { attrs: { for: "were you testes" } }, [
                   _vm._v(_vm._s(_vm.questions[17].question))
                 ]),
                 _vm._v(" "),
@@ -42207,7 +42222,7 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-4" }, [
               _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [
+                _c("label", { attrs: { for: "tested for malaria" } }, [
                   _vm._v(_vm._s(_vm.questions[19].question))
                 ]),
                 _vm._v(" "),
@@ -42224,6 +42239,9 @@ var render = function() {
                     attrs: { type: "radio", value: "yes", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[19], "yes") },
                     on: {
+                      click: function($event) {
+                        return _vm.testedmalariawhen($event)
+                      },
                       change: function($event) {
                         return _vm.$set(_vm.answers, 19, "yes")
                       }
@@ -42263,112 +42281,110 @@ var render = function() {
                         expression: "answers[19]"
                       }
                     ],
-                    attrs: { type: "radio", value: "no sure", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[19], "no sure") },
+                    attrs: { type: "radio", value: "not sure", id: "" },
+                    domProps: { checked: _vm._q(_vm.answers[19], "not sure") },
                     on: {
+                      click: function($event) {
+                        return _vm.testedmalaria($event)
+                      },
                       change: function($event) {
-                        return _vm.$set(_vm.answers, 19, "no sure")
+                        return _vm.$set(_vm.answers, 19, "not sure")
                       }
                     }
                   }),
-                  _vm._v("  Not sure ")
+                  _vm._v("  Not sure")
                 ])
               ]),
               _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[19],
-                      expression: "answers[19]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[19] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _vm.tested_malaria
+                ? _c("div", {}, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[19],
+                          expression: "answers[19]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Why (If no to above)"
+                      },
+                      domProps: { value: _vm.answers[19] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 19, $event.target.value)
+                        }
                       }
-                      _vm.$set(_vm.answers, 19, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[28].question))]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.answers[28],
-                        expression: "answers[28]"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.answers,
-                          28,
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      {
-                        attrs: { value: "Facility (During 1st ANC Attendance)" }
-                      },
-                      [_vm._v("Facility (During 1st ANC Attendance)")]
-                    ),
+              _vm.tested_malaria_when
+                ? _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "if yes when" } }, [
+                      _vm._v(_vm._s(_vm.questions[28].question))
+                    ]),
                     _vm._v(" "),
                     _c(
-                      "option",
+                      "select",
                       {
-                        attrs: {
-                          value: "Facility (During 9 Months Immunization)"
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.answers[28],
+                            expression: "answers[28]"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.answers,
+                              28,
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
                       },
-                      [_vm._v("Facility (During 9 Months Immunization)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "Mass Campaign (Community)" } },
-                      [_vm._v("Mass Campaign (Community)")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "Others" } }, [
-                      _vm._v("Others")
-                    ])
-                  ]
-                )
-              ])
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "First Antenatal Visit" } },
+                          [_vm._v("First Antenatal Visit")]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "When I was Sick" } }, [
+                          _vm._v("When I was Sick")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Don't Know" } }, [
+                          _vm._v("Don't Know")
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
