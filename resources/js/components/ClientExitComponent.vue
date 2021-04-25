@@ -266,10 +266,9 @@
                         <div v-if="swallowed_SP" class="form-group">
                             <label>{{questions[16].question}}</label>
                             <select @change="others_swallowedSP" v-model="answers[16]" class="form-control">
-                                <option value="Facility (During 1st ANC Attendance)">Facility (During 1st ANC Attendance)</option>
-                                <option value="Facility (During 9 Months Immunization)">Facility (During 9 Months Immunization)</option>
-                                <option value="Mass Campaign (Community)">Mass Campaign (Community)</option>
-                                <option value="others">Others</option>
+                              <option value="The Health worker did not ask me to swallow the drug in his/her presence">The Health worker did not ask me to swallow the drug in his/her presence</option>
+                            <option value="I was asked to swallow the drug in the presence of the health worker but I declined">I was asked to swallow the drug in the presence of the health worker but I declined</option>
+                            <option value="others">Others</option>   
                             </select>
                         </div>
                         <div v-if="others_swallowed_SP" class="">
@@ -296,11 +295,12 @@
                         <div class="form-group">
                             <label>{{questions[18].question}}</label>
                             <select class="form-control">
-                                <option value="Maternal and Newborn Care">Maternal and Newborn Care</option>
-                                <option value="Antenatal Care">Antenatal Care</option>
-                                <option value="Malaria Services">Malaria Services</option>
-                                <option value="Don't Know">Don't Know</option>
-                                <option value="others">Other (Specify)</option>
+                            <option value="3-12 Months">3-12 Months</option>
+                            <option value="13-24 Months">13-24 Months</option>
+                            <option value="25-36 months">25-36 months</option>
+                            <option value="37-48 months">37-48 months</option>
+                            <option value="49-59 months">49-59 months</option>
+                            <option value="60 and Above">60 and Above</option>
                             </select>
                         </div>
                     </div>

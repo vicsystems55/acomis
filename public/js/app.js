@@ -42078,26 +42078,30 @@ var render = function() {
                           "option",
                           {
                             attrs: {
-                              value: "Facility (During 1st ANC Attendance)"
+                              value:
+                                "The Health worker did not ask me to swallow the drug in his/her presence"
                             }
                           },
-                          [_vm._v("Facility (During 1st ANC Attendance)")]
+                          [
+                            _vm._v(
+                              "The Health worker did not ask me to swallow the drug in his/her presence"
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
                           "option",
                           {
                             attrs: {
-                              value: "Facility (During 9 Months Immunization)"
+                              value:
+                                "I was asked to swallow the drug in the presence of the health worker but I declined"
                             }
                           },
-                          [_vm._v("Facility (During 9 Months Immunization)")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "Mass Campaign (Community)" } },
-                          [_vm._v("Mass Campaign (Community)")]
+                          [
+                            _vm._v(
+                              "I was asked to swallow the drug in the presence of the health worker but I declined"
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "others" } }, [
@@ -42804,21 +42808,29 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("select", { staticClass: "form-control" }, [
-      _c("option", { attrs: { value: "Maternal and Newborn Care" } }, [
-        _vm._v("Maternal and Newborn Care")
+      _c("option", { attrs: { value: "3-12 Months" } }, [
+        _vm._v("3-12 Months")
       ]),
       _vm._v(" "),
-      _c("option", { attrs: { value: "Antenatal Care" } }, [
-        _vm._v("Antenatal Care")
+      _c("option", { attrs: { value: "13-24 Months" } }, [
+        _vm._v("13-24 Months")
       ]),
       _vm._v(" "),
-      _c("option", { attrs: { value: "Malaria Services" } }, [
-        _vm._v("Malaria Services")
+      _c("option", { attrs: { value: "25-36 months" } }, [
+        _vm._v("25-36 months")
       ]),
       _vm._v(" "),
-      _c("option", { attrs: { value: "Don't Know" } }, [_vm._v("Don't Know")]),
+      _c("option", { attrs: { value: "37-48 months" } }, [
+        _vm._v("37-48 months")
+      ]),
       _vm._v(" "),
-      _c("option", { attrs: { value: "others" } }, [_vm._v("Other (Specify)")])
+      _c("option", { attrs: { value: "49-59 months" } }, [
+        _vm._v("49-59 months")
+      ]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "60 and Above" } }, [
+        _vm._v("60 and Above")
+      ])
     ])
   },
   function() {
