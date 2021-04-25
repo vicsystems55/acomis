@@ -56,10 +56,10 @@
 
                     <div class="col-md-4">
                         <label for="">{{questions[6].question}}</label>
-                             <select v-model="answers[6]" class="form-control " >
+                             <select v-model="answers[6]" class="form-control select2" >
                                 <option selected="selected">Select Health Facility</option>
 
-                                <option v-for="health_facility in health_facilities" :key="health_facility.index" value="">{{health_facility.Facility}}</option>
+                                <option v-for="health_facility in health_facilities" :key="health_facility.id" value="">{{health_facility.Facility}}</option>
 
                              </select>
                     </div>
@@ -840,9 +840,9 @@ import axios from 'axios';
                 
                     // console.log(response),
 
-                     this.health_facilites = response.data,
+                     this.health_facilities = response.data,
 
-                        consoe.log(this.health_facilities)
+                        console.log(this.health_facilities)
 
              
              ))

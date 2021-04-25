@@ -3183,7 +3183,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getHealthFacilites').then(function (response) {
         return (// console.log(response),
-          _this5.health_facilites = response.data, consoe.log(_this5.health_facilities)
+          _this5.health_facilities = response.data, console.log(_this5.health_facilities)
         );
       })["catch"](function (error) {
         console.log(error);
@@ -41116,7 +41116,7 @@ var render = function() {
                       expression: "answers[6]"
                     }
                   ],
-                  staticClass: "form-control ",
+                  staticClass: "form-control select2",
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -41145,7 +41145,7 @@ var render = function() {
                   _vm._l(_vm.health_facilities, function(health_facility) {
                     return _c(
                       "option",
-                      { key: health_facility.index, attrs: { value: "" } },
+                      { key: health_facility.id, attrs: { value: "" } },
                       [_vm._v(_vm._s(health_facility.Facility))]
                     )
                   })
