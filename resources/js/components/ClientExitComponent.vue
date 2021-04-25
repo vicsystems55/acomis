@@ -56,25 +56,30 @@
 
                     <div class="col-md-4">
                         <label for="">{{questions[6].question}}</label>
-                             <input type="text" v-model="answers[6]" class="form-control">
+                             <select v-model="answers[6]" class="form-control " >
+                                <option selected="selected">Select Health Facility</option>
+
+                                <option v-for="health_facility in health_facilities" :key="health_facility.index" value="">{{health_facility.Facility}}</option>
+
+                             </select>
                     </div>
 
                     <div class="col-md-6">
                         <label for="">{{questions[7].question}}</label>
                            
-                             <select @change="showOccupation()" v-model="answers[7]" class="form-control " >
+                            <select @change="showOccupation()" v-model="answers[7]" class="form-control">
                                 <option selected="selected">Select Category</option>
                                 <option value="Government/Civil Servant">Government/Civil Servant</option>
                                 <option value="Professional Worker">Professional Worker</option>
                                 <option value="Self-Employed Trader">Self-Employed Trader</option>
                                 <option value="Business Man/Woman">Business Man/Woman</option>
-                                <option value="Farmer/Agric Work">Farmer/Agric Worker</option>
+                                <option value="Farmer/Agric Worke">Farmer/Agric Worker</option>
                                 <option value="Artisan">Artisan</option>
-                                <option value="Religious Leader/Missionary">Religious Leader/Missionary</option>
+                                <option value="Religious Leader/Missionar">Religious Leader/Missionary</option>
                                 <option value="Youth Corp Member">Youth Corp Member</option>
                                 <option value="Student">Student</option>
-                                <option value="others">Other (Specify...)</option>  
-                             </select>
+                                <option value="">Other (Specify...)</option> 
+                            </select>
                     </div>
 
                     <div  class="col-md-6">
@@ -489,6 +494,7 @@ import axios from 'axios';
                 questionaire_code: '',
                     questions: [],
                     question_ids: [],
+                    health_facilities: [],
                     answers: [
                         'no',
                         ' ',
@@ -619,20 +625,20 @@ import axios from 'axios';
                 
             },
             showLLIN(){
-                alert('hello');
+                
                 this.show_LLIN = true;
             },
             hideLLIN(){
-                alert('hello');
+                
                 this.show_LLIN = false;
             },
 
             showSwallowed(){
-                alert('hello');
+                
                 this.show_Swallowed = true;
             },
             hideSwallowed(){
-                alert('hello');
+                
                 this.show_Swallowed = false;
             },
 
@@ -652,7 +658,7 @@ import axios from 'axios';
 
                 
                 if (event.target.value == 'yes') {
-                    alert('other swallowed');
+                  
                     this.swallowed_SP = true;
 
 
@@ -664,11 +670,11 @@ import axios from 'axios';
 
             otherSwallowed(){
 
-                alert('show llin')
+               
 
                 
                 if (this.answers[14] == 'others') {
-                    alert('other swallowed');
+                 
                     this.other_Swallowed = true;
 
                 }else{
@@ -679,11 +685,11 @@ import axios from 'axios';
 
             showWhereLLIN(){
 
-                alert('show llin')
+            
 
                 
                 if (this.answers[27] == 'others') {
-                    alert('other LLNI');
+                 
                     this.showWhere_LLIN = true;
 
                 }else{
@@ -695,7 +701,7 @@ import axios from 'axios';
             showOccupation(){
                 
                 if (this.answers[7] == 'others') {
-                    alert('other occupation');
+              
                     this.other_occupation = true;
 
                 }else{
@@ -706,7 +712,7 @@ import axios from 'axios';
             showEducation(){
                 
                 if (this.answers[8] == 'others') {
-                    alert('other education');
+                  
                     this.other_education = true;
 
                 }else{
@@ -716,9 +722,9 @@ import axios from 'axios';
             }, 
 
             showServiceCameFor(){
-                alert('other service came for');
+               
                 if (this.answers[9] == 'others') {
-                    alert('other service received');
+                   
                     this.other_service_came_for = true;
 
                 }else{
@@ -728,9 +734,9 @@ import axios from 'axios';
             }, 
 
             showServiceReceived(){
-                 alert('other service received');
+               
                 if (this.answers[10] == 'others') {
-                    alert('other service received');
+                  
                     this.other_service_received = true;
 
                 }else{
@@ -749,7 +755,7 @@ import axios from 'axios';
                 })
                .then((response)=>(
                     this.loading = false,
-                    alert("Exit Form Submitted!!"),
+                  
                     console.log(response)
                     //  this.results = response.data
                     
@@ -815,6 +821,25 @@ import axios from 'axios';
                     //  this.results = response.data
                     
              
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
+        getHealthFacilities(){
+          
+
+                console.log(this.selected_lga);
+
+                 axios.get('/getHealthFacilites')
+               .then((response)=>(
+                
+                    console.log(response),
+
+                     this.health_facilites = response.data
+
              
              ))
                 .catch(function (error) {
@@ -912,8 +937,10 @@ import axios from 'axios';
         },
         },
         mounted() {
+
             this.loadStates()
             this.loadQuestions()
+            this.getHealthFacilities()
             console.log('Component mounted.')
         },
 

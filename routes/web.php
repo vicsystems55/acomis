@@ -26,11 +26,15 @@ Route::post('/getLGAs', 'HealthFacilityController@getLGAs');
 
 Route::post('/getWards', 'HealthFacilityController@getWards');
 
+Route::get('/getHealthFacilites', 'HealthFacilityController@getHealthFacilites');
+
 Route::post('/getCBOs', 'HealthFacilityController@getCBOs');
 
 Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
 Route::get('/getQuestions', 'QuestionBankController@getQuestions');
+
+
 
 
 Route::get('/questionaire_data', 'ClientExitQuestionaireController@questionaire_data');

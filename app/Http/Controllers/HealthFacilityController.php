@@ -54,6 +54,21 @@ class HealthFacilityController extends Controller
 
     }
 
+    public function getHealthFacilites()
+    {
+        //
+    
+
+        $health_facilities = DB::table('health_facilities')->where('status','active')->latest()->get();
+
+ 
+
+        return $health_facilities;
+
+    }
+
+    
+
     public function getCBOs(Request $request)
     {
         //

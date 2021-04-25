@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ClientExitQuestionaire;
 use App\QuestionBank;
+use App\Notification;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,8 @@ class ClientExitQuestionaireController extends Controller
     {
         //
 
+        $user_id = Auth::user()->id;
+
         // $questions = QuestionBank::all();
 
         $questionaire_code = rand(123, 999);
@@ -56,6 +59,13 @@ class ClientExitQuestionaireController extends Controller
         ]);
             
         }
+
+        $notification = Notification::create([
+            'user_id' => $user_id,
+            'title' => "New Questionaire Received",
+            'body' => 'A new questionaire has just been received it questionaire code : ' .$questionaire_code
+          
+        ]);
 
         return count($request->answers);
        

@@ -2962,6 +2962,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2969,6 +2974,7 @@ __webpack_require__.r(__webpack_exports__);
       questionaire_code: '',
       questions: [],
       question_ids: [],
+      health_facilities: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
       satisfied: false,
       responsible_choice: false,
@@ -3055,19 +3061,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showLLIN: function showLLIN() {
-      alert('hello');
       this.show_LLIN = true;
     },
     hideLLIN: function hideLLIN() {
-      alert('hello');
       this.show_LLIN = false;
     },
     showSwallowed: function showSwallowed() {
-      alert('hello');
       this.show_Swallowed = true;
     },
     hideSwallowed: function hideSwallowed() {
-      alert('hello');
       this.show_Swallowed = false;
     },
     others_swallowedSP: function others_swallowedSP() {
@@ -3081,27 +3083,20 @@ __webpack_require__.r(__webpack_exports__);
       alert('show llin');
 
       if (event.target.value == 'yes') {
-        alert('other swallowed');
         this.swallowed_SP = true;
       } else {
         this.swallowed_SP = false;
       }
     },
     otherSwallowed: function otherSwallowed() {
-      alert('show llin');
-
       if (this.answers[14] == 'others') {
-        alert('other swallowed');
         this.other_Swallowed = true;
       } else {
         this.showWhere_LLIN = false;
       }
     },
     showWhereLLIN: function showWhereLLIN() {
-      alert('show llin');
-
       if (this.answers[27] == 'others') {
-        alert('other LLNI');
         this.showWhere_LLIN = true;
       } else {
         this.showWhere_LLIN = false;
@@ -3109,7 +3104,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     showOccupation: function showOccupation() {
       if (this.answers[7] == 'others') {
-        alert('other occupation');
         this.other_occupation = true;
       } else {
         this.other_occupation = false;
@@ -3117,27 +3111,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     showEducation: function showEducation() {
       if (this.answers[8] == 'others') {
-        alert('other education');
         this.other_education = true;
       } else {
         this.other_education = false;
       }
     },
     showServiceCameFor: function showServiceCameFor() {
-      alert('other service came for');
-
       if (this.answers[9] == 'others') {
-        alert('other service received');
         this.other_service_came_for = true;
       } else {
         this.other_service_came_for = false;
       }
     },
     showServiceReceived: function showServiceReceived() {
-      alert('other service received');
-
       if (this.answers[10] == 'others') {
-        alert('other service received');
         this.other_service_received = true;
       } else {
         this.other_service_received = false;
@@ -3152,7 +3139,7 @@ __webpack_require__.r(__webpack_exports__);
         answers: this.answers,
         questionaire_code: this.questionaire_code
       }).then(function (response) {
-        return _this.loading = false, alert("Exit Form Submitted!!"), console.log(response) //  this.results = response.data
+        return _this.loading = false, console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -3191,14 +3178,24 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    getWards: function getWards() {
+    getHealthFacilities: function getHealthFacilities() {
       var _this5 = this;
+
+      console.log(this.selected_lga);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getHealthFacilites').then(function (response) {
+        return console.log(response), _this5.health_facilites = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getWards: function getWards() {
+      var _this6 = this;
 
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return console.log(response), _this5.wards = response.data.wards, _this5.selected_spo_email = response.data.spo_email.SPO_Email, _this5.selected_spo = response.data.spo_email.SPO, console.log(_this5.selected_spo_email) //  console.log(this.wards)
+        return console.log(response), _this6.wards = response.data.wards, _this6.selected_spo_email = response.data.spo_email.SPO_Email, _this6.selected_spo = response.data.spo_email.SPO, console.log(_this6.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -3206,22 +3203,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCBOs: function getCBOs() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this6.loading = false, // console.log(this.lgas),
-        _this6.cbos = response.data, console.log(_this6.cbos) //  this.results = response.data
+        return _this7.loading = false, // console.log(this.lgas),
+        _this7.cbos = response.data, console.log(_this7.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -3229,8 +3226,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this7.loading = false, // console.log(this.lgas),
-        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this8.loading = false, // console.log(this.lgas),
+        _this8.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -3240,6 +3237,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadStates();
     this.loadQuestions();
+    this.getHealthFacilities();
     console.log('Component mounted.');
   }
 });
@@ -41106,27 +41104,53 @@ var render = function() {
                 _vm._v(_vm._s(_vm.questions[6].question))
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.answers[6],
-                    expression: "answers[6]"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.answers[6] },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.answers[6],
+                      expression: "answers[6]"
                     }
-                    _vm.$set(_vm.answers, 6, $event.target.value)
+                  ],
+                  staticClass: "form-control ",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.answers,
+                        6,
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
                   }
-                }
-              })
+                },
+                [
+                  _c("option", { attrs: { selected: "selected" } }, [
+                    _vm._v("Select Health Facility")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.health_facilities, function(health_facility) {
+                    return _c(
+                      "option",
+                      { key: health_facility.index, attrs: { value: "" } },
+                      [_vm._v(_vm._s(health_facility.Facility))]
+                    )
+                  })
+                ],
+                2
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
@@ -41145,7 +41169,7 @@ var render = function() {
                       expression: "answers[7]"
                     }
                   ],
-                  staticClass: "form-control ",
+                  staticClass: "form-control",
                   on: {
                     change: [
                       function($event) {
@@ -41194,7 +41218,7 @@ var render = function() {
                     _vm._v("Business Man/Woman")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Farmer/Agric Work" } }, [
+                  _c("option", { attrs: { value: "Farmer/Agric Worke" } }, [
                     _vm._v("Farmer/Agric Worker")
                   ]),
                   _vm._v(" "),
@@ -41204,7 +41228,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "option",
-                    { attrs: { value: "Religious Leader/Missionary" } },
+                    { attrs: { value: "Religious Leader/Missionar" } },
                     [_vm._v("Religious Leader/Missionary")]
                   ),
                   _vm._v(" "),
@@ -41216,7 +41240,7 @@ var render = function() {
                     _vm._v("Student")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "others" } }, [
+                  _c("option", { attrs: { value: "" } }, [
                     _vm._v("Other (Specify...)")
                   ])
                 ]
