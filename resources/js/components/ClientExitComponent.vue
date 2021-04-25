@@ -7,8 +7,14 @@
 
                 <div class="form-group">
                     <label for="">{{questions[0].question}}</label>  
-                    <p @click="access_questions()"><input  type="radio" value="yes" v-model="answers[0]"  id="">  Yes </p>
-                    <p><input  type="radio" value="no" v-model="answers[0]" id="">  No </p>
+                    <p >
+                        <input @click="access_questions($event)" type="radio" value="yes" v-model="answers[0]"  id="">  Yes 
+                    
+                    </p>
+                    <p>
+                        <input @click="access_questions($event)"  type="radio" value="no" v-model="answers[0]" id="">  No 
+                        
+                    </p>
                 </div>
 
         <div v-if="choose" class="choose">
@@ -397,8 +403,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>{{questions[22].question}}</label>
-                            <select v-model="answers[22]" class="form-control">
+                            <label for="satisfied with services">{{questions[22].question}}</label>
+                            <select @change="satisfied_service()" v-model="answers[22]" class="form-control">
                                 <option value="Very dissatisfied">Very dissatisfied</option>
                                 <option value="Somewhat dissatisfied">Somewhat dissatisfied</option>
                                 <option value="Neither dissatisfied nor satisfied">Neither dissatisfied nor satisfied</option>
@@ -412,17 +418,17 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>{{questions[23].question}}</label>
-                            <select class="form-control">
+                            <select @change="responsiblechoice()" v-model="answers[23]" class="form-control">
                                 <option value="">--Select Option--</option>
                                 <option value="Poor Facility Worker Attitude">Poor Facility Worker Attitude</option>
                                 <option value="Long Waiting Time">Long Waiting Time</option>
                                 <option value="Lack of Drugs">Lack of Drugs</option>  
                                 <option value="Shortage of Manpower/Personnel">Shortage of Manpower/Personnel</option>
-                                <option value="Others">Others</option>                                                    
+                                <option value="others">Others</option>                                                    
                             </select>
                         </div>
-                        <div class="">
-                            <label for="">Others</label>
+                        <div v-if="responsible_choice" class="">
+                            <label for="">Kindly Specify</label>
                             <input type="text" v-model="answers[23]" class="form-control">
                         </div>
                     </div>
@@ -438,9 +444,9 @@
                 <div class="row">
 
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label>{{questions[24].question}}</label>
-                            <input type="text" v-model="answers[24]" class="form-control">
+                        <div v-if="satisfied" class="form-group">
+                            <label for="satisfied with services">{{questions[24].question}}</label>
+                            <input  type="text" v-model="answers[24]" class="form-control">
                         </div>
 
 
@@ -498,6 +504,8 @@ import axios from 'axios';
                         ' ',
                         'no',
                     ],
+                    satisfied: false,
+                    responsible_choice: false,
                     given_season: false,
                     givenarthemisinin_yes: false,
                     given_arthemisinin: false,
@@ -524,15 +532,17 @@ import axios from 'axios';
         methods: {
 
             access_questions(){
-                alert('clicked yes');
 
-                this.choose = true;
+                if (event.target.value == 'yes') {
 
-                // if (answers[0] == 'yes') {
-              
-                // } else {
-                    
-                // }
+                    this.choose = true;
+
+                }if(event.target.value == 'no'){
+
+                    this.choose = false;
+
+                }
+
             },
             
             givenarthemisinin(){
@@ -547,6 +557,30 @@ import axios from 'axios';
 
                 }else{
 
+                }
+                
+            },
+            responsiblechoice(){
+                if (this.answers[23]=='others') {
+
+                    this.responsible_choice = true;
+                    
+                }else{
+
+                    this.responsible_choice = false;
+                }
+                
+            },
+
+            
+            satisfied_service(){
+                if (this.answers[22]=='Very Satisfied') {
+
+                    this.satisfied = true;
+                    
+                }else{
+
+                    this.satisfied = false;
                 }
                 
             },

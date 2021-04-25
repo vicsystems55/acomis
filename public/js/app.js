@@ -2956,6 +2956,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2964,6 +2970,8 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      satisfied: false,
+      responsible_choice: false,
       given_season: false,
       givenarthemisinin_yes: false,
       given_arthemisinin: false,
@@ -2988,10 +2996,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     access_questions: function access_questions() {
-      alert('clicked yes');
-      this.choose = true; // if (answers[0] == 'yes') {
-      // } else {
-      // }
+      if (event.target.value == 'yes') {
+        this.choose = true;
+      }
+
+      if (event.target.value == 'no') {
+        this.choose = false;
+      }
     },
     givenarthemisinin: function givenarthemisinin() {
       if (event.target.value == 'no') {
@@ -3003,6 +3014,20 @@ __webpack_require__.r(__webpack_exports__);
         this.given_arthemisinin = false;
         this.givenarthemisinin_yes = true;
       } else {}
+    },
+    responsiblechoice: function responsiblechoice() {
+      if (this.answers[23] == 'others') {
+        this.responsible_choice = true;
+      } else {
+        this.responsible_choice = false;
+      }
+    },
+    satisfied_service: function satisfied_service() {
+      if (this.answers[22] == 'Very Satisfied') {
+        this.satisfied = true;
+      } else {
+        this.satisfied = false;
+      }
     },
     givenseason: function givenseason() {
       if (event.target.value == 'yes') {
@@ -40820,36 +40845,29 @@ var render = function() {
         _vm._v(_vm._s(_vm.questions[0].question))
       ]),
       _vm._v(" "),
-      _c(
-        "p",
-        {
+      _c("p", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.answers[0],
+              expression: "answers[0]"
+            }
+          ],
+          attrs: { type: "radio", value: "yes", id: "" },
+          domProps: { checked: _vm._q(_vm.answers[0], "yes") },
           on: {
             click: function($event) {
-              return _vm.access_questions()
+              return _vm.access_questions($event)
+            },
+            change: function($event) {
+              return _vm.$set(_vm.answers, 0, "yes")
             }
           }
-        },
-        [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.answers[0],
-                expression: "answers[0]"
-              }
-            ],
-            attrs: { type: "radio", value: "yes", id: "" },
-            domProps: { checked: _vm._q(_vm.answers[0], "yes") },
-            on: {
-              change: function($event) {
-                return _vm.$set(_vm.answers, 0, "yes")
-              }
-            }
-          }),
-          _vm._v("  Yes ")
-        ]
-      ),
+        }),
+        _vm._v("  Yes \n                    \n                    ")
+      ]),
       _vm._v(" "),
       _c("p", [
         _c("input", {
@@ -40864,12 +40882,15 @@ var render = function() {
           attrs: { type: "radio", value: "no", id: "" },
           domProps: { checked: _vm._q(_vm.answers[0], "no") },
           on: {
+            click: function($event) {
+              return _vm.access_questions($event)
+            },
             change: function($event) {
               return _vm.$set(_vm.answers, 0, "no")
             }
           }
         }),
-        _vm._v("  No ")
+        _vm._v("  No \n                        \n                    ")
       ])
     ]),
     _vm._v(" "),
@@ -42659,7 +42680,9 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[22].question))]),
+                _c("label", { attrs: { for: "satisfied with services" } }, [
+                  _vm._v(_vm._s(_vm.questions[22].question))
+                ]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -42674,23 +42697,28 @@ var render = function() {
                     ],
                     staticClass: "form-control",
                     on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.answers,
-                          22,
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.answers,
+                            22,
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.satisfied_service()
+                        }
+                      ]
                     }
                   },
                   [
@@ -42728,66 +42756,140 @@ var render = function() {
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v(_vm._s(_vm.questions[23].question))]),
                 _vm._v(" "),
-                _vm._m(8)
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.answers[23],
+                        expression: "answers[23]"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.answers,
+                            23,
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.responsiblechoice()
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("--Select Option--")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "Poor Facility Worker Attitude" } },
+                      [_vm._v("Poor Facility Worker Attitude")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Long Waiting Time" } }, [
+                      _vm._v("Long Waiting Time")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Lack of Drugs" } }, [
+                      _vm._v("Lack of Drugs")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "Shortage of Manpower/Personnel" } },
+                      [_vm._v("Shortage of Manpower/Personnel")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "others" } }, [
+                      _vm._v("Others")
+                    ])
+                  ]
+                )
               ]),
               _vm._v(" "),
-              _c("div", {}, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[23],
-                      expression: "answers[23]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[23] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _vm.responsible_choice
+                ? _c("div", {}, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Kindly Specify")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[23],
+                          expression: "answers[23]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.answers[23] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 23, $event.target.value)
+                        }
                       }
-                      _vm.$set(_vm.answers, 23, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
-          _vm._m(9),
+          _vm._m(8),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[24].question))]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answers[24],
-                      expression: "answers[24]"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.answers[24] },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _vm.satisfied
+                ? _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "satisfied with services" } }, [
+                      _vm._v(_vm._s(_vm.questions[24].question))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answers[24],
+                          expression: "answers[24]"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.answers[24] },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.answers, 24, $event.target.value)
+                        }
                       }
-                      _vm.$set(_vm.answers, 24, $event.target.value)
-                    }
-                  }
-                })
-              ])
+                    })
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
@@ -42923,32 +43025,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [_c("hr")])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("select", { staticClass: "form-control" }, [
-      _c("option", { attrs: { value: "" } }, [_vm._v("--Select Option--")]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Poor Facility Worker Attitude" } }, [
-        _vm._v("Poor Facility Worker Attitude")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Long Waiting Time" } }, [
-        _vm._v("Long Waiting Time")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Lack of Drugs" } }, [
-        _vm._v("Lack of Drugs")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Shortage of Manpower/Personnel" } }, [
-        _vm._v("Shortage of Manpower/Personnel")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Others" } }, [_vm._v("Others")])
-    ])
   },
   function() {
     var _vm = this
