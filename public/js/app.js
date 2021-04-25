@@ -2964,6 +2964,7 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      given_season: false,
       givenarthemisinin_yes: false,
       given_arthemisinin: false,
       tested_malaria: false,
@@ -2995,11 +2996,22 @@ __webpack_require__.r(__webpack_exports__);
     givenarthemisinin: function givenarthemisinin() {
       if (event.target.value == 'no') {
         this.given_arthemisinin = true;
+        this.givenarthemisinin_yes = false;
       }
 
       if (event.target.value == 'yes') {
+        this.given_arthemisinin = false;
         this.givenarthemisinin_yes = true;
       } else {}
+    },
+    givenseason: function givenseason() {
+      if (event.target.value == 'yes') {
+        this.given_season = true;
+      }
+
+      if (event.target.value == 'no') {
+        this.given_season = false;
+      }
     },
     testedmalaria: function testedmalaria() {
       if (event.target.value == 'not sure') {
@@ -3011,7 +3023,9 @@ __webpack_require__.r(__webpack_exports__);
     testedmalariawhen: function testedmalariawhen() {
       if (event.target.value == 'yes') {
         this.tested_malaria_when = true;
-      } else {
+      }
+
+      if (event.target.value == 'not sure') {
         this.tested_malaria_when = false;
       }
     },
@@ -42189,6 +42203,9 @@ var render = function() {
                     attrs: { type: "radio", value: "yes", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[17], "yes") },
                     on: {
+                      click: function($event) {
+                        return _vm.givenseason($event)
+                      },
                       change: function($event) {
                         return _vm.$set(_vm.answers, 17, "yes")
                       }
@@ -42210,6 +42227,9 @@ var render = function() {
                     attrs: { type: "radio", value: "no", id: "" },
                     domProps: { checked: _vm._q(_vm.answers[17], "no") },
                     on: {
+                      click: function($event) {
+                        return _vm.givenseason($event)
+                      },
                       change: function($event) {
                         return _vm.$set(_vm.answers, 17, "no")
                       }
@@ -42221,11 +42241,13 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(_vm._s(_vm.questions[18].question))]),
-                _vm._v(" "),
-                _vm._m(4)
-              ])
+              _vm.given_season
+                ? _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v(_vm._s(_vm.questions[18].question))]),
+                    _vm._v(" "),
+                    _vm._m(4)
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -42272,11 +42294,14 @@ var render = function() {
                         expression: "answers[19]"
                       }
                     ],
-                    attrs: { type: "radio", value: "no", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[19], "no") },
+                    attrs: { type: "radio", value: "not sure", id: "" },
+                    domProps: { checked: _vm._q(_vm.answers[19], "not sure") },
                     on: {
+                      click: function($event) {
+                        return _vm.testedmalariawhen($event)
+                      },
                       change: function($event) {
-                        return _vm.$set(_vm.answers, 19, "no")
+                        return _vm.$set(_vm.answers, 19, "not sure")
                       }
                     }
                   }),
@@ -42293,14 +42318,11 @@ var render = function() {
                         expression: "answers[19]"
                       }
                     ],
-                    attrs: { type: "radio", value: "not sure", id: "" },
-                    domProps: { checked: _vm._q(_vm.answers[19], "not sure") },
+                    attrs: { type: "radio", value: "", id: "" },
+                    domProps: { checked: _vm._q(_vm.answers[19], "") },
                     on: {
-                      click: function($event) {
-                        return _vm.testedmalaria($event)
-                      },
                       change: function($event) {
-                        return _vm.$set(_vm.answers, 19, "not sure")
+                        return _vm.$set(_vm.answers, 19, "")
                       }
                     }
                   }),
@@ -42310,7 +42332,9 @@ var render = function() {
               _vm._v(" "),
               _vm.tested_malaria
                 ? _c("div", {}, [
-                    _c("label", { attrs: { for: "" } }, [_vm._v("Others")]),
+                    _c("label", { attrs: { for: "" } }, [
+                      _vm._v("Why (If no to above)")
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [

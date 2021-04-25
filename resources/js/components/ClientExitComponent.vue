@@ -285,14 +285,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="were you testes">{{questions[17].question}}</label>  
-                            <p><input type="radio" value="yes" v-model="answers[17]"  id="">  Yes </p>
-                            <p><input type="radio" value="no" v-model="answers[17]" id="">  No </p>
+                            <p><input @click="givenseason($event)" type="radio" value="yes" v-model="answers[17]"  id="">  Yes </p>
+                            <p><input  @click="givenseason($event)" type="radio" value="no" v-model="answers[17]" id="">  No </p>
                         </div>
 
                     </div>
 
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div v-if="given_season" class="form-group">
                             <label>{{questions[18].question}}</label>
                             <select class="form-control">
                             <option value="3-12 Months">3-12 Months</option>
@@ -319,11 +319,11 @@
                         <div class="form-group">
                             <label for="tested for malaria">{{questions[19].question}}</label>  
                             <p><input @click="testedmalariawhen($event)" type="radio" value="yes" v-model="answers[19]"  id="">  Yes </p>
-                            <p><input type="radio" value="no" v-model="answers[19]" id="">  No </p>
-                            <p><input @click="testedmalaria($event)"  type="radio" value="not sure" v-model="answers[19]" id="">  Not sure</p>
+                            <p><input @click="testedmalariawhen($event)" type="radio" value="not sure" v-model="answers[19]" id="">  No </p>
+                            <p><input   type="radio" value="" v-model="answers[19]" id="">  Not sure</p>
                         </div>
                         <div v-if="tested_malaria" class="">
-                            <label for="">Others</label>
+                            <label for="">Why (If no to above)</label>
                             <input type="text" v-model="answers[19]" class="form-control" placeholder="Why (If no to above)">
                         </div>
 
@@ -498,6 +498,7 @@ import axios from 'axios';
                         ' ',
                         'no',
                     ],
+                    given_season: false,
                     givenarthemisinin_yes: false,
                     given_arthemisinin: false,
                     tested_malaria: false,
@@ -538,13 +539,25 @@ import axios from 'axios';
                 if (event.target.value == 'no') {
 
                     this.given_arthemisinin = true;
+                    this.givenarthemisinin_yes = false;
                     
                 }if(event.target.value == 'yes'){
-
+                    this.given_arthemisinin = false;
                     this.givenarthemisinin_yes = true;
 
                 }else{
 
+                }
+                
+            },
+            givenseason(){
+                if (event.target.value == 'yes') {
+
+                    this.given_season = true;
+                    
+                }if((event.target.value == 'no')){
+
+                    this.given_season = false;
                 }
                 
             },
@@ -564,8 +577,9 @@ import axios from 'axios';
 
                     this.tested_malaria_when = true;
                     
-                }else{
+                }if(event.target.value == 'not sure'){
 
+                
                     this.tested_malaria_when = false;
                 }
                 
