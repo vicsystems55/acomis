@@ -78,7 +78,7 @@
                                 <option value="Religious Leader/Missionar">Religious Leader/Missionary</option>
                                 <option value="Youth Corp Member">Youth Corp Member</option>
                                 <option value="Student">Student</option>
-                                <option value="">Other (Specify...)</option> 
+                                <option value="others">Other (Specify...)</option> 
                             </select>
                     </div>
 
@@ -699,6 +699,8 @@ import axios from 'axios';
             }, 
 
             showOccupation(){
+
+     
                 
                 if (this.answers[7] == 'others') {
               
@@ -831,14 +833,16 @@ import axios from 'axios';
         getHealthFacilities(){
           
 
-                console.log(this.selected_lga);
+         
 
                  axios.get('/getHealthFacilites')
                .then((response)=>(
                 
-                    console.log(response),
+                    // console.log(response),
 
-                     this.health_facilites = response.data
+                     this.health_facilites = response.data,
+
+                        consoe.log(this.health_facilities)
 
              
              ))
@@ -938,9 +942,10 @@ import axios from 'axios';
         },
         mounted() {
 
+            this.getHealthFacilities()
             this.loadStates()
             this.loadQuestions()
-            this.getHealthFacilities()
+
             console.log('Component mounted.')
         },
 
@@ -949,13 +954,3 @@ import axios from 'axios';
     }
 </script>
 
-
-
-mkdir node
-cd node
-
-curl -O https://nodejs.org/dist/v11.15.0/node-v11.15.0-linux-x64.tar.gz
-tar -xvzf node-v11.15.0-linux-x64.tar.gz --strip-components=1
-
-export PATH=$HOME/node/bin:$PATH
-echo 'export PATH=$HOME/node/bin:$PATH' >> ~/.bashrc

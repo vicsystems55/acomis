@@ -3181,9 +3181,10 @@ __webpack_require__.r(__webpack_exports__);
     getHealthFacilities: function getHealthFacilities() {
       var _this5 = this;
 
-      console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getHealthFacilites').then(function (response) {
-        return console.log(response), _this5.health_facilites = response.data;
+        return (// console.log(response),
+          _this5.health_facilites = response.data, consoe.log(_this5.health_facilities)
+        );
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3235,9 +3236,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    this.getHealthFacilities();
     this.loadStates();
     this.loadQuestions();
-    this.getHealthFacilities();
     console.log('Component mounted.');
   }
 });
@@ -41240,7 +41241,7 @@ var render = function() {
                     _vm._v("Student")
                   ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "" } }, [
+                  _c("option", { attrs: { value: "others" } }, [
                     _vm._v("Other (Specify...)")
                   ])
                 ]
