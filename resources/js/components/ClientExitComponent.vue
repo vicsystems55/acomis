@@ -11,7 +11,7 @@
                     <p><input  type="radio" value="no" v-model="answers[0]" id="">  No </p>
                 </div>
 
-<div v-if="choose" class="choose">
+        <div v-if="choose" class="choose">
                     <div class="row">
                     <div class="col-md-4">
                         <label for="">{{questions[1].question}}</label>

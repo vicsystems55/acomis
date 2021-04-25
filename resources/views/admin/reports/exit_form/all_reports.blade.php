@@ -10,7 +10,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-        khkh
+        
              <client-exit-component></client-exit-component>
         </div>
     </div>  

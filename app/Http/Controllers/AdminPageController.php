@@ -8,6 +8,8 @@ use DB;
 
 use App\Ward;
 
+use App\Notification;
+
 class AdminPageController extends Controller
 {
     /**
@@ -21,6 +23,8 @@ class AdminPageController extends Controller
 
         $health_facilities = DB::table('health_facilities')->latest()->get();
 
+        $notifications = Notification::where('category', 'admin_activity')->latest()->get();
+
         $data = [
             'category_name' => 'dashboard',
             'page_name' => 'sales',
@@ -29,7 +33,8 @@ class AdminPageController extends Controller
         ];
         // $pageName = 'analytics';
         return view('admin.home',[
-            'health_facilities' => $health_facilities
+            'health_facilities' => $health_facilities,
+            'notifications' => $notifications
         ])->with($data);
     }
 
