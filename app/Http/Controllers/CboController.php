@@ -12,9 +12,12 @@ class CboController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAllCBOs()
     {
         //
+        $cbos = Cbo::latest()->paginate(6);
+
+        return $cbos;
     }
 
     /**
@@ -36,6 +39,10 @@ class CboController extends Controller
     public function store(Request $request)
     {
         //
+
+        $cbo = Cbo::create($request->all());
+
+        return $request->all();
     }
 
     /**

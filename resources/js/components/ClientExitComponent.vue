@@ -374,7 +374,7 @@
                     </div>
                     <div class="col-md-6">
 
-                        <div v-if="givenarthemisinin_yes" class="">
+                        <div v-if="givenarthemisinin_yes" class=" ">
                             <div class="form-group">
                                 <label for="">{{questions[21].question}}</label>  
                                 <p><input type="radio" value="yes" name="a" v-model="answers[21]"  id="">  Yes </p>

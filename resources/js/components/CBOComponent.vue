@@ -1,6 +1,25 @@
 <template>
     <div class="container">
 
+         <h2 class="display-4">CBOs</h2>
+
+            <div class="row">
+                <div v-for="cbo in cbos"  :key="cbo.id" class="col-md-3">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <span>CBO Name: </span> <br>
+                            <h6>lll</h6>
+                            <span>Contact Person: </span> <br>
+                            <h6>lll</h6>
+                            <span>Email: </span> <br>
+                            <h6>lll</h6>
+                            <span>LGA</span> <br>
+                            <h6>lll</h6>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
         <h2 class="display-4">Add CBO</h2>
 
         <div class="row">
@@ -43,7 +62,7 @@
                 <div class="form-group">
                     <label for="">LGA</label>
                       <select class="form-control" v-model="selected_lga" name="" id="">
-                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
+                        <option v-for="dlga in dlgas" :key="dlga.id" >{{dlga.name}}</option>
                     </select>
                 </div>
             </div>
@@ -64,7 +83,7 @@
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
+            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating CBO Please wait...':'Create Account'}}</button>
         </div>
 
 
@@ -76,6 +95,8 @@
 
 <script>
 import axios from 'axios';
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
 
 
 
@@ -84,7 +105,7 @@ import axios from 'axios';
         data() {
             return {
                 states: [],
-                lgas: [],
+                dlgas: [],
                 wards:[],
                 cbos:[],
                 spos:[],
@@ -97,6 +118,12 @@ import axios from 'axios';
                 selected_spo_email: '',
                 loading: false,
                 msg: 'Loading...',
+                cbo_name: '',
+                contact_person: '',
+                email: '',
+                phone: '',
+              
+                addresss: '',
 
             }
         },
@@ -104,25 +131,31 @@ import axios from 'axios';
 
 
             create_cbo(){
-
+                
+              
                 this.loading = true;
 
-            axios.get('/create_cbo',{
+            axios.post('/create_cbo',{
                 cbo_name: this.cbo_name,
                 contact_person: this.contact_person,
                 email: this.email,
                 phone: this.phone,
-                selected_state: this.selected_state,
-                selected_lga: this.selected_lga,
+                state: this.selected_state,
+                lga: this.selected_lga,
                 address: this.addresss
             }).then((response)=>(
                     this.loading = false,
-                    this.states = response.data,
 
-                    console.log(this.states)
+                      this.$vToastify.success("CBO Profile created successfully"),
+                  
+                 
+
+                    console.log(response)
                     //  this.results = response.data
 
                 )).catch(function (error) {
+                  
+
                         console.log(error);
                 });
 
@@ -154,10 +187,11 @@ import axios from 'axios';
                  })
                .then((response)=>(
                     
+                    this.dlgas = response.data,
                 
-                    console.log(this.states),
+                    console.log(this.dlgas)
 
-                     this.lgas = response.data
+                   
                     //  this.results = response.data
                     
              
@@ -201,18 +235,11 @@ import axios from 'axios';
                 });
 
         },
-        getCBOs(){
-            this.loading = true
-
-                console.log(this.selected_lga);
-
-                 axios.post('/getCBOs',{
-                     lga: this.selected_lga,
-                 })
+        getAllCBOs(){
+        
+                 axios.get('/getAllCBOs')
                .then((response)=>(
-                    
-                    this.loading = false,
-                
+
                     // console.log(this.lgas),
 
                      this.cbos = response.data,
@@ -258,7 +285,9 @@ import axios from 'axios';
         },
         },
         mounted() {
+        
             this.loadStates()
+                this.getAllCBOs()
             console.log('Component mounted.')
         },
         

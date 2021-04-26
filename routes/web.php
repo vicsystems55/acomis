@@ -44,6 +44,10 @@ Route::post('/submit_exit_form', 'ClientExitQuestionaireController@submit_exit_f
 
 Route::post('/create_health_facility', 'HealthFacilityController@store');
 
+Route::post('/create_cbo', 'CBOController@store');
+
+Route::get('/getAllCBOs', 'CboController@getAllCBOs');
+
 Route::post('/create_ward', 'WardController@store');
 
 Route::get('/import_wards', 'WardController@import_wards');

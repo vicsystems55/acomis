@@ -13,6 +13,8 @@ class Cbo extends Model
     {
         # code...
 
+        
+
         return $this->hasMany('App\Cat', 'cbo_id', 'id');
     }
 }
