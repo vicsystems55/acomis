@@ -59,7 +59,7 @@
                              <select v-model="answers[6]" class="form-control select2" >
                                 <option selected="selected">Select Health Facility</option>
 
-                                <option v-for="health_facility in health_facilities" :key="health_facility.id" value="">{{health_facility.Facility}}</option>
+                                <option v-for="health_facility in health_facilities" :key="health_facility.id" v-bind:value="health_facility.Facility">{{health_facility.Facility}}</option>
 
                              </select>
                     </div>
@@ -240,17 +240,14 @@
                     <div v-if="show_Swallowed" class="col-md-6">
                         <div class="form-group">
                             <label>{{questions[14].question}}</label>
-                            <select class="form-control">
+                            <select v-model="answers[14]" class="form-control">
                                 <option value="After 13 Weeks (Quickening)">After 13 Weeks (Quickening)</option>
                                 <option value="Once Every">Once Every</option>
                                 <option value="Once Every 2 Months">Once Every 2 Months</option>
                                 <option value="Once Every 3 Months">Once Every 3 Months</option>
                              </select>
                         </div>
-                        <div v-if="show_Service" class="">
-                            <label for="">Please indicate</label>
-                            <input type="text" v-model="answers[27]" class="form-control">
-                        </div>
+  
 
                     </div>
 
@@ -495,21 +492,7 @@ import axios from 'axios';
                     questions: [],
                     question_ids: [],
                     health_facilities: [],
-                    answers: [
-                        'no',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        ' ',
-                        'no',
-                    ],
+                    answers: [],
                     satisfied: false,
                     responsible_choice: false,
                     given_season: false,
@@ -758,6 +741,9 @@ import axios from 'axios';
                .then((response)=>(
                     this.loading = false,
                   
+                    alert('Questionaire Submitted'),
+
+
                     console.log(response)
                     //  this.results = response.data
                     

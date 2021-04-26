@@ -47,27 +47,39 @@ class ClientExitQuestionaireController extends Controller
 
         $questionaire_code = rand(123, 999);
 
-        for ($i=0; $i < count($request->answers); $i++) { 
+        for ($i=0; $i<5; $i++) { 
 
-        $entry = ClientExitQuestionaire::Create([
-            'cbo_id' => Auth::user()->id,
-            'questionaire_code' => $questionaire_code,
-            'question_id' => $request->questions[$i]['id'],
-            'questions' => $request->questions[$i]['question'],
-            'answers' => $request->answers[$i],
-            'status' => 'answered',
-        ]);
+       
+
+            $entry = ClientExitQuestionaire::Create([
+                'cbo_id' => Auth::user()->id,
+                'questionaire_code' => $questionaire_code,
+                'question_id' => $request->questions[$i]['id'],
+                'questions' => $request->questions[$i]['question'],
+                'answers' => $request->answers[$i],
+                'status' => 'answered',
+            ]);
             
         }
 
-        $notification = Notification::create([
-            'user_id' => $user_id,
-            'title' => "New Questionaire Received",
-            'body' => 'A new questionaire has just been received it questionaire code : ' .$questionaire_code
+        // $notification = Notification::create([
+        //     'user_id' => $user_id,
+        //     'title' => "New Questionaire Received",
+        //     'body' => 'A new questionaire has just been received it questionaire code : ' .$questionaire_code
           
-        ]);
+        // ]);
 
-        return count($request->answers);
+        // return $request->questions[0]['question'];
+
+        // return $request->answers[0];
+
+        // return count($request->questions);
+
+        return $entry;
+
+
+
+
        
 
 

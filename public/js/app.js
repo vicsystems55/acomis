@@ -2964,9 +2964,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2975,7 +2972,7 @@ __webpack_require__.r(__webpack_exports__);
       questions: [],
       question_ids: [],
       health_facilities: [],
-      answers: ['no', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'no'],
+      answers: [],
       satisfied: false,
       responsible_choice: false,
       given_season: false,
@@ -3139,7 +3136,7 @@ __webpack_require__.r(__webpack_exports__);
         answers: this.answers,
         questionaire_code: this.questionaire_code
       }).then(function (response) {
-        return _this.loading = false, console.log(response) //  this.results = response.data
+        return _this.loading = false, alert('Questionaire Submitted'), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -41145,7 +41142,10 @@ var render = function() {
                   _vm._l(_vm.health_facilities, function(health_facility) {
                     return _c(
                       "option",
-                      { key: health_facility.id, attrs: { value: "" } },
+                      {
+                        key: health_facility.id,
+                        domProps: { value: health_facility.Facility }
+                      },
                       [_vm._v(_vm._s(health_facility.Facility))]
                     )
                   })
@@ -42029,43 +42029,68 @@ var render = function() {
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v(_vm._s(_vm.questions[14].question))]),
                     _vm._v(" "),
-                    _vm._m(1)
-                  ]),
-                  _vm._v(" "),
-                  _vm.show_Service
-                    ? _c("div", {}, [
-                        _c("label", { attrs: { for: "" } }, [
-                          _vm._v("Please indicate")
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.answers[14],
+                            expression: "answers[14]"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.answers,
+                              14,
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "After 13 Weeks (Quickening)" } },
+                          [_vm._v("After 13 Weeks (Quickening)")]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Once Every" } }, [
+                          _vm._v("Once Every")
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.answers[27],
-                              expression: "answers[27]"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.answers[27] },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.answers, 27, $event.target.value)
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e()
+                        _c(
+                          "option",
+                          { attrs: { value: "Once Every 2 Months" } },
+                          [_vm._v("Once Every 2 Months")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "Once Every 3 Months" } },
+                          [_vm._v("Once Every 3 Months")]
+                        )
+                      ]
+                    )
+                  ])
                 ])
               : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-4" }, [
@@ -42228,7 +42253,7 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
@@ -42291,13 +42316,13 @@ var render = function() {
                 ? _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v(_vm._s(_vm.questions[18].question))]),
                     _vm._v(" "),
-                    _vm._m(4)
+                    _vm._m(3)
                   ])
                 : _vm._e()
             ])
           ]),
           _vm._v(" "),
-          _vm._m(5),
+          _vm._m(4),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-4" }, [
@@ -42470,7 +42495,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(6),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42700,7 +42725,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(7),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42882,7 +42907,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(8),
+          _vm._m(7),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-6" }, [
@@ -42970,26 +42995,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [_c("hr")])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("select", { staticClass: "form-control" }, [
-      _c("option", { attrs: { value: "After 13 Weeks (Quickening)" } }, [
-        _vm._v("After 13 Weeks (Quickening)")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Once Every" } }, [_vm._v("Once Every")]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Once Every 2 Months" } }, [
-        _vm._v("Once Every 2 Months")
-      ]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "Once Every 3 Months" } }, [
-        _vm._v("Once Every 3 Months")
-      ])
-    ])
   },
   function() {
     var _vm = this
