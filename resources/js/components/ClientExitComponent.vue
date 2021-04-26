@@ -377,14 +377,14 @@
                         <div v-if="givenarthemisinin_yes" class="">
                             <div class="form-group">
                                 <label for="">{{questions[21].question}}</label>  
-                                <p><input type="radio" value="yes" v-model="answers[21]"  id="">  Yes </p>
+                                <p><input type="radio" value="yes" name="a" v-model="answers[21]"  id="">  Yes </p>
                             </div>
                             <label for="">Kindly State Type of tablet, timing accuracy and adherance, 24 or 6 tablets 3 days</label>
                             <input type="text" v-model="answers[21]" class="form-control" placeholder="Please specify">
 
                             <div class="form-group">
                                 <label for="">{{questions[21].question}}</label>  
-                                <p><input type="radio" value="yes" v-model="answers[21]"  id="">  No </p>
+                                <p><input type="radio" value="yes" name="a" v-model="answers[21]"  id="">  No </p>
                             </div>
                             <label for="">If No why?</label>
                             <input type="text" v-model="answers[21]" class="form-control" placeholder="Please specify">

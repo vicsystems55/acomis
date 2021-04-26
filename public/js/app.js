@@ -42630,7 +42630,12 @@ var render = function() {
                               expression: "answers[21]"
                             }
                           ],
-                          attrs: { type: "radio", value: "yes", id: "" },
+                          attrs: {
+                            type: "radio",
+                            value: "yes",
+                            name: "a",
+                            id: ""
+                          },
                           domProps: { checked: _vm._q(_vm.answers[21], "yes") },
                           on: {
                             change: function($event) {
@@ -42685,7 +42690,12 @@ var render = function() {
                               expression: "answers[21]"
                             }
                           ],
-                          attrs: { type: "radio", value: "yes", id: "" },
+                          attrs: {
+                            type: "radio",
+                            value: "yes",
+                            name: "a",
+                            id: ""
+                          },
                           domProps: { checked: _vm._q(_vm.answers[21], "yes") },
                           on: {
                             change: function($event) {
