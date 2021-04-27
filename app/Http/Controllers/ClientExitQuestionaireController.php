@@ -62,12 +62,12 @@ class ClientExitQuestionaireController extends Controller
             
         }
 
-        // $notification = Notification::create([
-        //     'user_id' => $user_id,
-        //     'title' => "New Questionaire Received",
-        //     'body' => 'A new questionaire has just been received it questionaire code : ' .$questionaire_code
+        $notification = Notification::create([
+            'user_id' => $user_id,
+            'title' => "New Questionaire Received",
+            'body' => 'A new questionaire has just been received it questionaire code : ' .$questionaire_code
           
-        // ]);
+        ]);
 
         // return $request->questions[0]['question'];
 
