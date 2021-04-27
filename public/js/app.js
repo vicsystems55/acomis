@@ -2207,6 +2207,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -22540,24 +22544,30 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("CBOs")]),
     _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.allcbos, function(cbo) {
-          return _c("tr", { key: cbo.id }, [
-            _c("td", [_vm._v("*")]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(cbo.cbo_name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(cbo.email))]),
-            _vm._v(" "),
-            _vm._m(1, true)
-          ])
-        }),
-        0
-      )
+    _c("div", { staticClass: "table-responsive p-1" }, [
+      _c("table", { staticClass: "table" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.allcbos, function(cbo) {
+            return _c("tr", { key: cbo.id }, [
+              _c("td", [_vm._v("*")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(cbo.cbo_name))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(cbo.email))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(cbo.phone))]),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ])
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _vm._m(2),
@@ -22833,7 +22843,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("CBO Email")]),
       _vm._v(" "),
-      _c("th", [_vm._v("LGA")])
+      _c("th", [_vm._v("Temp Password")])
     ])
   },
   function() {

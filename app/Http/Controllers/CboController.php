@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cbo;
+use App\User;
 use Illuminate\Http\Request;
 
 class CboController extends Controller
@@ -41,6 +42,13 @@ class CboController extends Controller
         //
 
         $cbo = Cbo::create($request->all());
+
+        $user = User::create([
+            'name' => $request->cbo_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->phone),
+            'role' => 'hcbo'
+        ]);
 
         return $cbo;
     }

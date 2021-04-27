@@ -3,26 +3,30 @@
 
          <h2 class="display-4">CBOs</h2>
 
-        <table class="table">
-            <thead>
-                <th>#</th>
-                <th>CBO Name</th>
-                <th>CBO Email</th>
-                <th>LGA</th>
-            </thead>
-            <tbody>
-                <tr v-for="cbo in allcbos" :key="cbo.id">
+            <div class="table-responsive p-1">
+                <table class="table">
+                    <thead>
+                        <th>#</th>
+                        <th>CBO Name</th>
+                        <th>CBO Email</th>
+                        <th>Temp Password</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="cbo in allcbos" :key="cbo.id">
 
-                    <td>*</td>
-                    <td>{{cbo.cbo_name}}</td>
-                    <td>{{cbo.email}}</td>
-                    <td>
-                        <a class="btn btn-primary" href="">view more</a>
-                    </td>
-                    
-                </tr>
-            </tbody>
-        </table>
+                            <td>*</td>
+                            <td>{{cbo.cbo_name}}</td>
+                            <td>{{cbo.email}}</td>
+                            <td>{{cbo.phone}}</td>
+                            <td></td>
+                            <td>
+                                <a class="btn btn-primary" href="">view more</a>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="row">
                 <div class="col-md-3"></div>
