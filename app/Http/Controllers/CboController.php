@@ -15,7 +15,7 @@ class CboController extends Controller
     public function getAllCBOs()
     {
         //
-        $cbos = Cbo::latest()->paginate(6);
+        $cbos = Cbo::all();
 
         return $cbos;
     }
@@ -42,7 +42,7 @@ class CboController extends Controller
 
         $cbo = Cbo::create($request->all());
 
-        return $request->all();
+        return $cbo;
     }
 
     /**

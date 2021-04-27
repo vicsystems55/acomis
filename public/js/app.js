@@ -2102,6 +2102,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toastify */ "./node_modules/vue-toastify/dist/vue-toastify.umd.min.js");
 /* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_toastify__WEBPACK_IMPORTED_MODULE_1__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2202,9 +2212,12 @@ __webpack_require__.r(__webpack_exports__);
 Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       states: [],
-      dlgas: [],
+      lgas: [],
+      allcbos: [],
       wards: [],
       cbos: [],
       spos: [],
@@ -2220,9 +2233,8 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       cbo_name: '',
       contact_person: '',
       email: '',
-      phone: '',
-      addresss: ''
-    };
+      phone: ''
+    }, _defineProperty(_ref, "selected_state", ''), _defineProperty(_ref, "selected_lga", ''), _defineProperty(_ref, "address", ''), _ref;
   },
   methods: {
     create_cbo: function create_cbo() {
@@ -2236,9 +2248,9 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
         phone: this.phone,
         state: this.selected_state,
         lga: this.selected_lga,
-        address: this.addresss
+        address: this.address
       }).then(function (response) {
-        return _this.loading = false, _this.$vToastify.success("CBO Profile created successfully"), console.log(response) //  this.results = response.data
+        return _this.loading = false, _this.getAllCBOs(), _this.$vToastify.success("CBO Profile created successfully"), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -2261,7 +2273,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return _this3.dlgas = response.data, console.log(_this3.dlgas) //  this.results = response.data
+        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -2282,20 +2294,34 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
         console.log(error);
       });
     },
-    getAllCBOs: function getAllCBOs() {
+    getCBOs: function getCBOs() {
       var _this5 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllCBOs').then(function (response) {
-        return (// console.log(this.lgas),
-          _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+      this.loading = true;
+      console.log(this.selected_lga);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
+        lga: this.selected_lga
+      }).then(function (response) {
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getAllCBOs: function getAllCBOs() {
+      var _this6 = this;
 
-        );
+      alert('hi');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllCBOs').then(function (response) {
+        return _this6.allcbos = response.data, console.log(_this6.allcbos) //  this.results = response.data
+        ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -2303,8 +2329,8 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this6.loading = false, // console.log(this.lgas),
-        _this6.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this7.loading = false, // console.log(this.lgas),
+        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -22514,16 +22540,27 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("CBOs")]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(_vm.cbos, function(cbo) {
-        return _c("div", { key: cbo.id, staticClass: "col-md-3" }, [
-          _vm._m(0, true)
-        ])
-      }),
-      0
-    ),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.allcbos, function(cbo) {
+          return _c("tr", { key: cbo.id }, [
+            _c("td", [_vm._v("*")]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(cbo.cbo_name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(cbo.email))]),
+            _vm._v(" "),
+            _vm._m(1, true)
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(2),
     _vm._v(" "),
     _c("h2", { staticClass: "display-4" }, [_vm._v("Add CBO")]),
     _vm._v(" "),
@@ -22723,8 +22760,8 @@ var render = function() {
                 }
               }
             },
-            _vm._l(_vm.dlgas, function(dlga) {
-              return _c("option", { key: dlga.id }, [_vm._v(_vm._s(dlga.name))])
+            _vm._l(_vm.lgas, function(lga) {
+              return _c("option", { key: lga.id }, [_vm._v(_vm._s(lga.name))])
             }),
             0
           )
@@ -22789,32 +22826,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card shadow" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("span", [_vm._v("CBO Name: ")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h6", [_vm._v("lll")]),
-        _vm._v(" "),
-        _c("span", [_vm._v("Contact Person: ")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h6", [_vm._v("lll")]),
-        _vm._v(" "),
-        _c("span", [_vm._v("Email: ")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h6", [_vm._v("lll")]),
-        _vm._v(" "),
-        _c("span", [_vm._v("LGA")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h6", [_vm._v("lll")])
+    return _c("thead", [
+      _c("th", [_vm._v("#")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("CBO Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("CBO Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("LGA")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
+        _vm._v("view more")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" })
     ])
   }
 ]

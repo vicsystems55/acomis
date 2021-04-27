@@ -3,21 +3,29 @@
 
          <h2 class="display-4">CBOs</h2>
 
+        <table class="table">
+            <thead>
+                <th>#</th>
+                <th>CBO Name</th>
+                <th>CBO Email</th>
+                <th>LGA</th>
+            </thead>
+            <tbody>
+                <tr v-for="cbo in allcbos" :key="cbo.id">
+
+                    <td>*</td>
+                    <td>{{cbo.cbo_name}}</td>
+                    <td>{{cbo.email}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="">view more</a>
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+
             <div class="row">
-                <div v-for="cbo in cbos"  :key="cbo.id" class="col-md-3">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <span>CBO Name: </span> <br>
-                            <h6>lll</h6>
-                            <span>Contact Person: </span> <br>
-                            <h6>lll</h6>
-                            <span>Email: </span> <br>
-                            <h6>lll</h6>
-                            <span>LGA</span> <br>
-                            <h6>lll</h6>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-3"></div>
             </div> 
 
         <h2 class="display-4">Add CBO</h2>
@@ -62,7 +70,7 @@
                 <div class="form-group">
                     <label for="">LGA</label>
                       <select class="form-control" v-model="selected_lga" name="" id="">
-                        <option v-for="dlga in dlgas" :key="dlga.id" >{{dlga.name}}</option>
+                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
                     </select>
                 </div>
             </div>
@@ -105,7 +113,8 @@ Vue.use(VueToastify);
         data() {
             return {
                 states: [],
-                dlgas: [],
+                lgas: [],
+                allcbos: [],
                 wards:[],
                 cbos:[],
                 spos:[],
@@ -122,8 +131,9 @@ Vue.use(VueToastify);
                 contact_person: '',
                 email: '',
                 phone: '',
-              
-                addresss: '',
+                selected_state: '',
+                selected_lga: '',
+                address: '',
 
             }
         },
@@ -142,9 +152,12 @@ Vue.use(VueToastify);
                 phone: this.phone,
                 state: this.selected_state,
                 lga: this.selected_lga,
-                address: this.addresss
+                address: this.address
+
             }).then((response)=>(
                     this.loading = false,
+
+                    this.getAllCBOs(),
 
                       this.$vToastify.success("CBO Profile created successfully"),
                   
@@ -186,16 +199,12 @@ Vue.use(VueToastify);
                      state_name: this.selected_state,
                  })
                .then((response)=>(
-                    
-                    this.dlgas = response.data,
-                
-                    console.log(this.dlgas)
+                              
+                    console.log(this.states),
 
-                   
+                     this.lgas = response.data
                     //  this.results = response.data
-                    
-             
-             
+
              ))
                 .catch(function (error) {
                     console.log(error);
@@ -235,16 +244,45 @@ Vue.use(VueToastify);
                 });
 
         },
-        getAllCBOs(){
-        
-                 axios.get('/getAllCBOs')
-               .then((response)=>(
+        getCBOs(){
+            this.loading = true
 
+                console.log(this.selected_lga);
+
+                 axios.post('/getCBOs',{
+                     lga: this.selected_lga,
+                 })
+               .then((response)=>(
+                    
+                    this.loading = false,
+                
                     // console.log(this.lgas),
 
                      this.cbos = response.data,
 
                      console.log(this.cbos)
+                    //  this.results = response.data
+                    
+             
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
+                getAllCBOs(){
+            
+
+               alert('hi');
+
+                 axios.get('/getAllCBOs')
+               .then((response)=>(
+
+
+                     this.allcbos = response.data,
+
+                     console.log(this.allcbos)
                     //  this.results = response.data
                     
              
@@ -285,9 +323,9 @@ Vue.use(VueToastify);
         },
         },
         mounted() {
-        
+            
             this.loadStates()
-                this.getAllCBOs()
+            this.getAllCBOs()
             console.log('Component mounted.')
         },
         
