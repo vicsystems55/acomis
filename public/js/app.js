@@ -2539,6 +2539,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toastify */ "./node_modules/vue-toastify/dist/vue-toastify.umd.min.js");
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_toastify__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3021,6 +3023,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3192,7 +3196,7 @@ __webpack_require__.r(__webpack_exports__);
         answers: this.answers,
         questionaire_code: this.questionaire_code
       }).then(function (response) {
-        return _this.loading = false, alert('Questionaire Submitted'), console.log(response) //  this.results = response.data
+        return _this.loading = false, _this.$vToastify.success("Questionaire submitted successfully"), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);

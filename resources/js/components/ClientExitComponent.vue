@@ -481,6 +481,9 @@
 
 <script>
 import axios from 'axios';
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
+
 
 
 
@@ -741,7 +744,7 @@ import axios from 'axios';
                .then((response)=>(
                     this.loading = false,
                   
-                    alert('Questionaire Submitted'),
+                    this.$vToastify.success("Questionaire submitted successfully"),
 
 
                     console.log(response)
