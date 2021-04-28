@@ -170,6 +170,8 @@ Route::group(['middleware' => ['auth', 'me'], 'prefix' => 'me'], function(){
 Route::group(['middleware' => ['auth', 'hcbo'], 'prefix' => 'hcbo'], function(){
 
     Route::get('/', 'HcboPageController@index')->name('hcbo.home');
+    Route::get('/client_exit', 'HcboPageController@client_exit')->name('hcbo.client_exit');
+    
 
 });
 

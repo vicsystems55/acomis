@@ -21,10 +21,10 @@ class HcboPageController extends Controller
             'scrollspy_offset' => '',
         ];
         // $pageName = 'analytics';
-        return view('admin.home')->with($data);
+        return view('hcbo.home')->with($data);
     }
 
-    public function notifications()
+    public function client_exit()
     {
             
         $data = [
@@ -35,7 +35,7 @@ class HcboPageController extends Controller
 
         ];
         // $pageName = 'cards';
-        return view('pages.components.component_cards')->with($data);
+        return view('hcbo.client_exit')->with($data);
     }
 
     /**
