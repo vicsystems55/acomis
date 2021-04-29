@@ -2264,7 +2264,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       if (!response.data) {
         this.$vToastify.error("Email has been taken");
       } else {
-        this.$vToastify.success("CBO Profile created successfully");
+        this.$vToastify.success("CBO Profile created successfully <br> Proceed to login with <b>Email</b> and <b>Phone number</b>");
       }
     },
     loadStates: function loadStates() {
