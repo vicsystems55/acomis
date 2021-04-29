@@ -34,6 +34,8 @@ Vue.component('wards-component', require('./components/WardsComponent.vue').defa
 
 Vue.component('cbo-reports-component', require('./components/CBOReportsComponent.vue').default);
 
+Vue.component('cbo-monthly-report-component', require('./components/CBOMonthlyReportComponent.vue').default);
+
 Vue.component('spo-reports-component', require('./components/SPOReportsComponent.vue').default);
 
 Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);
