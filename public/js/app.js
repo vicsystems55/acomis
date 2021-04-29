@@ -2254,11 +2254,18 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
         lga: this.selected_lga,
         address: this.address
       }).then(function (response) {
-        return _this.loading = false, _this.getAllCBOs(), _this.$vToastify.success("CBO Profile created successfully"), console.log(response) //  this.results = response.data
+        return _this.loading = false, _this.checkEmail(response), _this.getAllCBOs(), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    checkEmail: function checkEmail(response) {
+      if (!response.data) {
+        this.$vToastify.error("Email has been taken");
+      } else {
+        this.$vToastify.success("CBO Profile created successfully");
+      }
     },
     loadStates: function loadStates() {
       var _this2 = this;
@@ -2316,7 +2323,6 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
     getAllCBOs: function getAllCBOs() {
       var _this6 = this;
 
-      alert('hi');
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllCBOs').then(function (response) {
         return _this6.allcbos = response.data, console.log(_this6.allcbos) //  this.results = response.data
         ;

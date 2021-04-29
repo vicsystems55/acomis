@@ -160,10 +160,12 @@ Vue.use(VueToastify);
 
             }).then((response)=>(
                     this.loading = false,
+                    
+                    this.checkEmail(response),
 
                     this.getAllCBOs(),
 
-                      this.$vToastify.success("CBO Profile created successfully"),
+                      
                   
                  
 
@@ -176,6 +178,13 @@ Vue.use(VueToastify);
                         console.log(error);
                 });
 
+            },
+            checkEmail(response){
+                if (!response.data) {
+                    this.$vToastify.error("Email has been taken");
+                }else{
+                    this.$vToastify.success("CBO Profile created successfully");
+                }
             },
             loadStates(){
 
@@ -278,7 +287,7 @@ Vue.use(VueToastify);
                 getAllCBOs(){
             
 
-               alert('hi');
+
 
                  axios.get('/getAllCBOs')
                .then((response)=>(

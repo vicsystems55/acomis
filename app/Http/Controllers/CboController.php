@@ -42,16 +42,35 @@ class CboController extends Controller
     {
         //
 
-        $cbo = Cbo::create($request->all());
+       
 
-        $user = User::create([
-            'name' => $request->cbo_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->phone),
-            'role' => 'hcbo'
-        ]);
+        if ($email = User::where('email', $request->email)->first()) {
+            # code...
+            $user_data = false;
 
-        return $user;
+            return $user_data;
+        }else{
+
+            $cbo = Cbo::create($request->all());
+
+            $user_data = User::create([
+                'name' => $request->cbo_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->phone),
+                'role' => 'hcbo'
+            ]);
+    
+            // $user =[
+            //     'validatedData' => $validatedData,
+            //     'user' => $user_data
+            // ];
+
+    
+            return $user_data;
+
+        }
+
+
     }
 
     /**
