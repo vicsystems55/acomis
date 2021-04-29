@@ -23287,11 +23287,11 @@ var staticRenderFns = [
         _c("thead", [
           _c("th", [_vm._v("#")]),
           _vm._v(" "),
-          _c("th", [_vm._v("CBO Name")]),
+          _c("th", [_vm._v("Report No.")]),
           _vm._v(" "),
-          _c("th", [_vm._v("CBO Email")]),
+          _c("th", [_vm._v("Date")]),
           _vm._v(" "),
-          _c("th", [_vm._v("Temp Password")])
+          _c("th", [_vm._v("Details")])
         ]),
         _vm._v(" "),
         _c("tbody")

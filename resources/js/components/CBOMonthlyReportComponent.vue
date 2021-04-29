@@ -7,9 +7,9 @@
                 <table class="table">
                     <thead>
                         <th>#</th>
-                        <th>CBO Name</th>
-                        <th>CBO Email</th>
-                        <th>Temp Password</th>
+                        <th>Report No.</th>
+                        <th>Date</th>
+                        <th>Details</th>
                     </thead>
                     <tbody>
      
