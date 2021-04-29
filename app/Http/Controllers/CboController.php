@@ -42,7 +42,7 @@ class CboController extends Controller
     {
         //
 
-        // $cbo = Cbo::create($request->all());
+        $cbo = Cbo::create($request->all());
 
         $user = User::create([
             'name' => $request->cbo_name,
