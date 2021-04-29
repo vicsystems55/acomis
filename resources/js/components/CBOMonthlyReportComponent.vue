@@ -32,52 +32,30 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Contact Person</label>
+                    <label for="">State</label>
                     <input type="text" v-model="contact_person" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Email</label>
+                    <label for="">LGA</label>
+                    <input type="text" v-model="email" class="form-control">
+                </div>
+            </div>
+
+    
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="form-group">
+                    <label for="">Upload Report</label>
                     <input type="text" v-model="email" class="form-control">
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" v-model="phone" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">State</label>
-                    <select @change="selectedState()" class="form-control" v-model="selected_state" name="" id="">
-                        <option v-for="state in states" :key="state.id" >{{state.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">LGA</label>
-                      <select class="form-control" v-model="selected_lga" name="" id="">
-                        <option v-for="lga in lgas" :key="lga.id" >{{lga.name}}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-       <div class="row">
-            <div class="col-md-10">
-                <div class="form-group">
-                    <label for="">Address</label>
-                    <input v-model="address" placeholder="Enter address" type="text" class="form-control">
-                </div>
-            </div>
-            
-        </div>
 
    
 
