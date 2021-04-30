@@ -2456,9 +2456,8 @@ Vue.use(v_uploader__WEBPACK_IMPORTED_MODULE_2___default.a, uploaderConfig); // v
 
 var uploaderConfig = {
   // file uploader service url
-  uploadFileUrl: '/upload_cbo_report',
+  uploadFileUrl: '',
   // file delete service url
-  deleteFileUrl: 'http://xxx/upload/deleteUploadFile',
   // set the way to show upload message(upload fail message)
   showMessage: function showMessage(vue, message) {
     //using v-dialogs to show message
@@ -23294,7 +23293,7 @@ var render = function() {
             _c("label", { attrs: { for: "" } }, [_vm._v("Upload Report")]),
             _vm._v(" "),
             _c("v-uploader", {
-              attrs: { method: "post", language: "en" },
+              attrs: { language: "en" },
               on: { done: _vm.uploadDone }
             })
           ],

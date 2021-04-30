@@ -50,7 +50,7 @@
             <div class="col-md-6 mx-auto">
                 <div class="form-group">
                     <label for="">Upload Report</label>
-                    <v-uploader method="post" @done="uploadDone"  language='en' ></v-uploader>
+                    <v-uploader  @done="uploadDone"  language='en' ></v-uploader>
                 </div>
             </div>
         </div>
@@ -86,9 +86,9 @@ Vue.use(vUploader, uploaderConfig);
 const uploaderConfig = {
   // file uploader service url
  
-  uploadFileUrl: '/upload_cbo_report',
+  uploadFileUrl: '',
   // file delete service url
-  deleteFileUrl: 'http://xxx/upload/deleteUploadFile',
+ 
   // set the way to show upload message(upload fail message)
   showMessage: (vue, message) => {
     //using v-dialogs to show message
