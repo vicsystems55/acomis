@@ -23411,7 +23411,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("h4", [_vm._v("Compose Report")]),
+    _c("h4", { staticClass: "text-center" }, [_vm._v("Compose Report")]),
     _vm._v(" "),
     _c("div", { staticClass: "edy", attrs: { id: "editorjs" } }),
     _vm._v(" "),

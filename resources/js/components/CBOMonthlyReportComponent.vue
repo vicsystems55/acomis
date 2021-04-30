@@ -56,7 +56,7 @@
         </div>
 
 
-    <h4>Compose Report</h4>
+    <h4 class="text-center">Compose Report</h4>
         <div id="editorjs" class="edy">
 
         </div>

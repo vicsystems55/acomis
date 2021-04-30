@@ -5,6 +5,456 @@
 <div class="layout-px-spacing">
 
     <div class="row layout-top-spacing">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">CBOs</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total CBOs</h5>
+                                <h3 class="acc-amount">470</h3>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">Health Facilities</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total H.F</h5>
+                                <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">SPO</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total SPOs</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">States</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Active States</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">CBOs</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total CBOs</h5>
+                                <h3 class="acc-amount">470</h3>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">Health Facilities</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total H.F</h5>
+                                <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">SPO</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total SPOs</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">States</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Active States</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">CBOs</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total CBOs</h5>
+                                <h3 class="acc-amount">470</h3>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">Health Facilities</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total H.F</h5>
+                                <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">SPO</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total SPOs</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">States</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Active States</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">CBOs</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total CBOs</h5>
+                                <h3 class="acc-amount">470</h3>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">Health Facilities</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total H.F</h5>
+                                <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Add More</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">SPO</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Total SPOs</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                
+                <div class="widget widget-account-invoice-one">
+
+                    <div class="widget-heading">
+                        <h5 class="">States</h5>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="invoice-box">
+                            
+                            <div class="acc-total-info">
+                                <h5>Active States</h5>
+                                <p class="acc-amount">70</p>
+                            </div>
+
+                        
+
+                            <div class="inv-action">
+                                <a href="" class="btn btn-dark">Summary</a>
+                                <a href="" class="btn btn-danger">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+
+    <div class="row layout-top-spacing">
 
         <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-chart-one">
@@ -83,117 +533,7 @@
         </div>
 
  
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            
-            <div class="widget widget-account-invoice-one">
 
-                <div class="widget-heading">
-                    <h5 class="">CBOs</h5>
-                </div>
-
-                <div class="widget-content">
-                    <div class="invoice-box">
-                        
-                        <div class="acc-total-info">
-                            <h5>Total CBOs</h5>
-                            <h3 class="acc-amount">470</h3>
-                        </div>
-
-                       
-
-                        <div class="inv-action">
-                            <a href="" class="btn btn-dark">Add More</a>
-                            <a href="" class="btn btn-danger">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            
-            <div class="widget widget-account-invoice-one">
-
-                <div class="widget-heading">
-                    <h5 class="">Health Facilities</h5>
-                </div>
-
-                <div class="widget-content">
-                    <div class="invoice-box">
-                        
-                        <div class="acc-total-info">
-                            <h5>Total H.F</h5>
-                            <p class="acc-amount">{{$health_facilities->count()?? 'No records yet..'}}</p>
-                        </div>
-
-                       
-
-                        <div class="inv-action">
-                            <a href="" class="btn btn-dark">Add More</a>
-                            <a href="" class="btn btn-danger">Transfer</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            
-            <div class="widget widget-account-invoice-one">
-
-                <div class="widget-heading">
-                    <h5 class="">SPO</h5>
-                </div>
-
-                <div class="widget-content">
-                    <div class="invoice-box">
-                        
-                        <div class="acc-total-info">
-                            <h5>Total SPOs</h5>
-                            <p class="acc-amount">70</p>
-                        </div>
-
-                       
-
-                        <div class="inv-action">
-                            <a href="" class="btn btn-dark">Summary</a>
-                            <a href="" class="btn btn-danger">Transfer</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            
-            <div class="widget widget-account-invoice-one">
-
-                <div class="widget-heading">
-                    <h5 class="">States</h5>
-                </div>
-
-                <div class="widget-content">
-                    <div class="invoice-box">
-                        
-                        <div class="acc-total-info">
-                            <h5>Active States</h5>
-                            <p class="acc-amount">70</p>
-                        </div>
-
-                       
-
-                        <div class="inv-action">
-                            <a href="" class="btn btn-dark">Summary</a>
-                            <a href="" class="btn btn-danger">Transfer</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
         <div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-table-one">
