@@ -27,19 +27,26 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
-                    <input type="text" v-model="cbo_name" class="form-control">
+                    <input type="text" v-model="cbo_name" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <input type="text" v-model="contact_person" class="form-control">
+                    <input type="text" v-model="cbo_state" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">LGA</label>
-                    <input type="text" v-model="email" class="form-control">
+                    <input type="text" v-model="cbo_lga" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="date" class="form-control">
                 </div>
             </div>
 
@@ -49,15 +56,37 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="form-group">
-                    <label for="">Upload Report</label>
-                    <v-uploader  @done="uploadDone"  language='en' ></v-uploader>
+                    <label class="text-center" for="">Upload Report</label>
+                     <VueFileAgent
+                        ref="vueFileAgent"
+                        :theme="'grid'"
+                        :multiple="false"
+                        :deletable="true"
+                        :meta="true"
+                        :accept="'image/*,.zip'"
+                        :maxSize="'10MB'"
+                        :maxFiles="14"
+                        :helpText="'Upload Report'"
+                        :errorText="{
+                        type: 'Invalid file type. Only images or zip Allowed',
+                        size: 'Files should not exceed 10MB in size',
+                        }"
+                        @select="filesSelected($event)"
+                        @beforedelete="onBeforeDelete($event)"
+                        @delete="fileDeleted($event)"
+                        v-model="fileRecords"
+                    ></VueFileAgent>
+                    <!-- <button class="btn btn-primary btn-block mt-2" :disabled="!fileRecordsForUpload.length" @click="uploadFiles()">
+                        Upload {{ fileRecordsForUpload.length }} files
+                    </button> -->
+                   
                 </div>
             </div>
         </div>
 
 
     <h4 class="text-center">Compose Report</h4>
-        <div id="editorjs" class="edy">
+        <div id="editorjs" class="edy shadow">
 
         </div>
 
@@ -79,6 +108,12 @@
 </template>
 
 <script>
+
+
+
+
+
+
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import ImageTool from '@editorjs/image';
@@ -112,23 +147,12 @@ import VueToastify from "vue-toastify";
 Vue.use(VueToastify);
 
 
-import vUploader from 'v-uploader';
-// install plugin with options
-Vue.use(vUploader, uploaderConfig);
+import VueFileAgent from 'vue-file-agent';
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 
-// v-uploader plugin global config
-const uploaderConfig = {
-  // file uploader service url
- 
-  uploadFileUrl: '/upload_cbo_report',
-  // file delete service url
- 
-  // set the way to show upload message(upload fail message)
-  showMessage: (vue, message) => {
-    //using v-dialogs to show message
-    vue.$dlg.alert(message, {messageType: 'error'});
-  }
-};
+Vue.use(VueFileAgent);
+
+
 
 
 
@@ -138,38 +162,61 @@ const uploaderConfig = {
     export default {
         data() {
             return {
-                states: [],
-                lgas: [],
-                allcbos: [],
-                wards:[],
-                cbos:[],
-                spos:[],
-                address: '',
-                selected_state: '',
-                selected_lga: '',
-                selected_cbo: '',
-                selected_spo: '',
-                selected_cbo_email: '',
-                selected_spo_email: '',
-                loading: false,
-                msg: 'Loading...',
+
                 cbo_name: '',
-                contact_person: '',
-                email: '',
-                phone: '',
-                selected_state: '',
-                selected_lga: '',
-                address: '',
+                cbo_state: '',
+                cbo_lga: '',
+                
+                loading: false,
+
+                        fileRecords: [],
+                        uploadUrl: 'https://www.mocky.io/v2/5d4fb20b3000005c111099e3',
+                        uploadHeaders: { 'X-Test-Header': 'vue-file-agent' },
+                        fileRecordsForUpload: [], // maintain an upload queue
+    
 
             }
         },
+
+        props:['cbo_email'],
         methods: {
 
-             uploadDone(files){
-        if(files && Array.isArray(files) && files.length){
-          // do something...
-        }
-      },
+                  uploadFiles: function () {
+                        // Using the default uploader. You may use another uploader instead.
+                        this.$refs.vueFileAgent.upload(this.uploadUrl, this.uploadHeaders, this.fileRecordsForUpload);
+                        this.fileRecordsForUpload = [];
+                    },
+                    deleteUploadedFile: function (fileRecord) {
+                        // Using the default uploader. You may use another uploader instead.
+                        this.$refs.vueFileAgent.deleteUpload(this.uploadUrl, this.uploadHeaders, fileRecord);
+                    },
+                    filesSelected: function (fileRecordsNewlySelected) {
+                        var validFileRecords = fileRecordsNewlySelected.filter((fileRecord) => !fileRecord.error);
+                        this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
+                    },
+                    onBeforeDelete: function (fileRecord) {
+                        var i = this.fileRecordsForUpload.indexOf(fileRecord);
+                        if (i !== -1) {
+                        // queued file, not yet uploaded. Just remove from the arrays
+                        this.fileRecordsForUpload.splice(i, 1);
+                        var k = this.fileRecords.indexOf(fileRecord);
+                        if (k !== -1) this.fileRecords.splice(k, 1);
+                        } else {
+                        if (confirm('Are you sure you want to delete?')) {
+                            this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
+                        }
+                        }
+                    },
+                    fileDeleted: function (fileRecord) {
+                        var i = this.fileRecordsForUpload.indexOf(fileRecord);
+                        if (i !== -1) {
+                        this.fileRecordsForUpload.splice(i, 1);
+                        } else {
+                        this.deleteUploadedFile(fileRecord);
+                        }
+                    },
+
+
 
 
             create_cbo(){
@@ -177,16 +224,16 @@ const uploaderConfig = {
               
                 this.loading = true;
 
-            axios.post('/create_cbo',{
-                cbo_name: this.cbo_name,
-                contact_person: this.contact_person,
-                email: this.email,
-                phone: this.phone,
-                state: this.selected_state,
-                lga: this.selected_lga,
-                address: this.address
+                    axios.post('/create_cbo',{
+                        cbo_name: this.cbo_name,
+                        contact_person: this.contact_person,
+                        email: this.email,
+                        phone: this.phone,
+                        state: this.selected_state,
+                        lga: this.selected_lga,
+                        address: this.address
 
-            }).then((response)=>(
+                    }).then((response)=>(
                     this.loading = false,
                     
                     this.checkEmail(response),
@@ -207,20 +254,20 @@ const uploaderConfig = {
                 });
 
             },
-            checkEmail(response){
-                if (!response.data) {
-                    this.$vToastify.error("Email has been taken");
-                }else{
-                    this.$vToastify.success("CBO Profile created successfully <br> Proceed to login with <b>Email</b> and <b>Phone number</b>");
-                }
-            },
-            loadStates(){
 
-                axios.get('/getStates')
+            loadCboData(){
+
+                axios.post('/getSingleCBO',{
+                    cbo_email: this.cbo_email
+                })
                .then((response)=>(
                     
-                    this.states = response.data,
-                    console.log(this.states)
+                    
+                    console.log(response),
+                    this.cbo_name = response.data.cbo_name,
+                    this.cbo_state = response.data.state,
+                    this.cbo_lga = response.data.lga
+                    
                     //  this.results = response.data
                     
              
@@ -231,144 +278,17 @@ const uploaderConfig = {
 
 
             },
-        selectedState(){
-
-
-                console.log(this.selected_state);
-
-                 axios.post('/getLGAs',{
-                     state_name: this.selected_state,
-                 })
-               .then((response)=>(
-                              
-                    console.log(this.states),
-
-                     this.lgas = response.data
-                    //  this.results = response.data
-
-             ))
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
-        getWards(){
-            this.loading = true
-
-                console.log(this.selected_lga);
-
-                 axios.post('/getWards',{
-                     lga: this.selected_lga,
-                 })
-               .then((response)=>(
-                    
-                    this.loading = false,
-                
-                    console.log(response),
-
-                     this.wards = response.data.wards,
-
-                     this.selected_spo_email = response.data.spo_email.SPO_Email,
-
-                     this.selected_spo = response.data.spo_email.SPO,
-
-                     console.log(this.selected_spo_email)
-
-                    //  console.log(this.wards)
-                    //  this.results = response.data
-                    
-             
-             
-             ))
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
-        getCBOs(){
-            this.loading = true
-
-                console.log(this.selected_lga);
-
-                 axios.post('/getCBOs',{
-                     lga: this.selected_lga,
-                 })
-               .then((response)=>(
-                    
-                    this.loading = false,
-                
-                    // console.log(this.lgas),
-
-                     this.cbos = response.data,
-
-                     console.log(this.cbos)
-                    //  this.results = response.data
-                    
-             
-             
-             ))
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
-                getAllCBOs(){
-            
 
 
 
-                 axios.get('/getAllCBOs')
-               .then((response)=>(
-
-
-                     this.allcbos = response.data,
-
-                     console.log(this.allcbos)
-                    //  this.results = response.data
-                    
-             
-             
-             ))
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
-        getCBOEmail(){
-            this.loading = true
-
-                console.log(this.selected_cbo);
-                console.log('we');
-
-                 axios.post('/getCBOEmail',{
-                     cbo: this.selected_cbo,
-                 })
-               .then((response)=>(
-                    
-                    this.loading = false,
-                
-                    // console.log(this.lgas),
-
-                     this.selected_cbo_email = response.data[1].CBO_Email,
-
-                     console.log(response.data[1])
-                    //  this.results = response.data
-                    
-             
-             
-             ))
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
         },
         mounted() {
             
-            this.loadStates()
-            this.getAllCBOs()
-            console.log('Component mounted.')
+            this.loadCboData()
+            console.log(this.cbo_email)
         },
         
     }
 </script>
+
+

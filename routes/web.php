@@ -30,6 +30,8 @@ Route::get('/getHealthFacilites', 'HealthFacilityController@getHealthFacilites')
 
 Route::post('/getCBOs', 'HealthFacilityController@getCBOs');
 
+
+
 Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');
 
 Route::get('/getQuestions', 'QuestionBankController@getQuestions');
@@ -46,7 +48,11 @@ Route::post('/create_health_facility', 'HealthFacilityController@store');
 
 Route::post('/create_cbo', 'CboController@store');
 
-Route::post('/upload_cbo_report', 'CboController@upload_cbo_report');
+Route::post('/getSingleCBO', 'CboController@getSingleCBO');
+
+
+
+Route::get('/upload_cbo_report', 'CboController@upload_cbo_report');
 
 
 Route::get('/getAllCBOs', 'CboController@getAllCBOs');

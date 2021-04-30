@@ -22,6 +22,16 @@ class CboController extends Controller
         return $cbos;
     }
 
+    public function getSingleCBO(Request $request)
+    {
+        # code...
+        $cob_details = Cbo::where('email', $request->cbo_email)->first();
+
+        return $cob_details;
+
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
