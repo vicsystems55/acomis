@@ -46,6 +46,9 @@ Route::post('/create_health_facility', 'HealthFacilityController@store');
 
 Route::post('/create_cbo', 'CboController@store');
 
+Route::post('/upload_cbo_report', 'CboController@upload_cbo_report');
+
+
 Route::get('/getAllCBOs', 'CboController@getAllCBOs');
 
 Route::post('/create_ward', 'WardController@store');

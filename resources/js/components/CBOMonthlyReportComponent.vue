@@ -50,7 +50,7 @@
             <div class="col-md-6 mx-auto">
                 <div class="form-group">
                     <label for="">Upload Report</label>
-                    <input type="text" v-model="email" class="form-control">
+                    <v-uploader method="post" @done="uploadDone"  language='en' ></v-uploader>
                 </div>
             </div>
         </div>
@@ -76,6 +76,27 @@
 import axios from 'axios';
 import VueToastify from "vue-toastify";
 Vue.use(VueToastify);
+
+
+import vUploader from 'v-uploader';
+// install plugin with options
+Vue.use(vUploader, uploaderConfig);
+
+// v-uploader plugin global config
+const uploaderConfig = {
+  // file uploader service url
+ 
+  uploadFileUrl: '/upload_cbo_report',
+  // file delete service url
+  deleteFileUrl: 'http://xxx/upload/deleteUploadFile',
+  // set the way to show upload message(upload fail message)
+  showMessage: (vue, message) => {
+    //using v-dialogs to show message
+    vue.$dlg.alert(message, {messageType: 'error'});
+  }
+};
+
+
 
 
 
@@ -109,6 +130,12 @@ Vue.use(VueToastify);
             }
         },
         methods: {
+
+             uploadDone(files){
+        if(files && Array.isArray(files) && files.length){
+          // do something...
+        }
+      },
 
 
             create_cbo(){

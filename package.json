@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "v-uploader": "^1.8.0",
         "vue-blockui": "^1.1.7",
         "vue-toastify": "^1.8.0"
     }

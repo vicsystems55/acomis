@@ -73,6 +73,13 @@ class CboController extends Controller
 
     }
 
+    public function upload_cbo_report(Request $request)
+    {
+        
+        
+        return 23;
+    }
+
     /**
      * Display the specified resource.
      *
