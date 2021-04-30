@@ -2562,6 +2562,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2597,11 +2598,16 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
       cbo_name: '',
       cbo_state: '',
       cbo_lga: '',
+      cbo_id: '',
+      date: '',
+      newfile_name: '',
+      outputData: [],
       loading: false,
       fileRecords: [],
-      uploadUrl: 'https://www.mocky.io/v2/5d4fb20b3000005c111099e3',
+      uploadUrl: '/upload_cbo_report',
       uploadHeaders: {
-        'X-Test-Header': 'vue-file-agent'
+        'X-Test-Header': 'vue-file-agent',
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       fileRecordsForUpload: [] // maintain an upload queue
 
@@ -2609,10 +2615,15 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
   },
   props: ['cbo_email'],
   methods: {
+    onUpload: function onUpload(responses) {
+      console.log(responses);
+      this.newfile_name = responses[0].data; //   console.log(responses[0].data);
+    },
     uploadFiles: function uploadFiles() {
       // Using the default uploader. You may use another uploader instead.
       this.$refs.vueFileAgent.upload(this.uploadUrl, this.uploadHeaders, this.fileRecordsForUpload);
       this.fileRecordsForUpload = [];
+      console.log(this.fileRecordsForUpload);
     },
     deleteUploadedFile: function deleteUploadedFile(fileRecord) {
       // Using the default uploader. You may use another uploader instead.
@@ -2647,20 +2658,24 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
         this.deleteUploadedFile(fileRecord);
       }
     },
-    create_cbo: function create_cbo() {
+    submit_report: function submit_report() {
       var _this = this;
 
-      this.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/create_cbo', {
-        cbo_name: this.cbo_name,
-        contact_person: this.contact_person,
-        email: this.email,
-        phone: this.phone,
-        state: this.selected_state,
-        lga: this.selected_lga,
-        address: this.address
+      editor.save().then(function (outputData) {
+        // this.outputData = 'blocks',
+        console.log('Article data: ', outputData);
+      })["catch"](function (error) {
+        console.log('Saving failed: ', error);
+      });
+      this.loading = true; // uploadFiles(),
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/submit_cbo_report', {
+        cbo_id: this.cbo_id,
+        date: this.date,
+        file_upload: this.newfile_name,
+        text_report: outputData
       }).then(function (response) {
-        return _this.loading = false, _this.checkEmail(response), _this.getAllCBOs(), console.log(response) //  this.results = response.data
+        return _this.loading = false, console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -2672,7 +2687,7 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleCBO', {
         cbo_email: this.cbo_email
       }).then(function (response) {
-        return console.log(response), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga //  this.results = response.data
+        return console.log(response.data.id), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga, _this2.cbo_id = response.data.id, console.log(_this2.cbo_id) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -27167,7 +27182,33 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.date,
+                expression: "date"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date" },
+            domProps: { value: _vm.date },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.date = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -27205,6 +27246,9 @@ var render = function() {
                 },
                 delete: function($event) {
                   return _vm.fileDeleted($event)
+                },
+                upload: function($event) {
+                  return _vm.onUpload($event)
                 }
               },
               model: {
@@ -27214,7 +27258,27 @@ var render = function() {
                 },
                 expression: "fileRecords"
               }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-block mt-2",
+                attrs: { disabled: !_vm.fileRecordsForUpload.length },
+                on: {
+                  click: function($event) {
+                    return _vm.uploadFiles()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                    Upload " +
+                    _vm._s(_vm.fileRecordsForUpload.length) +
+                    " files\n                "
+                )
+              ]
+            )
           ],
           1
         )
@@ -27232,7 +27296,7 @@ var render = function() {
           staticClass: " btn btn-lg btn-primary shadow col-md-5",
           on: {
             click: function($event) {
-              return _vm.create_cbo()
+              return _vm.submit_report()
             }
           }
         },
@@ -27268,18 +27332,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-3" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "date" } })
-      ])
     ])
   }
 ]

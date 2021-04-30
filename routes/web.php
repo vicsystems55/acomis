@@ -50,9 +50,11 @@ Route::post('/create_cbo', 'CboController@store');
 
 Route::post('/getSingleCBO', 'CboController@getSingleCBO');
 
+Route::post('/submit_cbo_report', 'CboMonthlyReportController@store');
 
 
-Route::get('/upload_cbo_report', 'CboController@upload_cbo_report');
+
+Route::post('/upload_cbo_report', 'CboMonthlyReportController@upload_cbo_report');
 
 
 Route::get('/getAllCBOs', 'CboController@getAllCBOs');

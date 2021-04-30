@@ -46,7 +46,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Date</label>
-                    <input type="date" class="form-control">
+                    <input type="date" v-model="date" class="form-control">
                 </div>
             </div>
 
@@ -75,10 +75,11 @@
                         @beforedelete="onBeforeDelete($event)"
                         @delete="fileDeleted($event)"
                         v-model="fileRecords"
+                        @upload="onUpload($event)"
                     ></VueFileAgent>
-                    <!-- <button class="btn btn-primary btn-block mt-2" :disabled="!fileRecordsForUpload.length" @click="uploadFiles()">
+                    <button class="btn btn-primary btn-block mt-2" :disabled="!fileRecordsForUpload.length" @click="uploadFiles()">
                         Upload {{ fileRecordsForUpload.length }} files
-                    </button> -->
+                    </button>
                    
                 </div>
             </div>
@@ -97,7 +98,7 @@
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Submitting Report':'Submit Report'}}</button>
+            <button @click="submit_report()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Submitting Report':'Submit Report'}}</button>
         </div>
 
 
@@ -166,12 +167,18 @@ Vue.use(VueFileAgent);
                 cbo_name: '',
                 cbo_state: '',
                 cbo_lga: '',
-                
+                cbo_id: '',
+                date: '',
+                newfile_name: '',
+                outputData: [],
                 loading: false,
 
                         fileRecords: [],
-                        uploadUrl: 'https://www.mocky.io/v2/5d4fb20b3000005c111099e3',
-                        uploadHeaders: { 'X-Test-Header': 'vue-file-agent' },
+                        uploadUrl: '/upload_cbo_report',
+                        uploadHeaders: { 
+                            'X-Test-Header': 'vue-file-agent',
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                         },
                         fileRecordsForUpload: [], // maintain an upload queue
     
 
@@ -181,10 +188,24 @@ Vue.use(VueFileAgent);
         props:['cbo_email'],
         methods: {
 
+                onUpload(responses) {
+                  
+                  console.log(responses);
+
+                  this.newfile_name = responses[0].data;
+
+                //   console.log(responses[0].data);
+                },
+
+
                   uploadFiles: function () {
                         // Using the default uploader. You may use another uploader instead.
                         this.$refs.vueFileAgent.upload(this.uploadUrl, this.uploadHeaders, this.fileRecordsForUpload);
                         this.fileRecordsForUpload = [];
+
+
+
+                        console.log(this.fileRecordsForUpload);
                     },
                     deleteUploadedFile: function (fileRecord) {
                         // Using the default uploader. You may use another uploader instead.
@@ -219,26 +240,33 @@ Vue.use(VueFileAgent);
 
 
 
-            create_cbo(){
+            submit_report(){
+
+                editor.save().then((outputData) => {
+                    // this.outputData = 'blocks',
+                console.log('Article data: ', outputData)
+                }).catch((error) => {
+                console.log('Saving failed: ', error)
+                });
+
+
                 
               
                 this.loading = true;
 
-                    axios.post('/create_cbo',{
-                        cbo_name: this.cbo_name,
-                        contact_person: this.contact_person,
-                        email: this.email,
-                        phone: this.phone,
-                        state: this.selected_state,
-                        lga: this.selected_lga,
-                        address: this.address
+                // uploadFiles(),
+
+                    axios.post('/submit_cbo_report',{
+                        cbo_id: this.cbo_id,
+                        date: this.date,
+                        file_upload: this.newfile_name,
+                        text_report: outputData,
+                    
 
                     }).then((response)=>(
                     this.loading = false,
                     
-                    this.checkEmail(response),
-
-                    this.getAllCBOs(),
+           
 
                       
                   
@@ -263,10 +291,14 @@ Vue.use(VueFileAgent);
                .then((response)=>(
                     
                     
-                    console.log(response),
+                    console.log(response.data.id),
                     this.cbo_name = response.data.cbo_name,
                     this.cbo_state = response.data.state,
-                    this.cbo_lga = response.data.lga
+                    this.cbo_lga = response.data.lga,
+                    this.cbo_id = response.data.id,
+                    console.log(this.cbo_id)
+
+                    
                     
                     //  this.results = response.data
                     

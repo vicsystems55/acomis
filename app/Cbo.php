@@ -16,5 +16,12 @@ class Cbo extends Model
         return $this->hasMany('App\Cat', 'cbo_id', 'id');
     }
 
+    public function reports()
+    {
+        # code...
+
+        return $this->hasMany('App\CboMonthlyReport', 'cbo_id', 'id');
+    }
+
     
 }
