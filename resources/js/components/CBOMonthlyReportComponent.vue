@@ -56,13 +56,19 @@
         </div>
 
 
+    <h4>Compose Report</h4>
+        <div id="editorjs" class="edy">
+
+        </div>
+
+
 
    
 
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating CBO Please wait...':'Create Account'}}</button>
+            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Submitting Report':'Submit Report'}}</button>
         </div>
 
 
@@ -73,6 +79,34 @@
 </template>
 
 <script>
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
+
+const editor = new EditorJS({
+  /**
+   * Id of Element that should contain Editor instance
+   */
+    tools: {
+    
+    header: Header,
+        image: {
+      class: ImageTool,
+      config: {
+        endpoints: {
+          byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+          byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+        }
+      }
+    }
+  },
+  
+  holder: 'editorjs'
+});
+
+
+
+
 import axios from 'axios';
 import VueToastify from "vue-toastify";
 Vue.use(VueToastify);
@@ -86,7 +120,7 @@ Vue.use(vUploader, uploaderConfig);
 const uploaderConfig = {
   // file uploader service url
  
-  uploadFileUrl: '',
+  uploadFileUrl: '/upload_cbo_report',
   // file delete service url
  
   // set the way to show upload message(upload fail message)
