@@ -2563,6 +2563,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2576,7 +2592,7 @@ var editor = new _editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0___default.a({
       "class": _editorjs_image__WEBPACK_IMPORTED_MODULE_2___default.a,
       config: {
         endpoints: {
-          byFile: 'http://localhost:8008/uploadFile',
+          byFile: '/upload_cbo_report',
           // Your backend file uploader endpoint
           byUrl: 'http://localhost:8008/fetchUrl' // Your endpoint that provides uploading by Url
 
@@ -2596,12 +2612,13 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
   data: function data() {
     return {
       cbo_name: '',
+      cbo_reports: [],
       cbo_state: '',
       cbo_lga: '',
       cbo_id: '',
       date: '',
       newfile_name: '',
-      outputData: [],
+      outputData: {},
       loading: false,
       fileRecords: [],
       uploadUrl: '/upload_cbo_report',
@@ -2658,36 +2675,59 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
         this.deleteUploadedFile(fileRecord);
       }
     },
-    submit_report: function submit_report() {
+    save_report: function save_report() {
       var _this = this;
 
       editor.save().then(function (outputData) {
-        // this.outputData = 'blocks',
-        console.log('Article data: ', outputData);
+        _this.outputData = outputData;
+        console.log('Article to send: ', _this.outputData);
       })["catch"](function (error) {
         console.log('Saving failed: ', error);
       });
+    },
+    submit_report: function submit_report() {
+      var _this2 = this;
+
       this.loading = true; // uploadFiles(),
 
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/submit_cbo_report', {
         cbo_id: this.cbo_id,
         date: this.date,
         file_upload: this.newfile_name,
-        text_report: outputData
+        text_report: this.outputData.blocks
       }).then(function (response) {
-        return _this.loading = false, console.log(response) //  this.results = response.data
+        return _this2.loading = false, _this2.loadCboData(), _this2.load_cbo_report(_this2.cbo_id), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     loadCboData: function loadCboData() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleCBO', {
         cbo_email: this.cbo_email
       }).then(function (response) {
-        return console.log(response.data.id), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga, _this2.cbo_id = response.data.id, console.log(_this2.cbo_id) //  this.results = response.data
+        return console.log(response.data), //  this.cbo_reports = response.data.reports,
+        console.log(response.data.id), _this3.cbo_name = response.data.cbo_name, _this3.cbo_state = response.data.state, _this3.cbo_lga = response.data.lga, _this3.cbo_id = response.data.id, console.log(_this3.cbo_id), _this3.load_cbo_report(_this3.cbo_id) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    load_cbo_report: function load_cbo_report(id) {
+      var _this4 = this;
+
+      console.log(id), axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/load_cbo_report', {
+        cbo_id: id
+      }).then(function (response) {
+        return console.log(response), _this4.cbo_reports = response.data // console.log(response.data.id),
+        // this.cbo_name = response.data.cbo_name,
+        // this.cbo_state = response.data.state,
+        // this.cbo_lga = response.data.lga,
+        // this.cbo_id = response.data.id,
+        // console.log(this.cbo_id)
+        //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -4372,6 +4412,273 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadStates();
     console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @editorjs/editorjs */ "./node_modules/@editorjs/editorjs/dist/editor.js");
+/* harmony import */ var _editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _editorjs_header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @editorjs/header */ "./node_modules/@editorjs/header/dist/bundle.js");
+/* harmony import */ var _editorjs_header__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_editorjs_header__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _editorjs_image__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @editorjs/image */ "./node_modules/@editorjs/image/dist/bundle.js");
+/* harmony import */ var _editorjs_image__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_editorjs_image__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-toastify */ "./node_modules/vue-toastify/dist/vue-toastify.umd.min.js");
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_toastify__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_file_agent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-file-agent */ "./node_modules/vue-file-agent/dist/vue-file-agent.umd.js");
+/* harmony import */ var vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-file-agent/dist/vue-file-agent.css */ "./node_modules/vue-file-agent/dist/vue-file-agent.css");
+/* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_6__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var editor = new _editorjs_editorjs__WEBPACK_IMPORTED_MODULE_0___default.a({
+  /**
+   * Id of Element that should contain Editor instance
+   */
+  tools: {
+    header: _editorjs_header__WEBPACK_IMPORTED_MODULE_1___default.a,
+    image: {
+      "class": _editorjs_image__WEBPACK_IMPORTED_MODULE_2___default.a,
+      config: {
+        endpoints: {
+          byFile: 'http://localhost:8008/uploadFile',
+          // Your backend file uploader endpoint
+          byUrl: 'http://localhost:8008/fetchUrl' // Your endpoint that provides uploading by Url
+
+        }
+      }
+    }
+  },
+  holder: 'editorjs'
+});
+
+
+Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_4___default.a);
+
+
+Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cbo_name: '',
+      cbo_state: '',
+      cbo_lga: '',
+      cbo_id: '',
+      date: '',
+      newfile_name: '',
+      outputData: [],
+      loading: false,
+      fileRecords: [],
+      uploadUrl: '/upload_cbo_report',
+      uploadHeaders: {
+        'X-Test-Header': 'vue-file-agent',
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      fileRecordsForUpload: [] // maintain an upload queue
+
+    };
+  },
+  props: ['cbo_email'],
+  methods: {
+    onUpload: function onUpload(responses) {
+      console.log(responses);
+      this.newfile_name = responses[0].data; //   console.log(responses[0].data);
+    },
+    uploadFiles: function uploadFiles() {
+      // Using the default uploader. You may use another uploader instead.
+      this.$refs.vueFileAgent.upload(this.uploadUrl, this.uploadHeaders, this.fileRecordsForUpload);
+      this.fileRecordsForUpload = [];
+      console.log(this.fileRecordsForUpload);
+    },
+    deleteUploadedFile: function deleteUploadedFile(fileRecord) {
+      // Using the default uploader. You may use another uploader instead.
+      this.$refs.vueFileAgent.deleteUpload(this.uploadUrl, this.uploadHeaders, fileRecord);
+    },
+    filesSelected: function filesSelected(fileRecordsNewlySelected) {
+      var validFileRecords = fileRecordsNewlySelected.filter(function (fileRecord) {
+        return !fileRecord.error;
+      });
+      this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
+    },
+    onBeforeDelete: function onBeforeDelete(fileRecord) {
+      var i = this.fileRecordsForUpload.indexOf(fileRecord);
+
+      if (i !== -1) {
+        // queued file, not yet uploaded. Just remove from the arrays
+        this.fileRecordsForUpload.splice(i, 1);
+        var k = this.fileRecords.indexOf(fileRecord);
+        if (k !== -1) this.fileRecords.splice(k, 1);
+      } else {
+        if (confirm('Are you sure you want to delete?')) {
+          this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
+        }
+      }
+    },
+    fileDeleted: function fileDeleted(fileRecord) {
+      var i = this.fileRecordsForUpload.indexOf(fileRecord);
+
+      if (i !== -1) {
+        this.fileRecordsForUpload.splice(i, 1);
+      } else {
+        this.deleteUploadedFile(fileRecord);
+      }
+    },
+    submit_report: function submit_report() {
+      var _this = this;
+
+      editor.save().then(function (outputData) {
+        _this.outputData = outputData.blocks;
+        console.log('Article to send: ', _this.outputData);
+      })["catch"](function (error) {
+        console.log('Saving failed: ', error);
+      });
+      this.loading = true; // uploadFiles(),
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/submit_cbo_report', {
+        cbo_id: this.cbo_id,
+        date: this.date,
+        file_upload: this.newfile_name,
+        text_report: payload.data
+      }).then(function (response) {
+        return _this.loading = false, console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    loadCboData: function loadCboData() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleCBO', {
+        cbo_email: this.cbo_email
+      }).then(function (response) {
+        return console.log(response.data.id), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga, _this2.cbo_id = response.data.id, console.log(_this2.cbo_id) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadCboData();
+    console.log(this.cbo_email);
   }
 });
 
@@ -27091,9 +27398,29 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "display-4" }, [_vm._v("Monthly Reports")]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "table-responsive p-1" }, [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.cbo_reports, function(cbo_report) {
+            return _c("tr", { key: cbo_report.id }, [
+              _c("td", [_vm._v(" # ")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("#2233003")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(cbo_report.date))]),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(1),
+    _vm._m(2),
     _vm._v(" "),
     _c("h2", { staticClass: "display-4" }, [_vm._v("Create New")]),
     _vm._v(" "),
@@ -27285,9 +27612,24 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("h4", { staticClass: "text-center" }, [_vm._v("Compose Report")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "edy shadow", attrs: { id: "editorjs" } }),
+    _c("div", { staticClass: "edy shadow pt-5", attrs: { id: "editorjs" } }, [
+      _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: " btn btn-lg btn-primary shadow col-md-5",
+            on: {
+              click: function($event) {
+                return _vm.save_report()
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.loading ? "Saving Report" : "Save Report"))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("h4", { staticClass: "ml-3" }, [_vm._v("Create Report")])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
       _c(
@@ -27310,20 +27652,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "table-responsive p-1" }, [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("th", [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Report No.")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Date")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Details")])
-        ]),
-        _vm._v(" "),
-        _c("tbody")
-      ])
+    return _c("thead", [
+      _c("th", [_vm._v("#")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Report No.")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Details")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm shadow btn-secondary",
+          attrs: { href: "/more" }
+        },
+        [_vm._v("view")]
+      )
     ])
   },
   function() {
@@ -30527,6 +30878,246 @@ var staticRenderFns = [
           _c("input", { staticClass: "form-control", attrs: { type: "text" } })
         ])
       ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("h2", { staticClass: "display-4" }, [_vm._v("Monthly Reports")]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("h2", { staticClass: "display-4" }, [_vm._v("Create New")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Name of SPO")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_name,
+                expression: "cbo_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.cbo_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_name = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_state,
+                expression: "cbo_state"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.cbo_state },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_state = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.date,
+                expression: "date"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date" },
+            domProps: { value: _vm.date },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.date = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6 mx-auto" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("label", { staticClass: "text-center", attrs: { for: "" } }, [
+              _vm._v("Upload Report")
+            ]),
+            _vm._v(" "),
+            _c("VueFileAgent", {
+              ref: "vueFileAgent",
+              attrs: {
+                theme: "grid",
+                multiple: false,
+                deletable: true,
+                meta: true,
+                accept: "image/*,.zip",
+                maxSize: "10MB",
+                maxFiles: 14,
+                helpText: "Upload Report",
+                errorText: {
+                  type: "Invalid file type. Only images or zip Allowed",
+                  size: "Files should not exceed 10MB in size"
+                }
+              },
+              on: {
+                select: function($event) {
+                  return _vm.filesSelected($event)
+                },
+                beforedelete: function($event) {
+                  return _vm.onBeforeDelete($event)
+                },
+                delete: function($event) {
+                  return _vm.fileDeleted($event)
+                },
+                upload: function($event) {
+                  return _vm.onUpload($event)
+                }
+              },
+              model: {
+                value: _vm.fileRecords,
+                callback: function($$v) {
+                  _vm.fileRecords = $$v
+                },
+                expression: "fileRecords"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-block mt-2",
+                attrs: { disabled: !_vm.fileRecordsForUpload.length },
+                on: {
+                  click: function($event) {
+                    return _vm.uploadFiles()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                    Upload " +
+                    _vm._s(_vm.fileRecordsForUpload.length) +
+                    " files\n                "
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h4", { staticClass: "text-center" }, [_vm._v("Compose Report")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "edy shadow", attrs: { id: "editorjs" } }),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+      _c(
+        "button",
+        {
+          staticClass: " btn btn-lg btn-primary shadow col-md-5",
+          on: {
+            click: function($event) {
+              return _vm.submit_report()
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.loading ? "Submitting Report" : "Submit Report"))]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "table-responsive p-1" }, [
+      _c("table", { staticClass: "table" }, [
+        _c("thead", [
+          _c("th", [_vm._v("#")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Report No.")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Date")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Details")])
+        ]),
+        _vm._v(" "),
+        _c("tbody")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" })
     ])
   }
 ]
@@ -43194,6 +43785,7 @@ Vue.component('spo-component', __webpack_require__(/*! ./components/SPOComponent
 Vue.component('wards-component', __webpack_require__(/*! ./components/WardsComponent.vue */ "./resources/js/components/WardsComponent.vue")["default"]);
 Vue.component('cbo-reports-component', __webpack_require__(/*! ./components/CBOReportsComponent.vue */ "./resources/js/components/CBOReportsComponent.vue")["default"]);
 Vue.component('cbo-monthly-report-component', __webpack_require__(/*! ./components/CBOMonthlyReportComponent.vue */ "./resources/js/components/CBOMonthlyReportComponent.vue")["default"]);
+Vue.component('spo-monthly-report-component', __webpack_require__(/*! ./components/SPOMonthlyReportComponent.vue */ "./resources/js/components/SPOMonthlyReportComponent.vue")["default"]);
 Vue.component('spo-reports-component', __webpack_require__(/*! ./components/SPOReportsComponent.vue */ "./resources/js/components/SPOReportsComponent.vue")["default"]);
 Vue.component('remedial-action-component', __webpack_require__(/*! ./components/RemedialActionComponent.vue */ "./resources/js/components/RemedialActionComponent.vue")["default"]);
 Vue.component('remedial-action-component', __webpack_require__(/*! ./components/RemedialActionComponent.vue */ "./resources/js/components/RemedialActionComponent.vue")["default"]);
@@ -43801,6 +44393,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOComponent_vue_vue_type_template_id_1caa11d6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOComponent_vue_vue_type_template_id_1caa11d6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SPOMonthlyReportComponent.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/SPOMonthlyReportComponent.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a& */ "./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a&");
+/* harmony import */ var _SPOMonthlyReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SPOMonthlyReportComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SPOMonthlyReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SPOMonthlyReportComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOMonthlyReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SPOMonthlyReportComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOMonthlyReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SPOMonthlyReportComponent.vue?vue&type=template&id=887fe85a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SPOMonthlyReportComponent_vue_vue_type_template_id_887fe85a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -25,9 +25,19 @@ class CboController extends Controller
     public function getSingleCBO(Request $request)
     {
         # code...
-        $cob_details = Cbo::where('email', $request->cbo_email)->first();
 
-        return $cob_details;
+        try {
+            //code...
+            $cob_details = Cbo::with('reports')->latest()->where('email', $request->cbo_email)->first();
+
+            return $cob_details;
+        } catch (\Throwable $th) {
+            //throw $th;
+      
+            return $th;
+
+        }
+    
 
 
     }

@@ -12,9 +12,12 @@ class CboMonthlyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function load_cbo_report(Request $request)
     {
         //
+        $cbo_monthly_reports = CboMonthlyReport::where('cbo_id', $request->cbo_id)->latest()->get();
+
+        return $cbo_monthly_reports;
     }
 
     /**
@@ -35,6 +38,23 @@ class CboMonthlyReportController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+         
+        $report = CboMonthlyReport::create([
+            'cbo_id' => $request->cbo_id,
+            'date' => $request->date,
+            'file_upload' => $request->file_upload,
+            'text_report' => serialize($request->text_report),
+        ]);
+
+        return $report;
+
+        } catch (\Throwable $th) {
+            //throw $th;
+
+        return $th;
+
+        }
         //
         // $report = CboMonthlyReport::create([
         //     'cbo_id' => $request->cbo_id,
@@ -43,7 +63,7 @@ class CboMonthlyReportController extends Controller
         //     'text_report' => $request->text_report,
         // ]);
 
-        return $request->all();
+        // return $request->all();
     }
 
     public function upload_cbo_report(Request $request)

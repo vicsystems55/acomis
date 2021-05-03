@@ -36,6 +36,8 @@ Vue.component('cbo-reports-component', require('./components/CBOReportsComponent
 
 Vue.component('cbo-monthly-report-component', require('./components/CBOMonthlyReportComponent.vue').default);
 
+Vue.component('spo-monthly-report-component', require('./components/SPOMonthlyReportComponent.vue').default);
+
 Vue.component('spo-reports-component', require('./components/SPOReportsComponent.vue').default);
 
 Vue.component('remedial-action-component', require('./components/RemedialActionComponent.vue').default);

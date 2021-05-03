@@ -52,6 +52,8 @@ Route::post('/getSingleCBO', 'CboController@getSingleCBO');
 
 Route::post('/submit_cbo_report', 'CboMonthlyReportController@store');
 
+Route::post('/load_cbo_report', 'CboMonthlyReportController@load_cbo_report');
+
 
 
 Route::post('/upload_cbo_report', 'CboMonthlyReportController@upload_cbo_report');
@@ -190,7 +192,10 @@ Route::group(['middleware' => ['auth', 'hcbo'], 'prefix' => 'hcbo'], function(){
 
 Route::group(['middleware' => ['auth', 'spo'], 'prefix' => 'spo'], function(){
 
+  
     Route::get('/', 'SpoPageController@index')->name('spo.home');
+    Route::get('/client_exit', 'SpoPageController@client_exit')->name('spo.client_exit');
+    Route::get('/monthly_report', 'SpoPageController@monthly_report')->name('spo.monthly_report');
 
 });
 

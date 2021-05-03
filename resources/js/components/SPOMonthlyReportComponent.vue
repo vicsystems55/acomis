@@ -4,7 +4,7 @@
          <h2 class="display-4">Monthly Reports</h2>
 
             <div class="table-responsive p-1">
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <th>#</th>
                         <th>Report No.</th>
@@ -12,16 +12,6 @@
                         <th>Details</th>
                     </thead>
                     <tbody>
-                        <tr class="" v-for="cbo_report in cbo_reports" :key="cbo_report.id">
-
-                            <td> # </td>
-                            <td>#2233003</td>
-                            <td>{{cbo_report.date}}</td>
-                            <td>
-                                <a class="btn btn-sm shadow btn-secondary" href="/more">view</a>
-                            </td>
-
-                        </tr>
      
                     </tbody>
                 </table>
@@ -36,7 +26,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Name of CBO</label>
+                    <label for="">Name of SPO</label>
                     <input type="text" v-model="cbo_name" class="form-control" readonly>
                 </div>
             </div>
@@ -46,12 +36,7 @@
                     <input type="text" v-model="cbo_state" class="form-control" readonly>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">LGA</label>
-                    <input type="text" v-model="cbo_lga" class="form-control" readonly>
-                </div>
-            </div>
+
 
             <div class="col-md-4">
                 <div class="form-group">
@@ -96,21 +81,15 @@
         </div>
 
 
-   
-        <div id="editorjs" class="edy shadow pt-5">
-                 <div class="d-flex justify-content-center p-3">
-            <button @click="save_report()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Saving Report':'Save Report'}}</button>
-        </div>
-
-            <h4 class="ml-3">Create Report</h4>
-
+    <h4 class="text-center">Compose Report</h4>
+        <div id="editorjs" class="edy shadow">
 
         </div>
 
 
 
    
-   
+
     
 
         <div class="d-flex justify-content-center p-3">
@@ -146,7 +125,7 @@ const editor = new EditorJS({
       class: ImageTool,
       config: {
         endpoints: {
-          byFile: '/upload_cbo_report', // Your backend file uploader endpoint
+          byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
           byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
         }
       }
@@ -181,13 +160,12 @@ Vue.use(VueFileAgent);
             return {
 
                 cbo_name: '',
-                cbo_reports: [],
                 cbo_state: '',
                 cbo_lga: '',
                 cbo_id: '',
                 date: '',
                 newfile_name: '',
-                outputData: {},
+                outputData: [],
                 loading: false,
 
                         fileRecords: [],
@@ -256,21 +234,16 @@ Vue.use(VueFileAgent);
 
 
 
-            save_report(){
+
+            submit_report(){
 
                 editor.save().then((outputData) => {
-                this.outputData = outputData;
-                console.log('Article to send: ',this.outputData)
+                this.outputData = outputData.blocks;
+                console.log('Article to send: ',this. outputData)
                 }).catch((error) => {
                 console.log('Saving failed: ', error)
                 });
 
-
-            },
-
-            submit_report(){
-
-          
 
                 
               
@@ -283,7 +256,7 @@ Vue.use(VueFileAgent);
                         cbo_id: this.cbo_id,
                         date: this.date,
                         file_upload: this.newfile_name,
-                        text_report: this.outputData.blocks,
+                        text_report: payload.data,
                     
 
                     }).then((response)=>(
@@ -291,9 +264,7 @@ Vue.use(VueFileAgent);
                     
            
 
-                      this.loadCboData(),
-
-                      this.load_cbo_report(this.cbo_id),
+                      
                   
                  
 
@@ -308,58 +279,20 @@ Vue.use(VueFileAgent);
 
             },
 
-
-
-
-
             loadCboData(){
-
-            
 
                 axios.post('/getSingleCBO',{
                     cbo_email: this.cbo_email
                 })
                .then((response)=>(
                     
-                    console.log(response.data),
-                    //  this.cbo_reports = response.data.reports,
+                    
                     console.log(response.data.id),
                     this.cbo_name = response.data.cbo_name,
                     this.cbo_state = response.data.state,
                     this.cbo_lga = response.data.lga,
                     this.cbo_id = response.data.id,
-                    console.log(this.cbo_id),
-
-                  this.load_cbo_report(this.cbo_id)
-                    
-                    //  this.results = response.data
-                    
-             
-             
-                )).catch(function (error) {
-                        console.log(error);
-                });
-
-
-            },
-
-            load_cbo_report(id){
-                
-                 console.log(id),
-
-                axios.post('/load_cbo_report',{
-                    cbo_id: id
-                })
-               .then((response)=>(
-                    
-                     console.log(response),
-                     this.cbo_reports = response.data
-                    // console.log(response.data.id),
-                    // this.cbo_name = response.data.cbo_name,
-                    // this.cbo_state = response.data.state,
-                    // this.cbo_lga = response.data.lga,
-                    // this.cbo_id = response.data.id,
-                    // console.log(this.cbo_id)
+                    console.log(this.cbo_id)
 
                     
                     
@@ -371,16 +304,15 @@ Vue.use(VueFileAgent);
                         console.log(error);
                 });
 
+
             },
-
-
 
 
 
         },
         mounted() {
+            
             this.loadCboData()
-           
             console.log(this.cbo_email)
         },
         
