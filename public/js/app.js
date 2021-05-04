@@ -4146,6 +4146,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -30527,7 +30531,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
           _vm._v(" "),
@@ -30535,7 +30539,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
           _vm._v(" "),
@@ -30543,7 +30547,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("LGA")]),
           _vm._v(" "),
@@ -30551,7 +30555,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Ward")]),
           _vm._v(" "),
@@ -30559,7 +30563,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Date of Visit")]),
           _vm._v(" "),
@@ -30567,11 +30571,27 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Tracker Type")]),
           _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+          _c(
+            "select",
+            { staticClass: "form-control", attrs: { name: "", id: "" } },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("--Select Option--")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Focus Group Discussion" } }, [
+                _vm._v("Focus Group Discussion")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Client Exit" } }, [
+                _vm._v("Client Exit")
+              ])
+            ]
+          )
         ])
       ])
     ])
@@ -30581,7 +30601,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [
             _vm._v("Key Findings/Identified Issues")
@@ -30591,7 +30611,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Root causes")]),
           _vm._v(" "),
@@ -30599,7 +30619,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [
             _vm._v("Action taken immediately")

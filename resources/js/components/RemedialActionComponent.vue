@@ -4,33 +4,33 @@
         <h2 class="display-4">Remedial Action and Feedback</h2>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">LGA</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Ward</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Date of Visit</label>
                     <input type="text" class="form-control">
@@ -38,10 +38,14 @@
             </div>
 
             
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Tracker Type</label>
-                    <input type="text" class="form-control">
+                    <select name="" id="" class="form-control">
+                        <option value="">--Select Option--</option>
+                        <option value="Focus Group Discussion">Focus Group Discussion</option>
+                        <option value="Client Exit">Client Exit</option>
+                    </select>
                 </div>
             </div>
            
@@ -51,7 +55,7 @@
       <hr>
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                  <div class="form-group">
                     <label for="">Key Findings/Identified Issues</label>
@@ -60,7 +64,7 @@
 
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                  <div class="form-group">
                     <label for="">Root causes</label>
@@ -70,7 +74,7 @@
             </div>
 
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                  <div class="form-group">
                     <label for="">Action taken immediately</label>

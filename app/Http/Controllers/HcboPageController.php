@@ -52,6 +52,20 @@ class HcboPageController extends Controller
         return view('hcbo.monthly_report')->with($data);
     }
 
+    public function remedial_feedback()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('hcbo.remedial_feedback')->with($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
