@@ -83,7 +83,7 @@
 
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                  <div class="form-group">
                     <label for="">Resolve</label>
@@ -92,39 +92,51 @@
 
             </div>
 
-           
-
-        </div>
-
-        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Follow up action</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Responsibility</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-md-4">
+
+            
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Time-line</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Attached Signed Copy</label>
                     <input type="text" class="form-control">
                 </div>
             </div>
+
+           
+
         </div>
 
-        <div class="w d-flex justify-content-center">
-            <button class="btn btn-primary">Add</button>
+        <div class="row">
+
+        </div>
+
+        <div class="col-md-6 mx-auto d-flex justify-content-center">
+            <button class="btn btn-primary btn-block">Add</button>
         </div>
 
         <hr>
 
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="">Name of assessor</label>
@@ -201,7 +213,7 @@
 
         <div class="d-flex justify-content-center p-3">
             <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SAVE DRAFT</button>
-        </div>
+        </div> -->
 
 
 
