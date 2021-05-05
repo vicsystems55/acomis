@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class SpoPageController extends Controller
 {
     /**
@@ -21,7 +21,7 @@ class SpoPageController extends Controller
             'scrollspy_offset' => '',
         ];
         // $pageName = 'analytics';
-        return view('admin.home')->with($data);
+        return view('spo.home')->with($data);
     }
 
     public function notifications()
