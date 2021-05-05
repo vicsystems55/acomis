@@ -71,6 +71,13 @@ Route::post('/sumbit_remedial_report', 'RemedialFeedbackController@sumbit_remedi
 
 Route::get('/getAllCBOs', 'CboController@getAllCBOs');
 
+Route::get('/getAllSPOs', 'SpoProfileController@getAllSPOs');
+
+
+Route::post('/create_spo', 'SpoProfileController@create_spo');
+
+
+
 Route::post('/create_ward', 'WardController@store');
 
 Route::get('/import_wards', 'WardController@import_wards');

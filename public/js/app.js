@@ -4378,6 +4378,51 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default.a);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toastify */ "./node_modules/vue-toastify/dist/vue-toastify.umd.min.js");
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_toastify__WEBPACK_IMPORTED_MODULE_1__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4439,11 +4484,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       states: [],
       lgas: [],
+      allspos: [],
       wards: [],
       cbos: [],
       spos: [],
@@ -4455,43 +4505,70 @@ __webpack_require__.r(__webpack_exports__);
       selected_cbo_email: '',
       selected_spo_email: '',
       loading: false,
-      msg: 'Loading...'
-    };
+      msg: 'Loading...',
+      name: '',
+      email: '',
+      phone: '',
+      state: ''
+    }, _defineProperty(_ref, "selected_lga", ''), _defineProperty(_ref, "address", ''), _ref;
   },
   methods: {
-    create_cbo: function create_cbo() {},
-    loadStates: function loadStates() {
+    create_spo: function create_spo() {
       var _this = this;
 
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_spo', {
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        state: this.state,
+        address: this.address
+      }).then(function (response) {
+        return _this.loading = false, _this.checkEmail(response), _this.getAllSPOs(), console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    checkEmail: function checkEmail(response) {
+      if (!response.data) {
+        this.$vToastify.error("Email has been taken");
+      } else {
+        this.$vToastify.success("SPO Profile created successfully <br> Proceed to login with <b>Email</b> and <b>Phone number</b>");
+      }
+    },
+    loadStates: function loadStates() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this.states = response.data, console.log(_this.states) //  this.results = response.data
+        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this2.states), _this2.lgas = response.data //  this.results = response.data
+        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
+        return _this4.loading = false, console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -4499,22 +4576,32 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCBOs: function getCBOs() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, // console.log(this.lgas),
-        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        return _this5.loading = false, // console.log(this.lgas),
+        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getAllSPOs: function getAllSPOs() {
+      var _this6 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllSPOs').then(function (response) {
+        return _this6.allspos = response.data, console.log(_this6.allcbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this5 = this;
+      var _this7 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -4522,8 +4609,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this7.loading = false, // console.log(this.lgas),
+        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -4532,6 +4619,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.loadStates();
+    this.getAllSPOs();
     console.log('Component mounted.');
   }
 });
@@ -31174,31 +31262,143 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h2", { staticClass: "display-4" }, [_vm._v("Add SPO")]),
+    _c("h2", { staticClass: "display-4" }, [_vm._v("SPOs")]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "table-responsive p-1" }, [
+      _c("table", { staticClass: "table" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.allspos, function(spo) {
+            return _c("tr", { key: spo.id }, [
+              _c("td", [_vm._v("*")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(spo.name))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(spo.email))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(spo.phone))]),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Address")]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
+    _c("div", { staticClass: "rw" }, [
+      _c("h2", { staticClass: "display-4" }, [_vm._v("Add SPO")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Spo Name:")]),
+            _vm._v(" "),
+            _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.selected_state,
-                  expression: "selected_state"
+                  value: _vm.name,
+                  expression: "name"
                 }
               ],
               staticClass: "form-control",
-              attrs: { name: "", id: "" },
+              attrs: { type: "text" },
+              domProps: { value: _vm.name },
               on: {
-                change: [
-                  function($event) {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                }
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.phone,
+                  expression: "phone"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.phone },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.phone = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.state,
+                    expression: "state"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { name: "", id: "" },
+                on: {
+                  change: function($event) {
                     var $$selectedVal = Array.prototype.filter
                       .call($event.target.options, function(o) {
                         return o.selected
@@ -31207,40 +31407,71 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.selected_state = $event.target.multiple
+                    _vm.state = $event.target.multiple
                       ? $$selectedVal
                       : $$selectedVal[0]
-                  },
-                  function($event) {
-                    return _vm.selectedState()
                   }
-                ]
-              }
-            },
-            _vm._l(_vm.states, function(state) {
-              return _c("option", { key: state.id }, [
-                _vm._v(_vm._s(state.name))
-              ])
-            }),
-            0
-          )
+                }
+              },
+              _vm._l(_vm.states, function(state) {
+                return _c("option", { key: state.id }, [
+                  _vm._v(_vm._s(state.name))
+                ])
+              }),
+              0
+            )
+          ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
-      _c(
-        "button",
-        {
-          staticClass: " btn btn-lg btn-primary shadow col-md-5",
-          on: {
-            click: function($event) {
-              return _vm.create_cbo()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Address")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.address,
+                  expression: "address"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { placeholder: "Enter address", type: "text" },
+              domProps: { value: _vm.address },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.address = $event.target.value
+                }
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: " btn btn-lg btn-primary shadow col-md-5",
+            on: {
+              click: function($event) {
+                return _vm.create_spo()
+              }
             }
-          }
-        },
-        [_vm._v("SUBMIT")]
-      )
+          },
+          [
+            _vm._v(
+              _vm._s(_vm.loading ? "Creating SPO Please wait..." : "Create SPO")
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -31249,37 +31480,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
+    return _c("thead", [
+      _c("th", [_vm._v("#")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
+      _c("th", [_vm._v("SPO Name")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
-      ]),
+      _c("th", [_vm._v("SPO Email")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
-          _vm._v(" "),
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-        ])
+      _c("th", [_vm._v("Temp Password")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
+        _vm._v("view more")
       ])
     ])
   }

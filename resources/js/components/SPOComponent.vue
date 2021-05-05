@@ -1,46 +1,85 @@
 <template>
     <div class="container">
 
+         <h2 class="display-4">SPOs</h2>
+
+            <div class="table-responsive p-1">
+                <table class="table">
+                    <thead>
+                        <th>#</th>
+                        <th>SPO Name</th>
+                        <th>SPO Email</th>
+                        <th>Temp Password</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="spo in allspos" :key="spo.id">
+
+                            <td>*</td>
+                            <td>{{spo.name}}</td>
+                            <td>{{spo.email}}</td>
+                            <td>{{spo.phone}}</td>
+                            <td></td>
+                            <td>
+                                <a class="btn btn-primary" href="">view more</a>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+    
+
+        
+
+    <div class="rw">
+               
+
         <h2 class="display-4">Add SPO</h2>
 
         <div class="row">
+
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Name</label>
-                    <input type="text" class="form-control">
+                    <label for="">Spo Name:</label>
+                    <input type="text" v-model="name" class="form-control">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Phone</label>
-                    <input type="text" class="form-control">
+                    <input type="text" v-model="email" class="form-control">
                 </div>
             </div>
         </div>
 
         <div class="row">
-            
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Address</label>
-                    <select @change="selectedState()" class="form-control" v-model="selected_state" name="" id="">
+                    <label for="">Phone</label>
+                    <input type="text" v-model="phone" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">State</label>
+                    <select class="form-control" v-model="state" name="" id="">
                         <option v-for="state in states" :key="state.id" >{{state.name}}</option>
                     </select>
                 </div>
             </div>
-        
+
+        </div>
+
+       <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <input v-model="address" placeholder="Enter address" type="text" class="form-control">
+                </div>
+            </div>
+            
         </div>
 
    
@@ -48,7 +87,7 @@
     
 
         <div class="d-flex justify-content-center p-3">
-            <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">SUBMIT</button>
+            <button @click="create_spo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating SPO Please wait...':'Create SPO'}}</button>
         </div>
 
 
@@ -56,10 +95,14 @@
 
         
     </div>
+
+</div>
 </template>
 
 <script>
 import axios from 'axios';
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
 
 
 
@@ -69,6 +112,7 @@ import axios from 'axios';
             return {
                 states: [],
                 lgas: [],
+                allspos: [],
                 wards:[],
                 cbos:[],
                 spos:[],
@@ -81,14 +125,59 @@ import axios from 'axios';
                 selected_spo_email: '',
                 loading: false,
                 msg: 'Loading...',
+                name: '',
+                email: '',
+                phone: '',
+                state: '',
+                selected_lga: '',
+                address: '',
 
             }
         },
         methods: {
 
 
-            create_cbo(){
+            create_spo(){
+                
+              
+                this.loading = true;
 
+            axios.post('/create_spo',{
+                name: this.name,
+           
+                email: this.email,
+                phone: this.phone,
+                state: this.state,
+               
+                address: this.address
+
+            }).then((response)=>(
+                    this.loading = false,
+                    
+                    this.checkEmail(response),
+
+                    this.getAllSPOs(),
+
+                      
+                  
+                 
+
+                    console.log(response)
+                    //  this.results = response.data
+
+                )).catch(function (error) {
+                  
+
+                        console.log(error);
+                });
+
+            },
+            checkEmail(response){
+                if (!response.data) {
+                    this.$vToastify.error("Email has been taken");
+                }else{
+                    this.$vToastify.success("SPO Profile created successfully <br> Proceed to login with <b>Email</b> and <b>Phone number</b>");
+                }
             },
             loadStates(){
 
@@ -101,9 +190,8 @@ import axios from 'axios';
                     
              
              
-             ))
-                .catch(function (error) {
-                    console.log(error);
+                )).catch(function (error) {
+                        console.log(error);
                 });
 
 
@@ -117,15 +205,12 @@ import axios from 'axios';
                      state_name: this.selected_state,
                  })
                .then((response)=>(
-                    
-                
+                              
                     console.log(this.states),
 
                      this.lgas = response.data
                     //  this.results = response.data
-                    
-             
-             
+
              ))
                 .catch(function (error) {
                     console.log(error);
@@ -192,6 +277,25 @@ import axios from 'axios';
                 });
 
         },
+                getAllSPOs(){
+
+                 axios.get('/getAllSPOs')
+               .then((response)=>(
+
+
+                     this.allspos = response.data,
+
+                     console.log(this.allcbos)
+                    //  this.results = response.data
+                    
+             
+             
+             ))
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        },
         getCBOEmail(){
             this.loading = true
 
@@ -222,7 +326,9 @@ import axios from 'axios';
         },
         },
         mounted() {
+            
             this.loadStates()
+            this.getAllSPOs()
             console.log('Component mounted.')
         },
         

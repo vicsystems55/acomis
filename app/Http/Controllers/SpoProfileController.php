@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\SpoProfile;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class SpoProfileController extends Controller
@@ -12,9 +14,22 @@ class SpoProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAllSPOs()
     {
         //
+        try {
+            
+            $cbos = SpoProfile::all();
+
+            return $cbos;
+        } catch (\Throwable $th) {
+            //throw $th;
+           
+
+            return $th;
+        }
+
+
     }
 
     /**
@@ -33,9 +48,48 @@ class SpoProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create_spo(Request $request)
     {
         //
+
+        try {
+            //code...
+
+            if ($email = User::where('email', $request->email)->first()) {
+                # code...
+                $user_data = false;
+    
+                return $user_data;
+            }else{
+    
+                $spo = SpoProfile::create($request->all());
+    
+                $user_data = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->phone),
+                    'role' => 'spo'
+                ]);
+        
+                // $user =[
+                //     'validatedData' => $validatedData,
+                //     'user' => $user_data
+                // ];
+    
+        
+                return $user_data;
+    
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return $th;
+        }
+
+        
+
+
+
     }
 
     /**
