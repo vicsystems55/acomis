@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class RemedialFeedback extends Model
 {
     //
+
+    protected $guarded = [];
 }

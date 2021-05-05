@@ -3942,6 +3942,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-file-agent/dist/vue-file-agent.css */ "./node_modules/vue-file-agent/dist/vue-file-agent.css");
 /* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-toastify */ "./node_modules/vue-toastify/dist/vue-toastify.umd.min.js");
+/* harmony import */ var vue_toastify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_toastify__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -4205,6 +4207,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_3___default.a);
 Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4216,6 +4220,7 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default.a);
       selected_ward: '',
       loading: false,
       date: '',
+      date_visit: '',
       tracker_type: '',
       key_findings: '',
       root_cause: '',
@@ -4299,9 +4304,10 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default.a);
         followup_action: this.followup_action,
         responsibility: this.responsibility,
         time_line: this.time_line,
+        date: this.date_visit,
         attached_signed_copy: this.attached_signed_copy
       }).then(function (response) {
-        return _this.loading = false, // console.log(this.lgas),
+        return _this.loading = false, _this.$vToastify.success("Report Submitted"), // console.log(this.lgas),
         _this.cbos = response.data, console.log(_this.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -30736,7 +30742,33 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date of Visit")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.date_visit,
+                expression: "date_visit"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date" },
+            domProps: { value: _vm.date_visit },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.date_visit = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
@@ -30832,19 +30864,21 @@ var render = function() {
             [
               _c("option", { attrs: { value: "" } }, [_vm._v("--Select--")]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
+              _c("option", { attrs: { value: "LLIN Not Available" } }, [
                 _vm._v("LLIN Not Available")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
+              _c("option", { attrs: { value: "No Medical Personnel" } }, [
                 _vm._v("No Medical Personnel")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [
+              _c("option", { attrs: { value: "No Road Network" } }, [
                 _vm._v("No Road Network")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "" } }, [_vm._v("Poor Logistics")])
+              _c("option", { attrs: { value: "Poor Logistics" } }, [
+                _vm._v("Poor Logistics")
+              ])
             ]
           )
         ])
@@ -31117,20 +31151,7 @@ var render = function() {
     _c("hr")
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Date of Visit")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "date" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

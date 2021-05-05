@@ -55,10 +55,36 @@ class RemedialFeedbackController extends Controller
     public function sumbit_remedial_report(Request $request)
     {
         //
+        try {
 
-        // $monthly_feedback = RemedialFeedback::create();
+            $monthly_feedback = RemedialFeedback::create([
+                'cbo_id' => $request->cbo_id,
+                'cbo_state' => $request->cbo_state,
+                'cbo_lga' => $request->cbo_lga,
+                'ward' => $request->ward,
+                'cbo_name' => $request->cbo_name,
+                'tracker_type' => $request->tracker_type,
+                'key_findings' => $request->key_findings,
+                'root_cause' => $request->root_cause,
+                'action_taken' => $request->action_taken,
+                'resolved_status' => $request->resolved_status,
+                'followup_action' => $request->followup_action,
+                'responsibility' => $request->responsibility,
+                'date' => $request->date,
+                'time_line' => $request->time_line,
+                'attached_signed_copy' => $request->attached_signed_copy
+            ]);
 
-        return $request->all();
+            return $monthly_feedback;
+            
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return $th;
+        }
+
+
     }
 
     /**

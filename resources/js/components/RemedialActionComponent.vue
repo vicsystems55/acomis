@@ -37,7 +37,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Date of Visit</label>
-                    <input class="form-control" type="date" >
+                    <input v-model="date_visit" class="form-control" type="date" >
                 </div>
             </div>
 
@@ -65,10 +65,10 @@
                     <label for="">Key Findings/Identified Issues</label>
                     <select v-model="key_findings" name="" id="" class="form-control">
                         <option value="">--Select--</option>
-                        <option value="">LLIN Not Available</option>
-                        <option value="">No Medical Personnel</option>
-                        <option value="">No Road Network</option>
-                        <option value="">Poor Logistics</option>
+                        <option value="LLIN Not Available">LLIN Not Available</option>
+                        <option value="No Medical Personnel">No Medical Personnel</option>
+                        <option value="No Road Network">No Road Network</option>
+                        <option value="Poor Logistics">Poor Logistics</option>
 
                     </select>
                  </div>
@@ -263,6 +263,9 @@ import axios from 'axios';
 import VueFileAgent from 'vue-file-agent';
 import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
+
 Vue.use(VueFileAgent);
 
 
@@ -280,6 +283,7 @@ Vue.use(VueFileAgent);
                 selected_ward: '',
                 loading: false,
                 date: '',
+                date_visit: '',
                 tracker_type: '',
                 key_findings: '',
                 root_cause: '',
@@ -373,11 +377,14 @@ Vue.use(VueFileAgent);
                         followup_action: this.followup_action,
                         responsibility: this.responsibility,
                         time_line: this.time_line,
+                        date: this.date_visit,
                         attached_signed_copy: this.attached_signed_copy,
                     })
                 .then((response)=>(
                         
                         this.loading = false,
+
+                          this.$vToastify.success("Report Submitted"),
                     
                         // console.log(this.lgas),
 
