@@ -9,4 +9,11 @@ class SpoProfile extends Model
     //
 
     protected $guarded = [];
+
+    public function reports()
+    {
+        # code...
+
+        return $this->hasMany('App\SpoMonthlyReport', 'spo_id', 'id');
+    }
 }

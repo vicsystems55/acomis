@@ -4804,7 +4804,7 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
 
     };
   },
-  props: ['cbo_email'],
+  props: ['spo_email'],
   methods: {
     onUpload: function onUpload(responses) {
       console.log(responses);
@@ -4872,10 +4872,10 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
         console.log(error);
       });
     },
-    loadCboData: function loadCboData() {
+    loadSpoData: function loadSpoData() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleCBO', {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleSPO', {
         cbo_email: this.cbo_email
       }).then(function (response) {
         return console.log(response.data.id), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga, _this2.cbo_id = response.data.id, console.log(_this2.cbo_id) //  this.results = response.data
@@ -4886,7 +4886,7 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
     }
   },
   mounted: function mounted() {
-    this.loadCboData();
+    this.loadSpoData();
     console.log(this.cbo_email);
   }
 });

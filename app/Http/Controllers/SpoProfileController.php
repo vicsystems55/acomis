@@ -32,6 +32,26 @@ class SpoProfileController extends Controller
 
     }
 
+
+    public function getSingleSPO(Request $request)
+    {
+        # code...
+
+        try {
+            //code...
+            $cob_details = SpoProfile::with('reports')->latest()->where('email', $request->spo_email)->first();
+
+            return $cob_details;
+        } catch (\Throwable $th) {
+            //throw $th;
+      
+            return $th;
+
+        }
+    
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *

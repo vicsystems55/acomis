@@ -38,6 +38,34 @@ class SpoPageController extends Controller
         return view('pages.components.component_cards')->with($data);
     }
 
+
+    public function client_exit()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('spo.client_exit')->with($data);
+    }
+    public function monthly_report()
+    {
+            
+        $data = [
+            'category_name' => 'components',
+            'page_name' => 'cards',
+            'has_scrollspy' => 1,
+            'scrollspy_offset' => 100,
+
+        ];
+        // $pageName = 'cards';
+        return view('spo.monthly_report')->with($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -180,7 +180,7 @@ Vue.use(VueFileAgent);
             }
         },
 
-        props:['cbo_email'],
+        props:['spo_email'],
         methods: {
 
                 onUpload(responses) {
@@ -279,9 +279,9 @@ Vue.use(VueFileAgent);
 
             },
 
-            loadCboData(){
+            loadSpoData(){
 
-                axios.post('/getSingleCBO',{
+                axios.post('/getSingleSPO',{
                     cbo_email: this.cbo_email
                 })
                .then((response)=>(
@@ -312,7 +312,7 @@ Vue.use(VueFileAgent);
         },
         mounted() {
             
-            this.loadCboData()
+            this.loadSpoData()
             console.log(this.cbo_email)
         },
         
