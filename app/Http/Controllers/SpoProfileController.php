@@ -39,9 +39,10 @@ class SpoProfileController extends Controller
 
         try {
             //code...
-            $cob_details = SpoProfile::with('reports')->latest()->where('email', $request->spo_email)->first();
+            $spo_details = SpoProfile::with('reports')->latest()->where('email', $request->spo_email)->first();
 
-            return $cob_details;
+            return $spo_details;
+            
         } catch (\Throwable $th) {
             //throw $th;
       

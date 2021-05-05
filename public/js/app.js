@@ -4786,10 +4786,9 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      cbo_name: '',
-      cbo_state: '',
-      cbo_lga: '',
-      cbo_id: '',
+      spo_name: '',
+      spo_state: '',
+      spo_id: '',
       date: '',
       newfile_name: '',
       outputData: [],
@@ -4861,7 +4860,7 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
       this.loading = true; // uploadFiles(),
 
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/submit_cbo_report', {
-        cbo_id: this.cbo_id,
+        spo_id: this.spo_id,
         date: this.date,
         file_upload: this.newfile_name,
         text_report: payload.data
@@ -4876,9 +4875,9 @@ Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_5___default.a);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/getSingleSPO', {
-        cbo_email: this.cbo_email
+        spo_email: this.spo_email
       }).then(function (response) {
-        return console.log(response.data.id), _this2.cbo_name = response.data.cbo_name, _this2.cbo_state = response.data.state, _this2.cbo_lga = response.data.lga, _this2.cbo_id = response.data.id, console.log(_this2.cbo_id) //  this.results = response.data
+        return console.log(response.data), _this2.spo_name = response.data.name, _this2.spo_state = response.data.state, _this2.spo_id = response.data.id, console.log(_this2.spo_id) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -31541,19 +31540,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.cbo_name,
-                expression: "cbo_name"
+                value: _vm.spo_name,
+                expression: "spo_name"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text", readonly: "" },
-            domProps: { value: _vm.cbo_name },
+            domProps: { value: _vm.spo_name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.cbo_name = $event.target.value
+                _vm.spo_name = $event.target.value
               }
             }
           })
@@ -31569,19 +31568,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.cbo_state,
-                expression: "cbo_state"
+                value: _vm.spo_state,
+                expression: "spo_state"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text", readonly: "" },
-            domProps: { value: _vm.cbo_state },
+            domProps: { value: _vm.spo_state },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.cbo_state = $event.target.value
+                _vm.spo_state = $event.target.value
               }
             }
           })

@@ -6,6 +6,7 @@
             
             <div class="card mt-3">
                 <div class="card-body">
+               
                 <spo-monthly-report-component spo_email="{{Auth::user()->email}}"></spo-monthly-report-component>
                 </div>
             </div>

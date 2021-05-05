@@ -27,13 +27,13 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of SPO</label>
-                    <input type="text" v-model="cbo_name" class="form-control" readonly>
+                    <input type="text" v-model="spo_name" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <input type="text" v-model="cbo_state" class="form-control" readonly>
+                    <input type="text" v-model="spo_state" class="form-control" readonly>
                 </div>
             </div>
 
@@ -159,10 +159,10 @@ Vue.use(VueFileAgent);
         data() {
             return {
 
-                cbo_name: '',
-                cbo_state: '',
-                cbo_lga: '',
-                cbo_id: '',
+                spo_name: '',
+                spo_state: '',
+             
+                spo_id: '',
                 date: '',
                 newfile_name: '',
                 outputData: [],
@@ -253,7 +253,7 @@ Vue.use(VueFileAgent);
                 // uploadFiles(),
 
                     axios.post('/submit_cbo_report',{
-                        cbo_id: this.cbo_id,
+                        spo_id: this.spo_id,
                         date: this.date,
                         file_upload: this.newfile_name,
                         text_report: payload.data,
@@ -281,18 +281,22 @@ Vue.use(VueFileAgent);
 
             loadSpoData(){
 
+             
+
                 axios.post('/getSingleSPO',{
-                    cbo_email: this.cbo_email
+                    spo_email: this.spo_email
                 })
                .then((response)=>(
+
+                
                     
                     
-                    console.log(response.data.id),
-                    this.cbo_name = response.data.cbo_name,
-                    this.cbo_state = response.data.state,
-                    this.cbo_lga = response.data.lga,
-                    this.cbo_id = response.data.id,
-                    console.log(this.cbo_id)
+                    console.log(response.data),
+                    this.spo_name = response.data.name,
+                    this.spo_state = response.data.state,
+                
+                    this.spo_id = response.data.id,
+                    console.log(this.spo_id)
 
                     
                     
