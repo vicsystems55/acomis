@@ -12,9 +12,28 @@ class RemedialFeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function upload_signed_copy(Request $request)
     {
         //
+
+        try {
+            //code...
+            $image = $request->file('file');
+
+            $newname = rand(233,9000).'.'.$image->getClientOriginalExtension();
+    
+            $image->move(public_path('remedial_signed_copy'), $newname);
+    
+            return $newname;
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return $th;
+        }
+
+ 
+
+
     }
 
     /**
@@ -33,9 +52,13 @@ class RemedialFeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function sumbit_remedial_report(Request $request)
     {
         //
+
+        // $monthly_feedback = RemedialFeedback::create();
+
+        return $request->all();
     }
 
     /**

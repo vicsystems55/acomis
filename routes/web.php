@@ -50,6 +50,8 @@ Route::post('/create_cbo', 'CboController@store');
 
 Route::post('/getSingleCBO', 'CboController@getSingleCBO');
 
+Route::post('/getSingleCBO2', 'CboController@getSingleCBO2');
+
 Route::post('/submit_cbo_report', 'CboMonthlyReportController@store');
 
 Route::post('/load_cbo_report', 'CboMonthlyReportController@load_cbo_report');
@@ -57,6 +59,14 @@ Route::post('/load_cbo_report', 'CboMonthlyReportController@load_cbo_report');
 
 
 Route::post('/upload_cbo_report', 'CboMonthlyReportController@upload_cbo_report');
+
+Route::post('/upload_signed_copy', 'RemedialFeedbackController@upload_signed_copy');
+
+Route::post('/sumbit_remedial_report', 'RemedialFeedbackController@sumbit_remedial_report');
+
+
+
+
 
 
 Route::get('/getAllCBOs', 'CboController@getAllCBOs');

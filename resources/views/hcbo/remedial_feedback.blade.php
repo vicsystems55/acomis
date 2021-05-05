@@ -6,7 +6,7 @@
             
             <div class="card mt-3">
                 <div class="card-body">
-                <remedial-action-component></remedial-action-component>
+                <remedial-action-component cbo_email="{{Auth::user()->email}}"></remedial-action-component>
                 </div>
             </div>
            

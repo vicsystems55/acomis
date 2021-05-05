@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cbo;
 use App\User;
+use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,34 @@ class CboController extends Controller
             $cob_details = Cbo::with('reports')->latest()->where('email', $request->cbo_email)->first();
 
             return $cob_details;
+        } catch (\Throwable $th) {
+            //throw $th;
+      
+            return $th;
+
+        }
+    
+
+
+    }
+
+    public function getSingleCBO2(Request $request)
+    {
+        # code...
+
+        try {
+            //code...
+            $cob_details = Cbo::with('reports')->latest()->where('email', $request->cbo_email)->first();
+
+            $wards = DB::table('health_facilities')->where('CBO_Email', $request->cbo_email )->latest()->get();
+
+            $data =[
+                'cbo_details' => $cob_details,
+                'wards' => $wards
+            ];
+
+            return $data;
+            
         } catch (\Throwable $th) {
             //throw $th;
       

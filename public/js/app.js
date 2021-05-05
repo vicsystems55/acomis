@@ -3938,6 +3938,46 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_file_agent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-file-agent */ "./node_modules/vue-file-agent/dist/vue-file-agent.umd.js");
+/* harmony import */ var vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-file-agent/dist/vue-file-agent.css */ "./node_modules/vue-file-agent/dist/vue-file-agent.css");
+/* harmony import */ var vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_file_agent_dist_vue_file_agent_css__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4163,82 +4203,141 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+Vue.use(vue_file_agent__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      states: [],
-      lgas: [],
+      cbo_name: '',
+      cbo_state: '',
+      cbo_lga: '',
       wards: [],
-      cbos: [],
-      spos: [],
-      address: '',
-      selected_state: '',
-      selected_lga: '',
-      selected_cbo: '',
-      selected_spo: '',
-      selected_cbo_email: '',
-      selected_spo_email: '',
+      selected_ward: '',
       loading: false,
-      msg: 'Loading...'
+      date: '',
+      tracker_type: '',
+      key_findings: '',
+      root_cause: '',
+      action_taken: '',
+      resolved_status: '',
+      followup_action: '',
+      responsibility: '',
+      time_line: '',
+      attached_signed_copy: '',
+      msg: 'Loading...',
+      fileRecords: [],
+      uploadUrl: '/upload_signed_copy',
+      uploadHeaders: {
+        'X-Test-Header': 'vue-file-agent',
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      fileRecordsForUpload: [] // maintain an upload queue
+
     };
   },
+  props: ['cbo_email'],
   methods: {
-    create_cbo: function create_cbo() {},
-    loadStates: function loadStates() {
+    onUpload: function onUpload(responses) {
+      console.log(responses);
+      this.attached_signed_copy = responses[0].data; //   console.log(responses[0].data);
+    },
+    uploadFiles: function uploadFiles() {
+      // Using the default uploader. You may use another uploader instead.
+      this.$refs.vueFileAgent.upload(this.uploadUrl, this.uploadHeaders, this.fileRecordsForUpload);
+      this.fileRecordsForUpload = [];
+      console.log(this.fileRecordsForUpload);
+    },
+    deleteUploadedFile: function deleteUploadedFile(fileRecord) {
+      // Using the default uploader. You may use another uploader instead.
+      this.$refs.vueFileAgent.deleteUpload(this.uploadUrl, this.uploadHeaders, fileRecord);
+    },
+    filesSelected: function filesSelected(fileRecordsNewlySelected) {
+      var validFileRecords = fileRecordsNewlySelected.filter(function (fileRecord) {
+        return !fileRecord.error;
+      });
+      this.fileRecordsForUpload = this.fileRecordsForUpload.concat(validFileRecords);
+    },
+    onBeforeDelete: function onBeforeDelete(fileRecord) {
+      var i = this.fileRecordsForUpload.indexOf(fileRecord);
+
+      if (i !== -1) {
+        // queued file, not yet uploaded. Just remove from the arrays
+        this.fileRecordsForUpload.splice(i, 1);
+        var k = this.fileRecords.indexOf(fileRecord);
+        if (k !== -1) this.fileRecords.splice(k, 1);
+      } else {
+        if (confirm('Are you sure you want to delete?')) {
+          this.$refs.vueFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
+        }
+      }
+    },
+    fileDeleted: function fileDeleted(fileRecord) {
+      var i = this.fileRecordsForUpload.indexOf(fileRecord);
+
+      if (i !== -1) {
+        this.fileRecordsForUpload.splice(i, 1);
+      } else {
+        this.deleteUploadedFile(fileRecord);
+      }
+    },
+    sumbit_remedial_report: function sumbit_remedial_report() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this.states = response.data, console.log(_this.states) //  this.results = response.data
+      this.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/sumbit_remedial_report', {
+        cbo_id: this.cbo_id,
+        cbo_state: this.cbo_state,
+        cbo_lga: this.cbo_lga,
+        ward: this.selected_ward,
+        cbo_name: this.cbo_name,
+        tracker_type: this.tracker_type,
+        key_findings: this.key_findings,
+        root_cause: this.root_cause,
+        action_taken: this.action_taken,
+        resolved_status: this.resolved_status,
+        followup_action: this.followup_action,
+        responsibility: this.responsibility,
+        time_line: this.time_line,
+        attached_signed_copy: this.attached_signed_copy
+      }).then(function (response) {
+        return _this.loading = false, // console.log(this.lgas),
+        _this.cbos = response.data, console.log(_this.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    selectedState: function selectedState() {
+    loadCboData: function loadCboData(email) {
       var _this2 = this;
 
-      console.log(this.selected_state);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
-        state_name: this.selected_state
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getSingleCBO2', {
+        cbo_email: this.cbo_email
       }).then(function (response) {
-        return console.log(_this2.states), _this2.lgas = response.data //  this.results = response.data
-        ;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    getWards: function getWards() {
-      var _this3 = this;
-
-      this.loading = true;
-      console.log(this.selected_lga);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
-        lga: this.selected_lga
-      }).then(function (response) {
-        return _this3.loading = false, console.log(response), _this3.wards = response.data.wards, _this3.selected_spo_email = response.data.spo_email.SPO_Email, _this3.selected_spo = response.data.spo_email.SPO, console.log(_this3.selected_spo_email) //  console.log(this.wards)
-        //  this.results = response.data
+        return console.log(response.data), //  this.cbo_reports = response.data.reports,
+        console.log(response.data.cbo_details.id), _this2.cbo_name = response.data.cbo_details.cbo_name, _this2.cbo_state = response.data.cbo_details.state, _this2.cbo_lga = response.data.cbo_details.lga, _this2.cbo_id = response.data.cbo_details.id, _this2.wards = response.data.wards, console.log(_this2.wards) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOs: function getCBOs() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, // console.log(this.lgas),
-        _this4.cbos = response.data, console.log(_this4.cbos) //  this.results = response.data
+        return _this3.loading = false, // console.log(this.lgas),
+        _this3.cbos = response.data, console.log(_this3.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -4246,8 +4345,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this4.loading = false, // console.log(this.lgas),
+        _this4.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -4255,7 +4354,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.loadStates();
+    this.loadCboData(this.cbo_email);
     console.log('Component mounted.');
   }
 });
@@ -30496,212 +30595,539 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h2", { staticClass: "display-4" }, [
+      _vm._v("Remedial Action and Feedback")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_name,
+                expression: "cbo_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.cbo_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_name = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_state,
+                expression: "cbo_state"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.cbo_state },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_state = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("LGA")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cbo_lga,
+                expression: "cbo_lga"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.cbo_lga },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.cbo_lga = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Ward")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected_ward,
+                  expression: "selected_ward"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selected_ward = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("--Select Option--")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.wards, function(ward) {
+                return _c(
+                  "option",
+                  { key: ward.Ward, attrs: { value: "ward." } },
+                  [_vm._v(_vm._s(ward.Ward))]
+                )
+              })
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Tracker Type")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.tracker_type,
+                  expression: "tracker_type"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.tracker_type = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("--Select Option--")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Focus Group Discussion" } }, [
+                _vm._v("Focus Group Discussion")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Client Exit" } }, [
+                _vm._v("Client Exit")
+              ])
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h3", [_vm._v("Issue Tracker")]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v("Key Findings/Identified Issues")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.key_findings,
+                  expression: "key_findings"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.key_findings = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("--Select--")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("LLIN Not Available")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("No Medical Personnel")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("No Road Network")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [_vm._v("Poor Logistics")])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Root causes")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.root_cause,
+                expression: "root_cause"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.root_cause },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.root_cause = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v("Action taken immediately")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.action_taken,
+                expression: "action_taken"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.action_taken },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.action_taken = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Resolve")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.resolved_status,
+                expression: "resolved_status"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.resolved_status },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.resolved_status = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Follow up action")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.followup_action,
+                expression: "followup_action"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.followup_action },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.followup_action = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Responsibility")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.responsibility,
+                expression: "responsibility"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text" },
+            domProps: { value: _vm.responsibility },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.responsibility = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Time-line")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.time_line,
+                expression: "time_line"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date" },
+            domProps: { value: _vm.time_line },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.time_line = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("label", { staticClass: "text-center", attrs: { for: "" } }, [
+              _vm._v("Upload Report")
+            ]),
+            _vm._v(" "),
+            _c("VueFileAgent", {
+              ref: "vueFileAgent",
+              attrs: {
+                theme: "grid",
+                multiple: false,
+                deletable: true,
+                meta: true,
+                accept: "image/*,.zip",
+                maxSize: "10MB",
+                maxFiles: 14,
+                helpText: "Upload Report",
+                errorText: {
+                  type: "Invalid file type. Only images or zip Allowed",
+                  size: "Files should not exceed 10MB in size"
+                }
+              },
+              on: {
+                select: function($event) {
+                  return _vm.filesSelected($event)
+                },
+                beforedelete: function($event) {
+                  return _vm.onBeforeDelete($event)
+                },
+                delete: function($event) {
+                  return _vm.fileDeleted($event)
+                },
+                upload: function($event) {
+                  return _vm.onUpload($event)
+                }
+              },
+              model: {
+                value: _vm.fileRecords,
+                callback: function($$v) {
+                  _vm.fileRecords = $$v
+                },
+                expression: "fileRecords"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-block mt-2",
+                attrs: { disabled: !_vm.fileRecordsForUpload.length },
+                on: {
+                  click: function($event) {
+                    return _vm.uploadFiles()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                    Upload " +
+                    _vm._s(_vm.fileRecordsForUpload.length) +
+                    " files\n                "
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-6 mx-auto d-flex justify-content-center" },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-block",
+            on: {
+              click: function($event) {
+                return _vm.sumbit_remedial_report()
+              }
+            }
+          },
+          [_vm._v("Add")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("hr")
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h2", { staticClass: "display-4" }, [
-        _vm._v("Remedial Action and Feedback")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Name of CBO")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Date of Visit")]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("State")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("LGA")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Ward")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Date of Visit")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Tracker Type")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              { staticClass: "form-control", attrs: { name: "", id: "" } },
-              [
-                _c("option", { attrs: { value: "" } }, [
-                  _vm._v("--Select Option--")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Focus Group Discussion" } }, [
-                  _vm._v("Focus Group Discussion")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "Client Exit" } }, [
-                  _vm._v("Client Exit")
-                ])
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("h3", [_vm._v("Issue Tracker")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [
-              _vm._v("Key Findings/Identified Issues")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Root causes")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [
-              _vm._v("Action taken immediately")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Resolve")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Follow up action")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Responsibility")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Time-line")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "date" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [
-              _vm._v("Attached Signed Copy")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text" }
-            })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mx-auto d-flex justify-content-center" },
-        [
-          _c("button", { staticClass: "btn btn-primary btn-block" }, [
-            _vm._v("Add")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("hr")
+        _c("input", { staticClass: "form-control", attrs: { type: "date" } })
+      ])
     ])
   }
 ]
