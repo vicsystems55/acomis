@@ -84,6 +84,8 @@ Route::post('/create_ward', 'WardController@store');
 
 Route::get('/import_wards', 'WardController@import_wards');
 
+Route::get('/import_cbos', 'CboController@import_cbos');
+
 Route::post('/update_health_facility', 'HealthFacilityController@update');
 
 

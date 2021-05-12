@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Cbo;
 use App\User;
 use DB;
+use App\Imports\CBOImports;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CboController extends Controller
 {
@@ -15,6 +17,19 @@ class CboController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function import_cbos()
+    {
+        //
+        $cbo_imports= Excel::import(new CBOImports, 'cbos_excel.xlsx');
+
+
+        
+        return 'imported';
+    }
+
+
+
     public function getAllCBOs()
     {
         //

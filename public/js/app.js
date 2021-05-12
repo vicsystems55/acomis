@@ -2285,6 +2285,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -2307,6 +2311,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       selected_cbo_email: '',
       selected_spo_email: '',
       loading: false,
+      importing: false,
       msg: 'Loading...',
       cbo_name: '',
       contact_person: '',
@@ -2315,8 +2320,19 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
     }, _defineProperty(_ref, "selected_state", ''), _defineProperty(_ref, "selected_lga", ''), _defineProperty(_ref, "address", ''), _ref;
   },
   methods: {
-    create_cbo: function create_cbo() {
+    import_cbos: function import_cbos() {
       var _this = this;
+
+      this.importing = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/import_cbos').then(function (response) {
+        return _this.importing = false, _this.$vToastify.success("CBOs records imported successfull, proceed to login CBO with email and phone number as passwords"), console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    create_cbo: function create_cbo() {
+      var _this2 = this;
 
       this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_cbo', {
@@ -2328,7 +2344,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
         lga: this.selected_lga,
         address: this.address
       }).then(function (response) {
-        return _this.loading = false, _this.checkEmail(response), _this.getAllCBOs(), console.log(response) //  this.results = response.data
+        return _this2.loading = false, _this2.checkEmail(response), _this2.getAllCBOs(), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -2342,37 +2358,37 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       }
     },
     loadStates: function loadStates() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
+        return _this3.states = response.data, console.log(_this3.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
+        return console.log(_this4.states), _this4.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
+        return _this5.loading = false, console.log(response), _this5.wards = response.data.wards, _this5.selected_spo_email = response.data.spo_email.SPO_Email, _this5.selected_spo = response.data.spo_email.SPO, console.log(_this5.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -2380,32 +2396,32 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       });
     },
     getCBOs: function getCBOs() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+        return _this6.loading = false, // console.log(this.lgas),
+        _this6.cbos = response.data, console.log(_this6.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getAllCBOs: function getAllCBOs() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllCBOs').then(function (response) {
-        return _this6.allcbos = response.data, console.log(_this6.allcbos) //  this.results = response.data
+        return _this7.allcbos = response.data, console.log(_this7.allcbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -2413,8 +2429,8 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this7.loading = false, // console.log(this.lgas),
-        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this8.loading = false, // console.log(this.lgas),
+        _this8.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -27541,6 +27557,29 @@ var render = function() {
           _vm._v(
             _vm._s(
               _vm.loading ? "Creating CBO Please wait..." : "Create Account"
+            )
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+      _c(
+        "button",
+        {
+          staticClass: " btn btn-lg btn-primary shadow col-md-5",
+          on: {
+            click: function($event) {
+              return _vm.import_cbos()
+            }
+          }
+        },
+        [
+          _vm._v(
+            _vm._s(
+              _vm.importing
+                ? "Importing CBOs Please wait.. (this could take a while)"
+                : "Import CBOs"
             )
           )
         ]

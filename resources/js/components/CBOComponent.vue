@@ -98,6 +98,10 @@
             <button @click="create_cbo()" class=" btn btn-lg btn-primary shadow col-md-5">{{loading?'Creating CBO Please wait...':'Create Account'}}</button>
         </div>
 
+                     <div class="d-flex justify-content-center p-3">
+            <button @click="import_cbos()" class=" btn btn-lg btn-primary shadow col-md-5">{{importing?'Importing CBOs Please wait.. (this could take a while)':'Import CBOs'}}</button>
+        </div>
+
 
 
 
@@ -130,6 +134,7 @@ Vue.use(VueToastify);
                 selected_cbo_email: '',
                 selected_spo_email: '',
                 loading: false,
+                importing: false,
                 msg: 'Loading...',
                 cbo_name: '',
                 contact_person: '',
@@ -142,6 +147,28 @@ Vue.use(VueToastify);
             }
         },
         methods: {
+
+        import_cbos(){
+
+            
+                this.importing = true;
+
+                axios.get('/import_cbos')
+               .then((response)=>(
+                    this.importing = false,
+                    this.$vToastify.success("CBOs records imported successfull, proceed to login CBO with email and phone number as passwords"),
+                    console.log(response)
+                    //  this.results = response.data
+                    
+             
+             
+                ))
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            
+
+        },
 
 
             create_cbo(){
