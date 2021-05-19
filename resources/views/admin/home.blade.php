@@ -17,7 +17,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">LOCATION</h5>
                 </div>
 
                 <div class="widget-content">
@@ -28,7 +28,7 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
+                                <h3>{{$active_states}}</h3>
                                     <p class=" h6">ACTIVE STATES</p>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
+                                <h3>{{$active_lgas}}</h3>
                                     <p class=" h6">ACTIVE LGAS</p>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">FACILITIES</h5>
                 </div>
 
                 <div class="widget-content">
@@ -71,8 +71,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
+                                <h3>{{$active_wards}}</h3>
+                                    <p class=" h6">ACTIVE WARDS</p>
                                 </div>
                             </div>
 
@@ -85,8 +85,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
+                                <h3>{{$active_health_facilities}}</h3>
+                                    <p class=" h6">ACTIVE HEALTH FACILITIES</p>
                                 </div>
                             </div>
 
@@ -103,7 +103,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">DEPARTMENTS</h5>
                 </div>
 
                 <div class="widget-content">
@@ -114,8 +114,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
+                                <h3>{{$active_spos}}</h3>
+                                    <p class=" h6">ACTIVE SPO</p>
                                 </div>
                             </div>
 
@@ -128,94 +128,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-3 p-3">
-            <div class="widget widget-table-one">
-                <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
-                </div>
-
-                <div class="widget-content">
-          
-
-                    <div class="transactions-list">
-                        <div class="t-itm">
-                            <div class="t-company-name">
-                 
-                                <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    
-                    <div class="transactions-list">
-                        <div class="t-itm">
-                            <div class="t-company-name">
-                 
-                                <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 p-3">
-            <div class="widget widget-table-one">
-                <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
-                </div>
-
-                <div class="widget-content">
-          
-
-                    <div class="transactions-list">
-                        <div class="t-itm">
-                            <div class="t-company-name">
-                 
-                                <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    
-                    <div class="transactions-list">
-                        <div class="t-itm">
-                            <div class="t-company-name">
-                 
-                                <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
+                                <h3>{{$active_cbos}}</h3>
+                                    <p class=" h6">ACTIVE CBOS</p>
                                 </div>
                             </div>
 
@@ -232,7 +146,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">QUESTIONAIRES</h5>
                 </div>
 
                 <div class="widget-content">
@@ -243,27 +157,15 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
+                                <h3>{{$questionaires}}</h3>
+                                    <p class=" h6">CLIENT EXITS</p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
-                    
-                    <div class="transactions-list">
-                        <div class="t-itm">
-                            <div class="t-company-name">
-                 
-                                <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+    
 
 
 
@@ -275,7 +177,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">REPORTS</h5>
                 </div>
 
                 <div class="widget-content">
@@ -286,8 +188,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
+                                <h3>{{$tested_malaria}}</h3>
+                                    <p class=" h6">TEST FOR MALARIA</p>
                                 </div>
                             </div>
 
@@ -300,8 +202,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
+                                <h3>0</h3>
+                                    <p class=" h6">TESTED POSITIVE</p>
                                 </div>
                             </div>
 
@@ -318,7 +220,7 @@
         <div class="col-md-3 p-3">
             <div class="widget widget-table-one">
                 <div class="widget-heading">
-                    <h5 class="">Pending Reports</h5>
+                    <h5 class="">REPORTS</h5>
                 </div>
 
                 <div class="widget-content">
@@ -329,8 +231,8 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE STATES</p>
+                                <h3>{{$llin_receipients}}</h3>
+                                    <p class=" h6">LLIN RECIPIENTS</p>
                                 </div>
                             </div>
 
@@ -343,14 +245,87 @@
                             <div class="t-company-name">
                  
                                 <div class="t-name text-center">
-                                <h3>20</h3>
-                                    <p class=" h6">ACTIVE LGAS</p>
+                                <h3>{{$act_receipients}}</h3>
+                                    <p class=" h6">ACT RECIPIENTS</p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 p-3">
+            <div class="widget widget-table-one">
+                <div class="widget-heading">
+                    <h5 class="">REPORTS</h5>
+                </div>
+
+                <div class="widget-content">
+          
+
+                    <div class="transactions-list">
+                        <div class="t-itm">
+                            <div class="t-company-name">
+                 
+                                <div class="t-name text-center">
+                                <h3>{{$ipt_receipients}}</h3>
+                                    <p class=" h6">IPT RECIPIENTS</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+                    <div class="transactions-list">
+                        <div class="t-itm">
+                            <div class="t-company-name">
+                 
+                                <div class="t-name text-center">
+                                <h3>{{$sp_receipients}}</h3>
+                                    <p class=" h6">SP RECIPIENTS</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 p-3">
+            <div class="widget widget-table-one">
+                <div class="widget-heading">
+                    <h5 class="">REPORT</h5>
+                </div>
+
+                <div class="widget-content">
+          
+
+                    <div class="transactions-list">
+                        <div class="t-itm">
+                            <div class="t-company-name">
+                 
+                                <div class="t-name text-center">
+                                <h3>{{$pregnant_women}}</h3>
+                                    <p class=" h6">PREGNANT WOMEN TESTED</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
 
 
 

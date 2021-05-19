@@ -21,6 +21,67 @@ class AdminPageController extends Controller
     {
         //
 
+        //active states
+
+        $active_states = DB::table('states')->where('status', 'active')->get()->count();
+
+        
+
+        //active lga
+        $active_states_ids = DB::table('states')->where('status', 'active')->pluck('id');
+
+        $active_lgas = DB::table('lgas')->whereIn('state_id', $active_states_ids)->get()->count();
+   
+
+        //active wards
+
+        $active_wards = DB::table('health_facilities')->select('Ward')->distinct()->get()->count();
+
+        //active health
+        $active_health_facilities = DB::table('health_facilities')->where('status', 'active')->get()->count();
+        //spo
+
+        $active_spos = DB::table('health_facilities')->select('SPO_Email')->distinct()->get()->count();
+
+        // dd($active_spos);
+        //cbo
+
+        $active_cbos = DB::table('health_facilities')->select('CBO')->distinct()->get()->count();
+
+        //cat
+
+        //client exit
+
+        $questionaires = DB::table('client_exit_questionaires')->select('questionaire_code')->distinct()->get()->count();
+
+        //tested malara
+
+        $tested_malaria = DB::table('client_exit_questionaires')->where('question_id', '20')->where('answers', 'yes')->get()->count();
+
+        // dd($tested_malaria);
+
+        //llin receipient
+        $llin_receipients = DB::table('client_exit_questionaires')->where('question_id', '13')->where('answers', 'yes')->get()->count();
+
+        //act recipient
+        $act_receipients = DB::table('client_exit_questionaires')->where('question_id', '21')->where('answers', 'yes')->get()->count();
+
+
+        //ipt recipient
+        $ipt_receipients = DB::table('client_exit_questionaires')->where('question_id', '27')->where('answers', 'yes')->get()->count();
+
+        //ipt recipient
+        $sp_receipients = DB::table('client_exit_questionaires')->where('question_id', '16')->where('answers', 'yes')->get()->count();
+
+
+        //pregnant women
+        $pregnant_women = DB::table('client_exit_questionaires')->where('question_id', '4')->where('answers', 'Female Pregnant')->get()->count();
+
+
+        //positive malaria cases
+        // $llin_receipients = DB::table('client_exit_questionaires')->where('question_id', '13')->where('answers', 'yes')->get()->count();
+
+
         $health_facilities = DB::table('health_facilities')->latest()->get();
 
         $notifications = Notification::where('category', 'admin_activity')->latest()->get();
@@ -34,7 +95,20 @@ class AdminPageController extends Controller
         // $pageName = 'analytics';
         return view('admin.home',[
             'health_facilities' => $health_facilities,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'active_states' =>  $active_states,
+            'active_lgas' =>  $active_lgas,
+            'active_wards' =>  $active_wards,
+            'active_health_facilities' =>  $active_health_facilities,
+            'active_spos' => $active_spos,
+            'active_cbos' =>  $active_cbos,
+            'questionaires' => $questionaires,
+            'tested_malaria' =>  $tested_malaria,
+            'llin_receipients' =>  $llin_receipients,
+            'act_receipients' =>  $act_receipients,
+            'ipt_receipients' =>  $ipt_receipients,
+            'sp_receipients' =>  $sp_receipients,
+            'pregnant_women' =>  $pregnant_women,
         ])->with($data);
     }
 
