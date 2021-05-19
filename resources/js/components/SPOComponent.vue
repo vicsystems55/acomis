@@ -10,6 +10,7 @@
                         <th>SPO Name</th>
                         <th>SPO Email</th>
                         <th>Temp Password</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <tr v-for="spo in allspos" :key="spo.id">
@@ -18,7 +19,7 @@
                             <td>{{spo.name}}</td>
                             <td>{{spo.email}}</td>
                             <td>{{spo.phone}}</td>
-                            <td></td>
+                   
                             <td>
                                 <a class="btn btn-primary" href="">view more</a>
                             </td>
@@ -91,6 +92,11 @@
         </div>
 
 
+        <div class="d-flex justify-content-center p-3">
+            <button @click="import_spos()" class=" btn btn-lg btn-primary shadow col-md-5">{{importing?'Importing SPO Please wait...':'Import SPO'}}</button>
+        </div>
+
+
 
 
         
@@ -124,6 +130,7 @@ Vue.use(VueToastify);
                 selected_cbo_email: '',
                 selected_spo_email: '',
                 loading: false,
+                importing: false,
                 msg: 'Loading...',
                 name: '',
                 email: '',
@@ -135,6 +142,32 @@ Vue.use(VueToastify);
             }
         },
         methods: {
+
+            import_spos(){
+
+            
+                this.importing = true;
+
+                axios.get('/import_spos')
+               .then((response)=>(
+                    this.importing = false,
+
+                  
+                    this.$vToastify.success("SPOs records imported successfull, proceed to login SPO with email and phone number as passwords"),
+                    console.log(response)
+                    //  this.results = response.data
+                    
+             
+             
+                ))
+                    .catch(function (error) {
+                          this.$vToastify.error("An unusual error has occured"),
+                    console.log(response),
+                        console.log(error);
+                    });
+            
+
+        },
 
 
             create_spo(){
@@ -285,7 +318,7 @@ Vue.use(VueToastify);
 
                      this.allspos = response.data,
 
-                     console.log(this.allcbos)
+                     console.log(this.allspos)
                     //  this.results = response.data
                     
              

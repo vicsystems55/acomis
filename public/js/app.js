@@ -4499,6 +4499,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -4521,6 +4527,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       selected_cbo_email: '',
       selected_spo_email: '',
       loading: false,
+      importing: false,
       msg: 'Loading...',
       name: '',
       email: '',
@@ -4529,8 +4536,19 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
     }, _defineProperty(_ref, "selected_lga", ''), _defineProperty(_ref, "address", ''), _ref;
   },
   methods: {
-    create_spo: function create_spo() {
+    import_spos: function import_spos() {
       var _this = this;
+
+      this.importing = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/import_spos').then(function (response) {
+        return _this.importing = false, _this.$vToastify.success("SPOs records imported successfull, proceed to login SPO with email and phone number as passwords"), console.log(response) //  this.results = response.data
+        ;
+      })["catch"](function (error) {
+        this.$vToastify.error("An unusual error has occured"), console.log(response), console.log(error);
+      });
+    },
+    create_spo: function create_spo() {
+      var _this2 = this;
 
       this.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/create_spo', {
@@ -4540,7 +4558,7 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
         state: this.state,
         address: this.address
       }).then(function (response) {
-        return _this.loading = false, _this.checkEmail(response), _this.getAllSPOs(), console.log(response) //  this.results = response.data
+        return _this2.loading = false, _this2.checkEmail(response), _this2.getAllSPOs(), console.log(response) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -4554,37 +4572,37 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       }
     },
     loadStates: function loadStates() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getStates').then(function (response) {
-        return _this2.states = response.data, console.log(_this2.states) //  this.results = response.data
+        return _this3.states = response.data, console.log(_this3.states) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     selectedState: function selectedState() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log(this.selected_state);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getLGAs', {
         state_name: this.selected_state
       }).then(function (response) {
-        return console.log(_this3.states), _this3.lgas = response.data //  this.results = response.data
+        return console.log(_this4.states), _this4.lgas = response.data //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getWards: function getWards() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getWards', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this4.loading = false, console.log(response), _this4.wards = response.data.wards, _this4.selected_spo_email = response.data.spo_email.SPO_Email, _this4.selected_spo = response.data.spo_email.SPO, console.log(_this4.selected_spo_email) //  console.log(this.wards)
+        return _this5.loading = false, console.log(response), _this5.wards = response.data.wards, _this5.selected_spo_email = response.data.spo_email.SPO_Email, _this5.selected_spo = response.data.spo_email.SPO, console.log(_this5.selected_spo_email) //  console.log(this.wards)
         //  this.results = response.data
         ;
       })["catch"](function (error) {
@@ -4592,32 +4610,32 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       });
     },
     getCBOs: function getCBOs() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.loading = true;
       console.log(this.selected_lga);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOs', {
         lga: this.selected_lga
       }).then(function (response) {
-        return _this5.loading = false, // console.log(this.lgas),
-        _this5.cbos = response.data, console.log(_this5.cbos) //  this.results = response.data
+        return _this6.loading = false, // console.log(this.lgas),
+        _this6.cbos = response.data, console.log(_this6.cbos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getAllSPOs: function getAllSPOs() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/getAllSPOs').then(function (response) {
-        return _this6.allspos = response.data, console.log(_this6.allcbos) //  this.results = response.data
+        return _this7.allspos = response.data, console.log(_this7.allspos) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCBOEmail: function getCBOEmail() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.loading = true;
       console.log(this.selected_cbo);
@@ -4625,8 +4643,8 @@ Vue.use(vue_toastify__WEBPACK_IMPORTED_MODULE_1___default.a);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/getCBOEmail', {
         cbo: this.selected_cbo
       }).then(function (response) {
-        return _this7.loading = false, // console.log(this.lgas),
-        _this7.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
+        return _this8.loading = false, // console.log(this.lgas),
+        _this8.selected_cbo_email = response.data[1].CBO_Email, console.log(response.data[1]) //  this.results = response.data
         ;
       })["catch"](function (error) {
         console.log(error);
@@ -31318,8 +31336,6 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(spo.phone))]),
               _vm._v(" "),
-              _c("td"),
-              _vm._v(" "),
               _vm._m(1, true)
             ])
           }),
@@ -31509,6 +31525,27 @@ var render = function() {
             )
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex justify-content-center p-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: " btn btn-lg btn-primary shadow col-md-5",
+            on: {
+              click: function($event) {
+                return _vm.import_spos()
+              }
+            }
+          },
+          [
+            _vm._v(
+              _vm._s(
+                _vm.importing ? "Importing SPO Please wait..." : "Import SPO"
+              )
+            )
+          ]
+        )
       ])
     ])
   ])
@@ -31525,7 +31562,9 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("SPO Email")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Temp Password")])
+      _c("th", [_vm._v("Temp Password")]),
+      _vm._v(" "),
+      _c("th")
     ])
   },
   function() {
@@ -45350,8 +45389,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\acomis\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\acomis\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp_new\htdocs\acomis\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp_new\htdocs\acomis\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

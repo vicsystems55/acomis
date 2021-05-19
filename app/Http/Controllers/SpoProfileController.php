@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\SpoProfile;
 use App\User;
+use App\Imports\SpoImports;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SpoProfileController extends Controller
 {
@@ -14,6 +16,29 @@ class SpoProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function import_spos()
+    {
+        //
+        
+            //code...
+
+
+    try {
+        //code...
+        $cbo_imports= Excel::import(new SpoImports, 'spos_excel.xlsx');
+
+        return $cbo_imports;
+    } catch (\Throwable $th) {
+        //throw $th;
+        return $th;
+    }
+        
+
+
+        
+       
+    }
+
     public function getAllSPOs()
     {
         //

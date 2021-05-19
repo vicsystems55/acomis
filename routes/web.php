@@ -75,6 +75,7 @@ Route::get('/getAllCBOs', 'CboController@getAllCBOs');
 
 Route::get('/getAllSPOs', 'SpoProfileController@getAllSPOs');
 
+Route::get('/import_spos', 'SpoProfileController@import_spos');
 
 Route::post('/create_spo', 'SpoProfileController@create_spo');
 
@@ -85,6 +86,8 @@ Route::post('/create_ward', 'WardController@store');
 Route::get('/import_wards', 'WardController@import_wards');
 
 Route::get('/import_cbos', 'CboController@import_cbos');
+
+
 
 Route::post('/update_health_facility', 'HealthFacilityController@update');
 
