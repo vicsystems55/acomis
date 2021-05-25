@@ -27704,7 +27704,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_name },
             on: {
               input: function($event) {
@@ -27732,7 +27732,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_state },
             on: {
               input: function($event) {
@@ -27760,7 +27760,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_lga },
             on: {
               input: function($event) {
@@ -30765,7 +30765,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_name },
             on: {
               input: function($event) {
@@ -30793,7 +30793,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_state },
             on: {
               input: function($event) {
@@ -30821,7 +30821,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.cbo_lga },
             on: {
               input: function($event) {
@@ -31623,7 +31623,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.spo_name },
             on: {
               input: function($event) {
@@ -31651,7 +31651,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", readonly: "" },
+            attrs: { type: "text" },
             domProps: { value: _vm.spo_state },
             on: {
               input: function($event) {

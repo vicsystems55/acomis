@@ -37,19 +37,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
-                    <input type="text" v-model="cbo_name" class="form-control" readonly>
+                    <input type="text" v-model="cbo_name" class="form-control" >
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <input type="text" v-model="cbo_state" class="form-control" readonly>
+                    <input type="text" v-model="cbo_state" class="form-control" >
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">LGA</label>
-                    <input type="text" v-model="cbo_lga" class="form-control" readonly>
+                    <input type="text" v-model="cbo_lga" class="form-control" >
                 </div>
             </div>
 

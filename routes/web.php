@@ -30,6 +30,10 @@ Route::get('/getHealthFacilites', 'HealthFacilityController@getHealthFacilites')
 
 Route::post('/getCBOs', 'HealthFacilityController@getCBOs');
 
+Route::get('/getHealthsAndCbo', 'ChartDataController@getHealthsAndCbo');
+
+
+
 
 
 Route::post('/getCBOEmail', 'HealthFacilityController@getCBOEmail');

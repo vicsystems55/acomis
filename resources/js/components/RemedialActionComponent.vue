@@ -7,19 +7,19 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of CBO</label>
-                    <input v-model="cbo_name" type="text" class="form-control" readonly>
+                    <input v-model="cbo_name" type="text" class="form-control" >
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <input v-model="cbo_state" type="text" class="form-control" readonly>
+                    <input v-model="cbo_state" type="text" class="form-control" >
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">LGA</label>
-                    <input v-model="cbo_lga" type="text" class="form-control" readonly>
+                    <input v-model="cbo_lga" type="text" class="form-control" >
                 </div>
             </div>
 

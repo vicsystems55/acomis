@@ -183,6 +183,10 @@ var options1 = {
     },
     events: {
       mounted: function(ctx, config) {
+
+
+
+
         const highest1 = ctx.getHighestValueInSeries(0);
         const highest2 = ctx.getHighestValueInSeries(1);
 
@@ -218,8 +222,12 @@ var options1 = {
           }
         })
       },
+      
     }
+    
   },
+
+  
   colors: ['#1b55e2', '#e7515a'],
   dataLabels: {
       enabled: false
@@ -382,6 +390,35 @@ var options1 = {
     },
   }]
 }
+
+$.ajax({
+  type:'GET',
+  url: "/getHealthsAndCbo",
+  
+
+  cache:false,
+  contentType: false,
+  processData: false,
+
+  success: (data) => {
+
+    alert('hear');
+
+    console.log(options1)
+
+
+    options1.updateOptions({
+    
+   
+    })
+
+  },
+  error: function(data){
+  console.log(data);
+
+  }
+
+});
 
 /*
     ==================================

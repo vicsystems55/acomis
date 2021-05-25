@@ -10,6 +10,8 @@ use App\Ward;
 
 use App\Notification;
 
+use App\CboMonthlyReport;
+
 class AdminPageController extends Controller
 {
     /**
@@ -495,6 +497,10 @@ class AdminPageController extends Controller
 
     public function cbo_reports()
     {
+
+        $cbo_reports = CboMonthlyReport::with('cbos')->latest()->get();
+
+        // dd($cbo);
             
         $data = [
             'category_name' => 'components',
@@ -504,7 +510,9 @@ class AdminPageController extends Controller
 
         ];
         // $pageName = 'cards';
-        return view('admin.reports.cbo.all_reports')->with($data);
+        return view('admin.reports.cbo.all_reports',[
+            'cbo_reports' => $cbo_reports
+        ])->with($data);
     }
 
     public function cob_report($slug)

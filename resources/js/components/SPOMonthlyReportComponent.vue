@@ -27,13 +27,13 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Name of SPO</label>
-                    <input type="text" v-model="spo_name" class="form-control" readonly>
+                    <input type="text" v-model="spo_name" class="form-control" >
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">State</label>
-                    <input type="text" v-model="spo_state" class="form-control" readonly>
+                    <input type="text" v-model="spo_state" class="form-control" >
                 </div>
             </div>
 
